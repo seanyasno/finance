@@ -7,7 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import { SupabaseService } from './supabase.service';
 import { RegisterDto, LoginDto } from './dto';
-import { isEmptyString } from '@poke-playbook/libs';
+import { isEmptyString } from '@finance/libs';
 
 @Injectable()
 export class AuthService {

@@ -2,7 +2,7 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   ignorePatterns: ["apps/**", "packages/**"],
-  extends: ["@poke-playbook/eslint-config/library.js"],
+  extends: ["@finance/eslint-config/library.js"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: true,

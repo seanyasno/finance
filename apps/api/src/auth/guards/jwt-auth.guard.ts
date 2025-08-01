@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { isNotNullOrUndefined, isNullOrUndefined } from '@poke-playbook/libs';
+import { isNotNullOrUndefined, isNullOrUndefined } from '@finance/libs';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {

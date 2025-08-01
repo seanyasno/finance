@@ -1,5 +1,5 @@
 {
-  "name": "poke-playbook",
+  "name": "finance",
   "private": true,
   "scripts": {
     "build": "turbo build",
@@ -15,8 +15,8 @@
     "prepare": "husky || true"
   },
   "devDependencies": {
-    "@poke-playbook/eslint-config": "*",
-    "@poke-playbook/typescript-config": "*",
+    "@finance/eslint-config": "*",
+    "@finance/typescript-config": "*",
     "eslint-plugin-turbo": "^2.5.4",
     "husky": "8.0.3",
     "lint-staged": "15.2.7",

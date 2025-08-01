@@ -320,44 +320,11 @@ model users {
   mfa_factors                 mfa_factors[]
   one_time_tokens             one_time_tokens[]
   sessions                    sessions[]
-  teams                       teams[]
+  transactions                transactions[]
 
   @@index([instance_id])
   @@index([is_anonymous])
   @@schema("auth")
-}
-
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model team_pokemon {
-  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  team_id      String    @db.Uuid
-  pokemon_id   Int
-  pokemon_name String
-  nickname     String?
-  position     Int
-  created_at   DateTime? @default(now()) @db.Timestamptz(6)
-  teams        teams     @relation(fields: [team_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-  @@unique([team_id, position])
-  @@index([pokemon_id], map: "idx_team_pokemon_pokemon_id")
-  @@index([team_id], map: "idx_team_pokemon_team_id")
-  @@schema("public")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model teams {
-  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name         String
-  description  String?
-  user_id      String         @db.Uuid
-  created_at   DateTime?      @default(now()) @db.Timestamptz(6)
-  updated_at   DateTime?      @default(now()) @db.Timestamptz(6)
-  team_pokemon team_pokemon[]
-  users        users          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-  @@index([user_id], map: "idx_teams_user_id")
-  @@schema("public")
 }
 
 enum aal_level {
@@ -399,4 +366,51 @@ enum one_time_token_type {
   phone_change_token
 
   @@schema("auth")
+}
+
+model transactions {
+  id                String             @id @db.Uuid
+  created_at        DateTime           @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime           @default(now()) @db.Timestamptz(6)
+  user_id           String             @db.Uuid
+  description       String?
+  timestamp         DateTime
+  notes             String?
+  metadata          Json?
+  is_recurring      Boolean            @default(false)
+  status            transaction_status
+  installments      Json?
+  original_amount   Float
+  original_currency String
+  charged_amount    Float
+
+  bank_account_id String        @db.Uuid
+  bank_account    bank_accounts @relation(fields: [bank_account_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users           users?        @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+  @@index([created_at(sort: Desc)])
+  @@schema("public")
+}
+
+enum transaction_status {
+  completed
+  pending
+
+  @@schema("public")
+}
+
+model bank_accounts {
+  id             String   @id @db.Uuid
+  created_at     DateTime @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime @default(now()) @db.Timestamptz(6)
+  user_id        String   @db.Uuid
+  account_type   String   @db.VarChar(50)
+  account_number String   @db.VarChar(50)
+  routing_number String   @db.VarChar(50)
+
+  transactions transactions[]
+
+  @@index([user_id])
+  @@schema("public")
 }

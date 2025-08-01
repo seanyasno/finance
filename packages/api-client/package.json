@@ -1,5 +1,5 @@
 {
-  "name": "@poke-playbook/api-client",
+  "name": "@finance/api-client",
   "version": "0.0.0",
   "main": "./src/index.ts"
 }

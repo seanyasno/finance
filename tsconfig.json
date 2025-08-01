@@ -1,3 +1,3 @@
 {
-  "extends": "@poke-playbook/typescript-config/base.json"
+  "extends": "@finance/typescript-config/base.json"
 }
