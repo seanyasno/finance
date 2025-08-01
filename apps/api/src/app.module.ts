@@ -4,7 +4,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_PIPE } from '@nestjs/core';
 import { ZodValidationPipe } from 'nestjs-zod';
-import { TeamsModule } from './teams/teams.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({

@@ -111,7 +111,7 @@ npm run docker:down
 ### Backend (apps/api)
 - **Framework**: NestJS with TypeScript
 - **API Documentation**: Swagger/OpenAPI with code generation
-- **Database**: Uses `@poke-playbook/database` package
+- **Database**: Uses `@finance/database` package
 - **Code Generation**: `npm run codegen` generates TypeScript client from OpenAPI spec
 
 ### Patterns

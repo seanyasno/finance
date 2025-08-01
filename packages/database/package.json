@@ -1,5 +1,5 @@
 {
-  "name": "@poke-playbook/database",
+  "name": "@finance/database",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -16,7 +16,7 @@
     "@prisma/client": "^6.11.1"
   },
   "devDependencies": {
-    "@poke-playbook/typescript-config": "*",
+    "@finance/typescript-config": "*",
     "prisma": "^6.11.1",
     "tsup": "8.1.0"
   }

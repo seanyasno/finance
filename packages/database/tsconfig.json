@@ -1,5 +1,5 @@
 {
-  "extends": "@poke-playbook/typescript-config/node16.json",
+  "extends": "@finance/typescript-config/node16.json",
   "include": ["**/*.ts"],
   "exclude": ["node_modules"]
 }
