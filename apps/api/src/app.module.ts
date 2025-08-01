@@ -13,7 +13,6 @@ import { AuthModule } from './auth/auth.module';
       isGlobal: true,
     }),
     AuthModule,
-    TeamsModule,
   ],
   controllers: [AppController],
   providers: [
