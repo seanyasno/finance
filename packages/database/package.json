@@ -1,5 +1,5 @@
 {
-  "name": "@fastiship/database",
+  "name": "@poke-playbook/database",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -9,14 +9,15 @@
     "dev": "npm run build -- --watch",
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "db:pull": "prisma db pull"
   },
   "dependencies": {
-    "@prisma/client": "5.8.1"
+    "@prisma/client": "^6.11.1"
   },
   "devDependencies": {
-    "@fastiship/typescript-config": "*",
-    "prisma": "5.8.1",
+    "@poke-playbook/typescript-config": "*",
+    "prisma": "^6.11.1",
     "tsup": "8.1.0"
   }
 }

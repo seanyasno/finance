@@ -1,0 +1,122 @@
+describe('Authentication Flow', () => {
+  beforeEach(() => {
+    // Clear any existing auth state
+    cy.clearAllLocalStorage()
+    cy.clearAllCookies()
+  })
+
+  it('should register a new user', () => {
+    cy.fixture('users').then((users) => {
+      const newUser = users.newUser
+      
+      cy.visit('/register')
+      cy.waitForPageLoad()
+      
+      // Fill out registration form
+      cy.get('[data-testid="email-input"]').type(newUser.email)
+      cy.get('[data-testid="password-input"]').type(newUser.password)
+      cy.get('[data-testid="confirm-password-input"]').type(newUser.password)
+      
+      // Submit registration
+      cy.get('[data-testid="register-button"]').click()
+      
+      // Should redirect to dashboard or teams page after successful registration
+      cy.url().should('not.include', '/register')
+      cy.url().should('match', /\/(teams|dashboard|pokemon)/)
+      
+      // Should show user is logged in
+      cy.get('[data-testid="user-menu"]').should('be.visible')
+    })
+  })
+
+  it('should login with existing credentials', () => {
+    cy.fixture('users').then((users) => {
+      const testUser = users.testUser
+      
+      cy.visit('/login')
+      cy.waitForPageLoad()
+      
+      // Fill out login form
+      cy.get('[data-testid="email-input"]').type(testUser.email)
+      cy.get('[data-testid="password-input"]').type(testUser.password)
+      
+      // Submit login
+      cy.get('[data-testid="login-button"]').click()
+      
+      // Should redirect to dashboard after successful login
+      cy.url().should('not.include', '/login')
+      cy.url().should('match', /\/(teams|dashboard|pokemon)/)
+      
+      // Should show user is logged in
+      cy.get('[data-testid="user-menu"]').should('be.visible')
+    })
+  })
+
+  it('should show error for invalid login credentials', () => {
+    cy.visit('/login')
+    cy.waitForPageLoad()
+    
+    // Try to login with invalid credentials
+    cy.get('[data-testid="email-input"]').type('invalid@example.com')
+    cy.get('[data-testid="password-input"]').type('wrongpassword')
+    cy.get('[data-testid="login-button"]').click()
+    
+    // Should show error message
+    cy.get('[data-testid="error-message"]').should('be.visible')
+    cy.get('[data-testid="error-message"]').should('contain', 'Invalid')
+    
+    // Should stay on login page
+    cy.url().should('include', '/login')
+  })
+
+  it('should logout successfully', () => {
+    cy.fixture('users').then((users) => {
+      const testUser = users.testUser
+      
+      // First login
+      cy.login(testUser.email, testUser.password)
+      
+      // Verify we're logged in
+      cy.get('[data-testid="user-menu"]').should('be.visible')
+      
+      // Logout
+      cy.logout()
+      
+      // Should redirect to login page
+      cy.url().should('include', '/login')
+      
+      // User menu should not be visible
+      cy.get('[data-testid="user-menu"]').should('not.exist')
+    })
+  })
+
+  it('should redirect to login when accessing protected routes without auth', () => {
+    // Try to access teams page without being logged in
+    cy.visit('/teams')
+    
+    // Should redirect to login
+    cy.url().should('include', '/login')
+  })
+
+  it('should validate registration form fields', () => {
+    cy.visit('/register')
+    cy.waitForPageLoad()
+    
+    // Try to submit empty form
+    cy.get('[data-testid="register-button"]').click()
+    
+    // Should show validation errors
+    cy.get('[data-testid="email-error"]').should('be.visible')
+    cy.get('[data-testid="password-error"]').should('be.visible')
+    
+    // Test password confirmation mismatch
+    cy.get('[data-testid="email-input"]').type('test@example.com')
+    cy.get('[data-testid="password-input"]').type('password123')
+    cy.get('[data-testid="confirm-password-input"]').type('differentpassword')
+    cy.get('[data-testid="register-button"]').click()
+    
+    // Should show password mismatch error
+    cy.get('[data-testid="confirm-password-error"]').should('be.visible')
+    cy.get('[data-testid="confirm-password-error"]').should('contain', 'match')
+  })
+})

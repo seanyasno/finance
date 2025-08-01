@@ -1,22 +1,22 @@
 {
-  "extends": "@fastiship/typescript-config/nextjs.json",
+  "extends": "@poke-playbook/typescript-config/nextjs.json",
   "compilerOptions": {
-    "baseUrl": "./src",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "baseUrl": ".",
     "paths": {
-      "@/icons": ["./icons/index.ts"]
+      "@/assets": ["src/assets"],
+      "@/components": ["src/components"],
+      "@/constants": ["src/constants"],
+      "@/features": ["src/features"],
+      "@/hooks": ["src/hooks"],
+      "@/routes": ["src/routes"],
+      "@/types": ["src/types"],
+      "@/utils": ["src/utils"],
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "next.config.js",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
   ],
   "exclude": ["node_modules"]
 }

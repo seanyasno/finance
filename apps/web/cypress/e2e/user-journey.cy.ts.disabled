@@ -1,0 +1,165 @@
+describe('Complete User Journey', () => {
+  const userEmail = 'journey-test@example.com'
+  const userPassword = 'JourneyTest123!'
+  const teamName = 'My Complete Journey Team'
+  const updatedTeamName = 'My Updated Journey Team'
+
+  before(() => {
+    // Clean up any existing state
+    cy.clearAllLocalStorage()
+    cy.clearAllCookies()
+  })
+
+  it('should complete full user journey from registration to team management', () => {
+    // 1. REGISTER
+    cy.visit('/register')
+    cy.waitForPageLoad()
+    
+    cy.get('[data-testid="email-input"]').type(userEmail)
+    cy.get('[data-testid="password-input"]').type(userPassword)
+    cy.get('[data-testid="confirm-password-input"]').type(userPassword)
+    cy.get('[data-testid="register-button"]').click()
+    
+    // Should be logged in after registration
+    cy.url().should('not.include', '/register')
+    cy.get('[data-testid="user-menu"]').should('be.visible')
+
+    // 2. VIEW POKEMON LIST
+    cy.visit('/pokemon')
+    cy.waitForPageLoad()
+    
+    // Should see Pokemon list
+    cy.get('[data-testid="pokemon-list"]').should('be.visible')
+    cy.get('[data-testid="pokemon-card"]').should('have.length.greaterThan', 0)
+
+    // 3. FILTER POKEMON
+    // Filter by name
+    cy.get('[data-testid="search-input"]').type('pika')
+    cy.get('[data-testid="pokemon-card"]').should('contain', 'pika')
+    
+    // Clear search and filter by type
+    cy.get('[data-testid="search-input"]').clear()
+    cy.get('[data-testid="type-filter"]').select('electric')
+    cy.get('[data-testid="pokemon-card"]').should('have.length.lessThan', 20)
+
+    // 4. VIEW POKEMON DETAIL PAGE
+    // Reset filters and select a Pokemon
+    cy.get('[data-testid="type-filter"]').select('all')
+    cy.get('[data-testid="pokemon-card"]').first().click()
+    
+    // Should be on Pokemon detail page
+    cy.url().should('include', '/pokemon/')
+    cy.get('[data-testid="pokemon-name"]').should('be.visible')
+    cy.get('[data-testid="pokemon-image"]').should('be.visible')
+    cy.get('[data-testid="pokemon-stats"]').should('be.visible')
+
+    // Go back to Pokemon list
+    cy.get('[data-testid="back-button"]').click()
+    cy.url().should('include', '/pokemon')
+
+    // 5. CREATE NEW TEAM
+    cy.visit('/teams')
+    cy.waitForPageLoad()
+    
+    cy.get('[data-testid="create-team-button"]').click()
+    cy.url().should('include', '/teams/create')
+    
+    cy.get('[data-testid="team-name-input"]').type(teamName)
+    cy.get('[data-testid="team-description-input"]').type('This team was created during the complete user journey test')
+    cy.get('[data-testid="save-team-button"]').click()
+    
+    // Should show success and redirect
+    cy.get('[data-testid="success-message"]').should('be.visible')
+    cy.url().should('not.include', '/create')
+
+    // 6. VIEW THE TEAM
+    cy.visit('/teams')
+    cy.waitForPageLoad()
+    
+    // Should see our team in the list
+    cy.get('[data-testid="team-card"]').should('contain', teamName)
+    
+    // Click on team to view details
+    cy.get('[data-testid="team-card"]').contains(teamName).click()
+    
+    // Should be on team detail page
+    cy.url().should('match', /\/teams\/[^/]+$/)
+    cy.get('[data-testid="team-name"]').should('contain', teamName)
+    cy.get('[data-testid="pokemon-count"]').should('contain', '0 of 6')
+
+    // 7. ADD POKEMON TO TEAM (if functionality exists)
+    cy.get('body').then(($body) => {
+      if ($body.find('[data-testid="add-pokemon-button"]').length > 0) {
+        cy.get('[data-testid="add-pokemon-button"]').click()
+        
+        // Should open Pokemon selector
+        cy.get('[data-testid="pokemon-selector"]').should('be.visible')
+        
+        // Select a Pokemon
+        cy.get('[data-testid="pokemon-search"]').type('pikachu')
+        cy.get('[data-testid="pokemon-option"]').first().click()
+        cy.get('[data-testid="confirm-pokemon-button"]').click()
+        
+        // Should see Pokemon added
+        cy.get('[data-testid="pokemon-count"]').should('contain', '1 of 6')
+      }
+    })
+
+    // 8. EDIT THE TEAM
+    cy.get('[data-testid="edit-team-button"]').click()
+    cy.url().should('include', '/edit')
+    
+    cy.get('[data-testid="team-name-input"]').clear().type(updatedTeamName)
+    cy.get('[data-testid="team-description-input"]').clear().type('This team was updated during the complete user journey test')
+    cy.get('[data-testid="save-team-button"]').click()
+    
+    // Should show success
+    cy.get('[data-testid="success-message"]').should('be.visible')
+    cy.get('[data-testid="team-name"]').should('contain', updatedTeamName)
+
+    // 9. VERIFY TEAM APPEARS IN LIST WITH UPDATES
+    cy.visit('/teams')
+    cy.waitForPageLoad()
+    
+    cy.get('[data-testid="team-card"]').should('contain', updatedTeamName)
+    cy.get('[data-testid="team-card"]').should('not.contain', teamName)
+
+    // 10. DELETE THE TEAM
+    cy.get('[data-testid="team-card"]').contains(updatedTeamName).parent().as('ourTeam')
+    cy.get('@ourTeam').find('[data-testid="team-menu"]').click()
+    cy.get('[data-testid="delete-team-button"]').click()
+    
+    // Confirm deletion
+    cy.get('[data-testid="delete-confirmation-dialog"]').should('be.visible')
+    cy.get('[data-testid="confirm-delete-button"]').click()
+    
+    // Should show success message
+    cy.get('[data-testid="success-message"]').should('be.visible')
+    cy.get('[data-testid="success-message"]').should('contain', 'deleted')
+    
+    // Team should no longer exist
+    cy.get('[data-testid="team-card"]').should('not.contain', updatedTeamName)
+
+    // 11. LOGOUT
+    cy.get('[data-testid="user-menu"]').click()
+    cy.get('[data-testid="logout-button"]').click()
+    
+    // Should redirect to login
+    cy.url().should('include', '/login')
+    cy.get('[data-testid="user-menu"]').should('not.exist')
+
+    // 12. LOGIN AGAIN
+    cy.get('[data-testid="email-input"]').type(userEmail)
+    cy.get('[data-testid="password-input"]').type(userPassword)
+    cy.get('[data-testid="login-button"]').click()
+    
+    // Should be logged back in
+    cy.url().should('not.include', '/login')
+    cy.get('[data-testid="user-menu"]').should('be.visible')
+    
+    // Verify our deleted team is still gone
+    cy.visit('/teams')
+    cy.waitForPageLoad()
+    cy.get('[data-testid="team-card"]').should('not.contain', updatedTeamName)
+  })
+})

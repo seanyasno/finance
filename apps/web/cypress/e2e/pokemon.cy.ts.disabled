@@ -1,0 +1,178 @@
+describe('Pokemon Features', () => {
+  beforeEach(() => {
+    cy.fixture('users').then((users) => {
+      // Login before each test
+      cy.login(users.testUser.email, users.testUser.password)
+    })
+  })
+
+  it('should display list of Pokemon', () => {
+    cy.visit('/pokemon')
+    cy.waitForPageLoad()
+    
+    // Should show Pokemon list
+    cy.get('[data-testid="pokemon-list"]').should('be.visible')
+    
+    // Should have Pokemon cards
+    cy.get('[data-testid="pokemon-card"]').should('have.length.greaterThan', 0)
+    
+    // First few Pokemon should be visible (Bulbasaur, Ivysaur, etc.)
+    cy.get('[data-testid="pokemon-card"]').first().should('contain', 'bulbasaur')
+    
+    // Should show pagination or load more functionality
+    cy.get('[data-testid="pagination"]').should('be.visible')
+  })
+
+  it('should filter Pokemon by name', () => {
+    cy.visit('/pokemon')
+    cy.waitForPageLoad()
+    
+    // Wait for initial Pokemon to load
+    cy.get('[data-testid="pokemon-card"]').should('have.length.greaterThan', 0)
+    
+    // Search for Pikachu
+    cy.get('[data-testid="search-input"]').type('pikachu')
+    
+    // Should filter results
+    cy.get('[data-testid="pokemon-card"]').should('have.length.lessThan', 10)
+    cy.get('[data-testid="pokemon-card"]').should('contain', 'pikachu')
+    
+    // Clear search
+    cy.get('[data-testid="search-input"]').clear()
+    
+    // Should show all Pokemon again
+    cy.get('[data-testid="pokemon-card"]').should('have.length.greaterThan', 10)
+  })
+
+  it('should filter Pokemon by type', () => {
+    cy.visit('/pokemon')
+    cy.waitForPageLoad()
+    
+    // Wait for initial Pokemon to load
+    cy.get('[data-testid="pokemon-card"]').should('have.length.greaterThan', 0)
+    
+    // Filter by Fire type
+    cy.get('[data-testid="type-filter"]').select('fire')
+    
+    // Should show only Fire-type Pokemon
+    cy.get('[data-testid="pokemon-card"]').each(($card) => {
+      cy.wrap($card).find('[data-testid="pokemon-type"]').should('contain', 'fire')
+    })
+    
+    // Filter by Water type
+    cy.get('[data-testid="type-filter"]').select('water')
+    
+    // Should show only Water-type Pokemon
+    cy.get('[data-testid="pokemon-card"]').each(($card) => {
+      cy.wrap($card).find('[data-testid="pokemon-type"]').should('contain', 'water')
+    })
+    
+    // Reset filter
+    cy.get('[data-testid="type-filter"]').select('all')
+    
+    // Should show all Pokemon again
+    cy.get('[data-testid="pokemon-card"]').should('have.length.greaterThan', 10)
+  })
+
+  it('should load Pokemon detail page', () => {
+    cy.visit('/pokemon')
+    cy.waitForPageLoad()
+    
+    // Wait for Pokemon to load
+    cy.get('[data-testid="pokemon-card"]').should('have.length.greaterThan', 0)
+    
+    // Click on first Pokemon card
+    cy.get('[data-testid="pokemon-card"]').first().click()
+    
+    // Should navigate to Pokemon detail page
+    cy.url().should('include', '/pokemon/')
+    cy.url().should('match', /\/pokemon\/\d+/)
+    
+    // Should show Pokemon details
+    cy.get('[data-testid="pokemon-name"]').should('be.visible')
+    cy.get('[data-testid="pokemon-image"]').should('be.visible')
+    cy.get('[data-testid="pokemon-stats"]').should('be.visible')
+    cy.get('[data-testid="pokemon-types"]').should('be.visible')
+    
+    // Should show basic stats
+    cy.get('[data-testid="stat-hp"]').should('be.visible')
+    cy.get('[data-testid="stat-attack"]').should('be.visible')
+    cy.get('[data-testid="stat-defense"]').should('be.visible')
+    
+    // Should have Add to Team button
+    cy.get('[data-testid="add-to-team-button"]').should('be.visible')
+  })
+
+  it('should navigate back from Pokemon detail page', () => {
+    cy.visit('/pokemon')
+    cy.waitForPageLoad()
+    
+    // Click on a Pokemon
+    cy.get('[data-testid="pokemon-card"]').first().click()
+    
+    // Should be on detail page
+    cy.url().should('include', '/pokemon/')
+    
+    // Click back button
+    cy.get('[data-testid="back-button"]').click()
+    
+    // Should return to Pokemon list
+    cy.url().should('eq', Cypress.config().baseUrl + '/pokemon')
+    cy.get('[data-testid="pokemon-list"]').should('be.visible')
+  })
+
+  it('should handle pagination correctly', () => {
+    cy.visit('/pokemon')
+    cy.waitForPageLoad()
+    
+    // Wait for initial Pokemon to load
+    cy.get('[data-testid="pokemon-card"]').should('have.length.greaterThan', 0)
+    
+    // Check if pagination exists
+    cy.get('[data-testid="pagination"]').should('be.visible')
+    
+    // If there's a next page button, test it
+    cy.get('[data-testid="next-page"]').then(($btn) => {
+      if ($btn.length && !$btn.prop('disabled')) {
+        // Remember first Pokemon on page 1
+        cy.get('[data-testid="pokemon-card"]').first().invoke('text').as('firstPokemon')
+        
+        // Go to next page
+        cy.get('[data-testid="next-page"]').click()
+        cy.waitForPageLoad()
+        
+        // Should show different Pokemon
+        cy.get('@firstPokemon').then((firstPokemon) => {
+          cy.get('[data-testid="pokemon-card"]').first().should('not.contain', firstPokemon)
+        })
+        
+        // Go back to previous page
+        cy.get('[data-testid="prev-page"]').click()
+        cy.waitForPageLoad()
+        
+        // Should show original Pokemon
+        cy.get('@firstPokemon').then((firstPokemon) => {
+          cy.get('[data-testid="pokemon-card"]').first().should('contain', firstPokemon)
+        })
+      }
+    })
+  })
+
+  it('should combine search and type filters', () => {
+    cy.visit('/pokemon')
+    cy.waitForPageLoad()
+    
+    // Apply type filter first
+    cy.get('[data-testid="type-filter"]').select('electric')
+    
+    // Then search for specific Pokemon
+    cy.get('[data-testid="search-input"]').type('pika')
+    
+    // Should show only Electric-type Pokemon with 'pika' in name
+    cy.get('[data-testid="pokemon-card"]').should('have.length.lessThan', 5)
+    cy.get('[data-testid="pokemon-card"]').each(($card) => {
+      cy.wrap($card).should('contain', 'pika')
+      cy.wrap($card).find('[data-testid="pokemon-type"]').should('contain', 'electric')
+    })
+  })
+})

@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://poke-playbook.seanyasno.com/sitemap.xml
+
+# Crawl-delay for politeness
+Crawl-delay: 1
+
+# Allow all search engines to index the site
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block access to any development or testing files
+Disallow: /test/
+Disallow: /__tests__/
+Disallow: /*.test.js
+Disallow: /*.spec.js

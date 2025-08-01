@@ -1,5 +1,5 @@
 {
-  "extends": "@fastiship/typescript-config/base.json",
+  "extends": "@poke-playbook/typescript-config/base.json",
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,

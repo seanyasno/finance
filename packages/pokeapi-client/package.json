@@ -1,0 +1,11 @@
+{
+  "name": "pokeapi-client",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "codegen": "openapi-generator-cli generate -i openapi.yml -g typescript-axios -o src"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.21.0"
+  }
+}

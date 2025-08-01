@@ -1,0 +1,10 @@
+{
+  "testTeam": {
+    "name": "E2E Test Team",
+    "description": "This is a test team created during e2e testing"
+  },
+  "updatedTeam": {
+    "name": "Updated E2E Test Team",
+    "description": "This team was updated during e2e testing"
+  }
+}

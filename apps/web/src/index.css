@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: all;
+}
+
+/* Custom base styles */
+@layer base {
+  html {
+    font-family: Quicksand, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  }
+  
+  body {
+    @apply min-h-screen;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  /* Add your custom component styles here */
+}
+
+/* Custom utility styles */
+@layer utilities {
+  /* Add your custom utility styles here */
+}

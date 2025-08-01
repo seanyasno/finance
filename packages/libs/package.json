@@ -1,5 +1,15 @@
 {
-  "name": "@fastiship/libs",
+  "name": "@poke-playbook/libs",
   "version": "0.0.0",
-  "main": "./src/index.ts"
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "npm run build -- --watch"
+  },
+  "devDependencies": {
+    "@poke-playbook/typescript-config": "*",
+    "tsup": "8.1.0"
+  }
 }

@@ -1,3 +1,9 @@
 {
-  "extends": ["@fastiship/typescript-config/base.json"]
+  "extends": ["@poke-playbook/typescript-config/base.json"],
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler"
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

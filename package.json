@@ -1,25 +1,45 @@
 {
-  "name": "fastiship",
+  "name": "poke-playbook",
   "private": true,
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
+    "test": "turbo test",
+    "test:watch": "turbo test:watch",
+    "test:coverage": "turbo test:coverage",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "docker:build": "docker-compose build",
     "docker:up": "docker-compose up",
     "docker:down": "docker-compose down",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "devDependencies": {
-    "@fastiship/eslint-config": "*",
-    "@fastiship/typescript-config": "*",
+    "@poke-playbook/eslint-config": "*",
+    "@poke-playbook/typescript-config": "*",
     "eslint-plugin-turbo": "^2.5.4",
     "husky": "8.0.3",
     "lint-staged": "15.2.7",
     "prettier": "3.2.4",
     "turbo": "^2.5.4",
     "zod": "^3.23.8"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-musl": "4.45.1",
+    "@rollup/rollup-linux-x64-gnu": "4.45.1",
+    "lightningcss-linux-x64-musl": "^1.30.1",
+    "@tailwindcss/oxide-linux-x64-musl": "^4.1.11"
+  },
+  "lint-staged": {
+    "apps/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "packages/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "**/*.{js,jsx,ts,tsx,json,css,md,mdx,yml,yaml}": [
+      "prettier --write"
+    ]
   },
   "engines": {
     "node": ">=18"

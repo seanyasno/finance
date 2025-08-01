@@ -1,0 +1,272 @@
+describe('Team Management', () => {
+  beforeEach(() => {
+    cy.fixture('users').then((users) => {
+      // Login before each test
+      cy.login(users.testUser.email, users.testUser.password)
+    })
+  })
+
+  it('should display teams list', () => {
+    cy.visit('/teams')
+    cy.waitForPageLoad()
+    
+    // Should show teams page
+    cy.get('[data-testid="teams-list"]').should('be.visible')
+    
+    // Should have create team button
+    cy.get('[data-testid="create-team-button"]').should('be.visible')
+    
+    // May have existing teams or empty state
+    cy.get('body').then(($body) => {
+      if ($body.find('[data-testid="team-card"]').length > 0) {
+        cy.get('[data-testid="team-card"]').should('be.visible')
+      } else {
+        cy.get('[data-testid="empty-teams-state"]').should('be.visible')
+      }
+    })
+  })
+
+  it('should create a new team', () => {
+    cy.fixture('teams').then((teams) => {
+      const testTeam = teams.testTeam
+      
+      cy.visit('/teams')
+      cy.waitForPageLoad()
+      
+      // Click create team button
+      cy.get('[data-testid="create-team-button"]').click()
+      
+      // Should navigate to create team page
+      cy.url().should('include', '/teams/create')
+      
+      // Fill out team form
+      cy.get('[data-testid="team-name-input"]').type(testTeam.name)
+      cy.get('[data-testid="team-description-input"]').type(testTeam.description)
+      
+      // Submit form
+      cy.get('[data-testid="save-team-button"]').click()
+      
+      // Should redirect to teams list or team detail
+      cy.url().should('not.include', '/create')
+      
+      // Should show success message
+      cy.get('[data-testid="success-message"]').should('be.visible')
+      cy.get('[data-testid="success-message"]').should('contain', 'created')
+      
+      // Should see the new team in the list
+      if (cy.url().should('include', '/teams')) {
+        cy.get('[data-testid="team-card"]').should('contain', testTeam.name)
+      }
+    })
+  })
+
+  it('should view team details', () => {
+    cy.fixture('teams').then((teams) => {
+      const testTeam = teams.testTeam
+      
+      cy.visit('/teams')
+      cy.waitForPageLoad()
+      
+      // Create a team first if none exist
+      cy.get('body').then(($body) => {
+        if ($body.find('[data-testid="team-card"]').length === 0) {
+          // Create a team first
+          cy.get('[data-testid="create-team-button"]').click()
+          cy.get('[data-testid="team-name-input"]').type(testTeam.name)
+          cy.get('[data-testid="team-description-input"]').type(testTeam.description)
+          cy.get('[data-testid="save-team-button"]').click()
+          cy.visit('/teams')
+          cy.waitForPageLoad()
+        }
+      })
+      
+      // Click on a team card
+      cy.get('[data-testid="team-card"]').first().click()
+      
+      // Should navigate to team detail page
+      cy.url().should('match', /\/teams\/[^/]+$/)
+      
+      // Should show team details
+      cy.get('[data-testid="team-name"]').should('be.visible')
+      cy.get('[data-testid="team-description"]').should('be.visible')
+      cy.get('[data-testid="pokemon-slots"]').should('be.visible')
+      
+      // Should show edit button
+      cy.get('[data-testid="edit-team-button"]').should('be.visible')
+      
+      // Should show add Pokemon functionality
+      cy.get('[data-testid="add-pokemon-button"]').should('be.visible')
+    })
+  })
+
+  it('should edit a team', () => {
+    cy.fixture('teams').then((teams) => {
+      const testTeam = teams.testTeam
+      const updatedTeam = teams.updatedTeam
+      
+      cy.visit('/teams')
+      cy.waitForPageLoad()
+      
+      // Ensure we have a team to edit
+      cy.get('body').then(($body) => {
+        if ($body.find('[data-testid="team-card"]').length === 0) {
+          // Create a team first
+          cy.get('[data-testid="create-team-button"]').click()
+          cy.get('[data-testid="team-name-input"]').type(testTeam.name)
+          cy.get('[data-testid="team-description-input"]').type(testTeam.description)
+          cy.get('[data-testid="save-team-button"]').click()
+          cy.visit('/teams')
+          cy.waitForPageLoad()
+        }
+      })
+      
+      // Click on team card to view details
+      cy.get('[data-testid="team-card"]').first().click()
+      
+      // Click edit button
+      cy.get('[data-testid="edit-team-button"]').click()
+      
+      // Should navigate to edit page
+      cy.url().should('include', '/edit')
+      
+      // Update team details
+      cy.get('[data-testid="team-name-input"]').clear().type(updatedTeam.name)
+      cy.get('[data-testid="team-description-input"]').clear().type(updatedTeam.description)
+      
+      // Save changes
+      cy.get('[data-testid="save-team-button"]').click()
+      
+      // Should redirect back to team detail or teams list
+      cy.url().should('not.include', '/edit')
+      
+      // Should show success message
+      cy.get('[data-testid="success-message"]').should('be.visible')
+      cy.get('[data-testid="success-message"]').should('contain', 'updated')
+      
+      // Should show updated information
+      cy.get('[data-testid="team-name"]').should('contain', updatedTeam.name)
+    })
+  })
+
+  it('should delete a team', () => {
+    cy.fixture('teams').then((teams) => {
+      const testTeam = teams.testTeam
+      
+      cy.visit('/teams')
+      cy.waitForPageLoad()
+      
+      // Create a team to delete
+      cy.get('[data-testid="create-team-button"]').click()
+      cy.get('[data-testid="team-name-input"]').type(`${testTeam.name} - To Delete`)
+      cy.get('[data-testid="team-description-input"]').type(testTeam.description)
+      cy.get('[data-testid="save-team-button"]').click()
+      cy.visit('/teams')
+      cy.waitForPageLoad()
+      
+      // Get the team card with our specific name
+      cy.get('[data-testid="team-card"]').contains(`${testTeam.name} - To Delete`).parent().as('teamToDelete')
+      
+      // Click team menu or delete button
+      cy.get('@teamToDelete').find('[data-testid="team-menu"]').click()
+      cy.get('[data-testid="delete-team-button"]').click()
+      
+      // Should show confirmation dialog
+      cy.get('[data-testid="delete-confirmation-dialog"]').should('be.visible')
+      cy.get('[data-testid="confirm-delete-button"]').should('be.visible')
+      
+      // Confirm deletion
+      cy.get('[data-testid="confirm-delete-button"]').click()
+      
+      // Should show success message
+      cy.get('[data-testid="success-message"]').should('be.visible')
+      cy.get('[data-testid="success-message"]').should('contain', 'deleted')
+      
+      // Team should no longer be in the list
+      cy.get('[data-testid="team-card"]').should('not.contain', `${testTeam.name} - To Delete`)
+    })
+  })
+
+  it('should add Pokemon to team', () => {
+    cy.fixture('teams').then((teams) => {
+      const testTeam = teams.testTeam
+      
+      cy.visit('/teams')
+      cy.waitForPageLoad()
+      
+      // Ensure we have a team
+      cy.get('body').then(($body) => {
+        if ($body.find('[data-testid="team-card"]').length === 0) {
+          // Create a team first
+          cy.get('[data-testid="create-team-button"]').click()
+          cy.get('[data-testid="team-name-input"]').type(testTeam.name)
+          cy.get('[data-testid="team-description-input"]').type(testTeam.description)
+          cy.get('[data-testid="save-team-button"]').click()
+          cy.visit('/teams')
+          cy.waitForPageLoad()
+        }
+      })
+      
+      // Click on team to view details
+      cy.get('[data-testid="team-card"]').first().click()
+      
+      // Click add Pokemon button
+      cy.get('[data-testid="add-pokemon-button"]').click()
+      
+      // Should open Pokemon selection interface
+      cy.get('[data-testid="pokemon-selector"]').should('be.visible')
+      
+      // Search for a specific Pokemon
+      cy.get('[data-testid="pokemon-search"]').type('pikachu')
+      
+      // Select Pikachu
+      cy.get('[data-testid="pokemon-option"]').contains('pikachu').click()
+      
+      // Confirm selection
+      cy.get('[data-testid="confirm-pokemon-button"]').click()
+      
+      // Should see Pokemon added to team
+      cy.get('[data-testid="team-pokemon"]').should('contain', 'pikachu')
+      
+      // Pokemon count should increase
+      cy.get('[data-testid="pokemon-count"]').should('contain', '1 of 6')
+    })
+  })
+
+  it('should handle team validation errors', () => {
+    cy.visit('/teams')
+    cy.waitForPageLoad()
+    
+    // Click create team
+    cy.get('[data-testid="create-team-button"]').click()
+    
+    // Try to submit empty form
+    cy.get('[data-testid="save-team-button"]').click()
+    
+    // Should show validation errors
+    cy.get('[data-testid="team-name-error"]').should('be.visible')
+    cy.get('[data-testid="team-name-error"]').should('contain', 'required')
+    
+    // Should stay on create page
+    cy.url().should('include', '/create')
+  })
+
+  it('should cancel team operations', () => {
+    cy.visit('/teams')
+    cy.waitForPageLoad()
+    
+    // Start creating a team
+    cy.get('[data-testid="create-team-button"]').click()
+    
+    // Fill some data
+    cy.get('[data-testid="team-name-input"]').type('Test Team')
+    
+    // Cancel
+    cy.get('[data-testid="cancel-button"]').click()
+    
+    // Should return to teams list
+    cy.url().should('eq', Cypress.config().baseUrl + '/teams')
+    
+    // Team should not be created
+    cy.get('[data-testid="team-card"]').should('not.contain', 'Test Team')
+  })
+})

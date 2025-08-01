@@ -1,5 +1,5 @@
 {
-  "name": "@fastiship/eslint-config",
+  "name": "@poke-playbook/eslint-config",
   "version": "0.0.0",
   "private": true,
   "files": [
@@ -13,8 +13,8 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-only-warn": "^1.1.0",
     "@typescript-eslint/parser": "^7.16.0",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
     "typescript": "^5.3.3",
-    "eslint-plugin-unused-imports": "3.0.0"
+    "eslint-plugin-unused-imports": "^3.2.0"
   }
 }
