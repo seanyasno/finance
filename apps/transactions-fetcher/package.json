@@ -21,20 +21,24 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^10.4.1",
-    "@nestjs/core": "^10.0.0",
-    "@nestjs/platform-express": "^10.0.0",
     "@finance/database": "*",
     "@finance/libs": "*",
+    "@nestjs/common": "^10.4.1",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/core": "^10.0.0",
+    "@nestjs/platform-express": "^10.0.0",
+    "enquirer": "^2.4.1",
+    "israeli-bank-scrapers": "^6.1.4",
+    "puppeteer": "^24.15.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@finance/typescript-config": "*",
     "@golevelup/ts-jest": "^0.7.0",
     "@nestjs/cli": "^10.3.2",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
-    "@finance/typescript-config": "*",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.14.9",

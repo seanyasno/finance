@@ -8,7 +8,7 @@
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "dev": "npm run build -- --watch",
     "db:generate": "prisma generate",
-    "db:push": "prisma db push --skip-generate",
+    "db:push": "prisma db push --skip-generate --accept-data-loss",
     "db:studio": "prisma studio",
     "db:pull": "prisma db pull"
   },
