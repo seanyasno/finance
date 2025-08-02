@@ -10,7 +10,7 @@ export class TransactionsController {
     return this.transactionsService.executeWorkflow();
   }
 
-  @Post("fetch")
+  @Get("fetch")
   async fetchTransactions() {
     return this.transactionsService.fetchAllTransactions();
   }
