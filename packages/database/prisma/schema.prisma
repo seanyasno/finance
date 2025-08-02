@@ -387,7 +387,7 @@ model transactions {
   charged_amount    Float
   charged_currency  String?
   source            transaction_source
-  identifier        Int?               @default(0) @db.Integer
+  identifier        String             @unique @db.VarChar(255)
 
   bank_account_id String?        @db.Uuid
   bank_account    bank_accounts? @relation(fields: [bank_account_id], references: [id])
@@ -397,6 +397,7 @@ model transactions {
 
   @@index([user_id])
   @@index([timestamp(sort: Desc)])
+  @@index([identifier])
   @@schema("public")
 }
 
