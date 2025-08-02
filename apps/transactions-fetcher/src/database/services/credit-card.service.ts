@@ -1,9 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { db } from "@finance/database";
-import { CompanyTypes } from "israeli-bank-scrapers";
 import { CreditCardCompanyType } from "../../common/types/credit-card-company.type";
-
-
 
 @Injectable()
 export class CreditCardService {

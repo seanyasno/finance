@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { db } from "@finance/database";
-import { CompanyTypes } from "israeli-bank-scrapers";
 import { BankCompanyType } from "../../common/types/bank-company.type";
 
 @Injectable()

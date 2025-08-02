@@ -1,13 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { db } from "@finance/database";
-import { isNotNullOrUndefined } from "@finance/libs";
 import { SaveTransactionsParams } from "../../transactions/types/transactions.type";
 import { BankAccountService } from "./bank-account.service";
 import { CreditCardService } from "./credit-card.service";
 import { CompanyValidatorHelper } from "../../transactions/helpers/company-validator.helper";
 import { TransactionMapperHelper } from "../../transactions/helpers/transaction-mapper.helper";
 import { TransactionsAccount } from "israeli-bank-scrapers/lib/transactions";
-import { CompanyTypes } from "israeli-bank-scrapers";
 import { BankCompanyType } from "../../common/types/bank-company.type";
 import { CreditCardCompanyType } from "../../common/types/credit-card-company.type";
 
