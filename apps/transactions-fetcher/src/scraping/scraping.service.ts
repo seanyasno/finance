@@ -63,9 +63,6 @@ export class ScrapingService {
       const options = await strategy.getOptions();
       const credentials = strategy.getCredentials();
 
-      console.log(`Scraping transactions for ${options.companyId}...`);
-      console.log("Using credentials:", credentials);
-
       const scraper = createScraper(options);
       const scrapeResult = await scraper.scrape(credentials);
 

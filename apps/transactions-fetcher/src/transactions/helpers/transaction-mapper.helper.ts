@@ -35,7 +35,7 @@ export class TransactionMapperHelper {
     return {
       user_id: userId,
       description: transaction.description,
-      timestamp: transaction.date,
+      timestamp: new Date(transaction.date).toISOString(),
       status: transaction.status,
       original_amount: transaction.originalAmount,
       original_currency: transaction.originalCurrency,
