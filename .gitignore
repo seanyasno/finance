@@ -39,3 +39,6 @@ yarn-error.log*
 .idea
 
 storybook-static
+
+# Git worktrees
+.worktrees
