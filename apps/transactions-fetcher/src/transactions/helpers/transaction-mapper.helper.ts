@@ -43,7 +43,7 @@ export class TransactionMapperHelper {
       charged_currency: transaction.chargedCurrency,
       source: TransactionSource.CREDIT_CARD,
       credit_card_id: creditCardId,
-      identifier: transaction.identifier!.toString(),
+      identifier: transaction.identifier?.toString() ?? crypto.randomUUID(),
     };
   }
 }

@@ -23,19 +23,11 @@ export class TransactionPersistenceService {
   }: SaveTransactionsParams) {
     for (const account of accounts) {
       if (CompanyValidatorHelper.isBankAccount(companyType)) {
-        await this.saveBankAccountTransactions(
-          account,
-          companyType,
-          userId,
-        );
+        await this.saveBankAccountTransactions(account, companyType, userId);
       }
 
       if (CompanyValidatorHelper.isCreditCard(companyType)) {
-        await this.saveCreditCardTransactions(
-          account,
-          companyType,
-          userId,
-        );
+        await this.saveCreditCardTransactions(account, companyType, userId);
       }
     }
   }
@@ -55,25 +47,29 @@ export class TransactionPersistenceService {
     );
 
     await db.$transaction(async (tx) => {
-      account.txns.forEach((transaction) => tx.transactions.upsert({
-        where: {
-          identifier: transaction.identifier!.toString(),
-        },
-        create: TransactionMapperHelper.mapBankTransaction(
-          transaction,
-          userId,
-          bankAccount.id,
+      await Promise.all(
+        account.txns.map((transaction) =>
+          tx.transactions.upsert({
+            where: {
+              identifier: transaction.identifier?.toString() ?? crypto.randomUUID(),
+            },
+            create: TransactionMapperHelper.mapBankTransaction(
+              transaction,
+              userId,
+              bankAccount.id,
+            ),
+            update: {
+              description: transaction.description,
+              timestamp: new Date(transaction.date).toISOString(),
+              status: transaction.status,
+              original_amount: transaction.originalAmount,
+              original_currency: transaction.originalCurrency,
+              charged_amount: transaction.chargedAmount,
+              charged_currency: transaction.chargedCurrency,
+            },
+          }),
         ),
-        update: {
-          description: transaction.description,
-          timestamp: new Date(transaction.date).toISOString(),
-          status: transaction.status,
-          original_amount: transaction.originalAmount,
-          original_currency: transaction.originalCurrency,
-          charged_amount: transaction.chargedAmount,
-          charged_currency: transaction.chargedCurrency,
-        }
-      }))
+      );
     });
   }
 
@@ -91,25 +87,29 @@ export class TransactionPersistenceService {
     );
 
     await db.$transaction(async (tx) => {
-      account.txns.forEach((transaction) => tx.transactions.upsert({
-        where: {
-          identifier: transaction.identifier!.toString(),
-        },
-        create: TransactionMapperHelper.mapCreditCardTransaction(
-          transaction,
-          userId,
-          creditCard.id,
+      await Promise.all(
+        account.txns.map((transaction) =>
+          tx.transactions.upsert({
+            where: {
+              identifier: transaction.identifier?.toString() ?? crypto.randomUUID(),
+            },
+            create: TransactionMapperHelper.mapCreditCardTransaction(
+              transaction,
+              userId,
+              creditCard.id,
+            ),
+            update: {
+              description: transaction.description,
+              timestamp: new Date(transaction.date).toISOString(),
+              status: transaction.status,
+              original_amount: transaction.originalAmount,
+              original_currency: transaction.originalCurrency,
+              charged_amount: transaction.chargedAmount,
+              charged_currency: transaction.chargedCurrency,
+            },
+          }),
         ),
-        update: {
-          description: transaction.description,
-          timestamp: new Date(transaction.date).toISOString(),
-          status: transaction.status,
-          original_amount: transaction.originalAmount,
-          original_currency: transaction.originalCurrency,
-          charged_amount: transaction.chargedAmount,
-          charged_currency: transaction.chargedCurrency,
-        }
-      }));
+      );
     });
   }
 }

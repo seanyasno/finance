@@ -29,11 +29,13 @@ export class TransactionsService {
       oneZeroTransactions,
       isracardTransactions,
       maxTransactions,
+      visaCalTransactions,
     ] = await Promise.all([
       this.scrapingService.scrapeCompany(CompanyTypes.discount, true),
       this.scrapingService.scrapeCompany(CompanyTypes.oneZero, true),
       this.scrapingService.scrapeCompany(CompanyTypes.isracard, true),
       this.scrapingService.scrapeCompany(CompanyTypes.max, true),
+      this.scrapingService.scrapeCompany(CompanyTypes.visaCal, true),
     ]);
 
     return {
@@ -41,6 +43,7 @@ export class TransactionsService {
       oneZeroTransactions,
       isracardTransactions,
       maxTransactions,
+      visaCalTransactions,
     };
   }
 
@@ -68,6 +71,11 @@ export class TransactionsService {
       this.transactionPersistenceService.saveTransactions({
         accounts: fetchedTransactions.maxTransactions,
         companyType: CompanyTypes.max,
+        userId,
+      }),
+      this.transactionPersistenceService.saveTransactions({
+        accounts: fetchedTransactions.visaCalTransactions,
+        companyType: CompanyTypes.visaCal,
         userId,
       }),
     ]);

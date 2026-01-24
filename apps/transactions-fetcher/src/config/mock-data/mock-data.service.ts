@@ -16,6 +16,8 @@ export class MockDataService {
         return this.configService.get("MAX_TRANSACTIONS_MOCK", "");
       case CompanyTypes.oneZero:
         return this.configService.get("ONE_ZERO_TRANSACTIONS_MOCK", "");
+      case CompanyTypes.visaCal:
+        return this.configService.get("VISA_CAL_TRANSACTIONS_MOCK", "");
       default:
         throw new Error(`Unsupported company type: ${companyType}`);
     }

@@ -6,6 +6,7 @@ import { DiscountStrategy } from "./strategies/discount.strategy";
 import { IsracardStrategy } from "./strategies/isracard.strategy";
 import { MaxStrategy } from "./strategies/max.strategy";
 import { OneZeroStrategy } from "./strategies/one-zero.strategy";
+import { VisaCalStrategy } from "./strategies/visa-cal.strategy";
 import { ScrapingStrategy } from "./types/scraping-strategy.type";
 
 @Injectable()
@@ -17,11 +18,13 @@ export class ScrapingService {
     private isracardStrategy: IsracardStrategy,
     private maxStrategy: MaxStrategy,
     private oneZeroStrategy: OneZeroStrategy,
+    private visaCalStrategy: VisaCalStrategy,
   ) {
     this.strategies.set(CompanyTypes.discount, this.discountStrategy);
     this.strategies.set(CompanyTypes.isracard, this.isracardStrategy);
     this.strategies.set(CompanyTypes.max, this.maxStrategy);
     this.strategies.set(CompanyTypes.oneZero, this.oneZeroStrategy);
+    this.strategies.set(CompanyTypes.visaCal, this.visaCalStrategy);
   }
 
   async scrapeCompany(
@@ -70,7 +73,7 @@ export class ScrapingService {
         return withDefault(scrapeResult.accounts, []);
       }
 
-      throw new Error(scrapeResult.errorType);
+      throw new Error(scrapeResult.errorMessage);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);

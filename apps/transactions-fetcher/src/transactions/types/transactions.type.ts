@@ -6,6 +6,7 @@ export type FetchedTransactions = {
   oneZeroTransactions: TransactionsAccount[];
   isracardTransactions: TransactionsAccount[];
   maxTransactions: TransactionsAccount[];
+  visaCalTransactions: TransactionsAccount[];
 };
 
 export type SaveTransactionsParams = {

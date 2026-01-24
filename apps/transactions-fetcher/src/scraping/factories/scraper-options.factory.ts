@@ -10,9 +10,9 @@ export class ScraperOptionsFactory {
 
     return {
       companyId: companyType,
-      startDate: new Date("2025-01-01"),
+      startDate: new Date("2026-01-01"),
       combineInstallments: false,
-      browser: browserContext as any,
+      browser: companyType === CompanyTypes.visaCal ? undefined : browserContext as any,
       timeout: 120000,
       defaultTimeout: 120000,
       skipCloseBrowser: true,
