@@ -48,9 +48,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — API transactions and credit cards modules (NestJS endpoints with filters)
-- [ ] 02-02-PLAN.md — iOS models and service layer (Transaction, CreditCard, TransactionService)
-- [ ] 02-03-PLAN.md — iOS transaction list UI with filter sheet
+- [x] 02-01-PLAN.md — API transactions and credit cards modules (NestJS endpoints with filters)
+- [x] 02-02-PLAN.md — iOS models and service layer (Transaction, CreditCard, TransactionService)
+- [x] 02-03-PLAN.md — iOS transaction list UI with filter sheet
 
 ### Phase 3: Categorization
 **Goal**: Users can organize transactions into custom categories
@@ -63,10 +63,14 @@ Plans:
   4. User can change category of previously categorized transaction
   5. User can view transactions grouped by category
   6. User can add optional notes to transactions
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] TBD (to be created during phase planning)
+- [ ] 03-01-PLAN.md — Database schema + Categories API (Prisma model, NestJS CRUD endpoints, default categories)
+- [ ] 03-02-PLAN.md — Transaction update API (PATCH endpoint for category/notes assignment)
+- [ ] 03-03-PLAN.md — iOS Category model, service, and management UI
+- [ ] 03-04-PLAN.md — iOS Transaction detail view with category picker and notes
+- [ ] 03-05-PLAN.md — Category-grouped spending view with TabView navigation
 
 ### Phase 4: Billing Cycles
 **Goal**: Users can configure and view spending by billing period
@@ -107,10 +111,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. iOS Foundation | 2/2 | Complete | 2026-01-30 |
 | 2. Transaction Viewing | 3/3 | Complete | 2026-01-30 |
-| 3. Categorization | 0/TBD | Not started | - |
+| 3. Categorization | 0/5 | Planned | - |
 | 4. Billing Cycles | 0/TBD | Not started | - |
 | 5. Statistics & Analytics | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-01-30 — Phase 2 complete (3/3 plans executed, goal verified)*
+*Last updated: 2026-01-30 — Phase 3 planned (5 plans in 3 waves)*
