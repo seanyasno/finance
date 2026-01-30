@@ -53,7 +53,9 @@ struct TransactionRowView: View {
                 cardNumber: "1234567890123456",
                 company: "Visa",
                 createdAt: nil
-            )
+            ),
+            categoryId: nil,
+            category: nil
         )
     )
     .padding()

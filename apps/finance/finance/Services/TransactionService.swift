@@ -70,6 +70,27 @@ class TransactionService: ObservableObject {
         }
     }
 
+    // MARK: - Update Transaction
+
+    func updateTransaction(id: String, categoryId: String?, notes: String?) async -> Transaction? {
+        let request = UpdateTransactionRequest(categoryId: categoryId, notes: notes)
+
+        do {
+            let updated: Transaction = try await apiService.patch("/transactions/\(id)", body: request)
+            // Update local array
+            if let index = transactions.firstIndex(where: { $0.id == id }) {
+                transactions[index] = updated
+            }
+            return updated
+        } catch let apiError as APIError {
+            handleAPIError(apiError)
+            return nil
+        } catch {
+            self.error = "An unexpected error occurred: \(error.localizedDescription)"
+            return nil
+        }
+    }
+
     // MARK: - Fetch Credit Cards
 
     func fetchCreditCards() async {

@@ -97,4 +97,12 @@ class APIService {
     ) async throws -> T {
         return try await request(endpoint, method: "POST", body: body, authenticated: authenticated)
     }
+
+    func patch<T: Decodable, B: Encodable>(
+        _ endpoint: String,
+        body: B,
+        authenticated: Bool = true
+    ) async throws -> T {
+        return try await request(endpoint, method: "PATCH", body: body, authenticated: authenticated)
+    }
 }

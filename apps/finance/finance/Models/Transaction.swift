@@ -12,6 +12,8 @@ struct Transaction: Codable, Identifiable {
     let status: String
     let creditCardId: String?
     let creditCard: CreditCard?
+    let categoryId: String?
+    let category: Category?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -25,6 +27,8 @@ struct Transaction: Codable, Identifiable {
         case status
         case creditCardId
         case creditCard
+        case categoryId
+        case category
     }
 
     // MARK: - Computed Properties
@@ -49,6 +53,10 @@ struct Transaction: Codable, Identifiable {
         return description ?? "Unknown"
     }
 
+    var categoryName: String? {
+        category?.name
+    }
+
     // MARK: - Private Helpers
 
     private func currencySymbol(for currencyCode: String) -> String {
@@ -59,5 +67,17 @@ struct Transaction: Codable, Identifiable {
         case "ILS": return "₪"
         default: return currencyCode + " "
         }
+    }
+}
+
+// MARK: - Update Request
+
+struct UpdateTransactionRequest: Codable {
+    let categoryId: String?
+    let notes: String?
+
+    enum CodingKeys: String, CodingKey {
+        case categoryId
+        case notes
     }
 }
