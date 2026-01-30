@@ -38,11 +38,11 @@
 
 ### iOS Application
 
-- [ ] **IOS-01**: iOS app uses native SwiftUI components
-- [ ] **IOS-02**: iOS app follows iOS design patterns (navigation, lists, forms)
-- [ ] **IOS-03**: iOS app connects to NestJS API via HTTP client
-- [ ] **IOS-04**: iOS app handles authentication (login/register)
-- [ ] **IOS-05**: iOS app persists auth token securely
+- [x] **IOS-01**: iOS app uses native SwiftUI components
+- [x] **IOS-02**: iOS app follows iOS design patterns (navigation, lists, forms)
+- [x] **IOS-03**: iOS app connects to NestJS API via HTTP client
+- [x] **IOS-04**: iOS app handles authentication (login/register)
+- [x] **IOS-05**: iOS app persists auth token securely
 
 ## v2 Requirements
 
@@ -89,11 +89,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| IOS-01 | Phase 1 | Pending |
-| IOS-02 | Phase 1 | Pending |
-| IOS-03 | Phase 1 | Pending |
-| IOS-04 | Phase 1 | Pending |
-| IOS-05 | Phase 1 | Pending |
+| IOS-01 | Phase 1 | Complete |
+| IOS-02 | Phase 1 | Complete |
+| IOS-03 | Phase 1 | Complete |
+| IOS-04 | Phase 1 | Complete |
+| IOS-05 | Phase 1 | Complete |
 | TRANS-01 | Phase 2 | Pending |
 | TRANS-03 | Phase 2 | Pending |
 | TRANS-04 | Phase 2 | Pending |
