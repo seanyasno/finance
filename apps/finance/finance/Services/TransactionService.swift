@@ -1,0 +1,109 @@
+import Foundation
+import Combine
+
+// MARK: - Response Wrappers
+
+struct TransactionsResponse: Codable {
+    let transactions: [Transaction]
+}
+
+struct CreditCardsResponse: Codable {
+    let creditCards: [CreditCard]
+}
+
+// MARK: - TransactionService
+
+@MainActor
+class TransactionService: ObservableObject {
+    private let apiService: APIService
+
+    @Published var transactions: [Transaction] = []
+    @Published var creditCards: [CreditCard] = []
+    @Published var isLoading = false
+    @Published var error: String?
+
+    init(apiService: APIService = APIService()) {
+        self.apiService = apiService
+    }
+
+    // MARK: - Fetch Transactions
+
+    func fetchTransactions(
+        startDate: Date? = nil,
+        endDate: Date? = nil,
+        creditCardId: String? = nil
+    ) async {
+        isLoading = true
+        error = nil
+
+        do {
+            // Build query string
+            var queryParams: [String] = []
+
+            if let startDate = startDate {
+                let dateString = ISO8601DateFormatter().string(from: startDate)
+                queryParams.append("startDate=\(dateString)")
+            }
+
+            if let endDate = endDate {
+                let dateString = ISO8601DateFormatter().string(from: endDate)
+                queryParams.append("endDate=\(dateString)")
+            }
+
+            if let creditCardId = creditCardId {
+                queryParams.append("creditCardId=\(creditCardId)")
+            }
+
+            let queryString = queryParams.isEmpty ? "" : "?" + queryParams.joined(separator: "&")
+            let endpoint = "/transactions\(queryString)"
+
+            // Fetch transactions
+            let response: TransactionsResponse = try await apiService.get(endpoint, authenticated: true)
+            transactions = response.transactions
+            isLoading = false
+
+        } catch let apiError as APIError {
+            handleAPIError(apiError)
+        } catch {
+            self.error = "An unexpected error occurred: \(error.localizedDescription)"
+            isLoading = false
+        }
+    }
+
+    // MARK: - Fetch Credit Cards
+
+    func fetchCreditCards() async {
+        isLoading = true
+        error = nil
+
+        do {
+            let response: CreditCardsResponse = try await apiService.get("/credit-cards", authenticated: true)
+            creditCards = response.creditCards
+            isLoading = false
+
+        } catch let apiError as APIError {
+            handleAPIError(apiError)
+        } catch {
+            self.error = "An unexpected error occurred: \(error.localizedDescription)"
+            isLoading = false
+        }
+    }
+
+    // MARK: - Error Handling
+
+    private func handleAPIError(_ error: APIError) {
+        switch error {
+        case .invalidURL:
+            self.error = "Invalid URL"
+        case .networkError(let underlyingError):
+            self.error = "Network error: \(underlyingError.localizedDescription)"
+        case .invalidResponse:
+            self.error = "Invalid response from server"
+        case .httpError(let statusCode, let message):
+            self.error = message ?? "HTTP error: \(statusCode)"
+        case .decodingError(let underlyingError):
+            self.error = "Failed to decode response: \(underlyingError.localizedDescription)"
+        }
+        isLoading = false
+    }
+}
