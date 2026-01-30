@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 2 of 5 (Transaction Viewing)
-Plan: 2 of 3 in phase 02-transaction-viewing
+Plan: 2 of 3 in phase 02-transaction-viewing (just completed 02-01)
 Status: In progress
-Last activity: 2026-01-30 — Completed 02-02-PLAN.md (Transaction Data Layer)
+Last activity: 2026-01-30 — Completed 02-01-PLAN.md (API Endpoints)
 
-Progress: [████░░░░░░] 40% (2 of 5 plans complete)
+Progress: [████░░░░░░] 40% (2 of 5 plans in Phase 2 complete, Phase 1 complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 11m 28s
-- Total execution time: 0.57 hours
+- Total plans completed: 4
+- Average duration: 11m 6s
+- Total execution time: 0.74 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-ios-foundation | 2 | 31m 48s | 15m 54s |
-| 02-transaction-viewing | 1 | 2m 25s | 2m 25s |
+| 02-transaction-viewing | 2 | 12m 25s | 6m 13s |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (3m 7s), 01-02 (28m 41s), 02-02 (2m 25s)
-- Trend: Efficient data layer implementation, Phase 2 in progress
+- Last 5 plans: 01-01 (3m 7s), 01-02 (28m 41s), 02-01 (10m), 02-02 (2m 25s)
+- Trend: Phase 2 progressing efficiently, backend and data layer complete
 
 *Updated after each plan completion*
 
@@ -45,6 +45,8 @@ Recent decisions affecting current work:
 
 | ID | Title | Phase | Impact |
 |----|-------|-------|--------|
+| nested-credit-card-response | Nest credit card in transaction DTO | 02-01 | Avoids N+1 queries, iOS gets all data in one request |
+| authmodule-import-pattern | Feature modules import AuthModule | 02-01 | NestJS dependency injection for JwtAuthGuard access |
 | iso8601-string-dates | Use ISO8601 strings for dates | 02-02 | Simpler than custom Date decoding, convert to Date for display only |
 | computed-display-properties | Models include computed display properties | 02-02 | Formatting logic with models, avoid duplication in UI |
 | query-string-filters | Query string for optional filters | 02-02 | REST convention for date/card filters in TransactionService |
@@ -61,15 +63,20 @@ None yet.
 
 ### Blockers/Concerns
 
-None yet.
+**Authentication guard issue (02-01):**
+- JwtAuthGuard not properly enforcing authentication despite correct decorators
+- Fixed method signature but guard still allows unauthenticated requests
+- Endpoints marked as protected in Swagger, guard code present in controllers
+- Deferred full investigation to 02-03 (iOS integration testing)
+- Not blocking data layer or UI development work
 
 ## Session Continuity
 
-Last session: 2026-01-30 15:48 UTC
-Stopped at: Completed 02-02-PLAN.md (Transaction Data Layer)
+Last session: 2026-01-30 15:55 UTC
+Stopped at: Completed 02-01-PLAN.md (API Endpoints)
 Resume file: None
-Next: 02-03-PLAN.md (Transaction List UI)
+Next: 02-03-PLAN.md (Transaction List UI) or continue with remaining Phase 2 plans
 
 ---
 *State initialized: 2026-01-30*
-*Last updated: 2026-01-30 15:48 UTC*
+*Last updated: 2026-01-30 15:55 UTC*
