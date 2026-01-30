@@ -50,6 +50,8 @@ model transactions {
   user            users?         @relation(fields: [user_id], references: [id])
   credit_card_id  String?        @db.Uuid
   credit_card     credit_cards?  @relation(fields: [credit_card_id], references: [id])
+  category_id     String?        @db.Uuid
+  category        categories?    @relation(fields: [category_id], references: [id])
 
   @@index([user_id])
   @@index([timestamp(sort: Desc)])
@@ -129,7 +131,8 @@ model categories {
   is_default Boolean  @default(false)
   user_id    String?  @db.Uuid
 
-  user users? @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user         users?         @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  transactions transactions[]
 
   @@unique([user_id, name])
   @@index([user_id])
