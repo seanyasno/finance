@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 3 of 5 (Categorization)
-Plan: 1 of 5 in phase 03-categorization
+Plan: 2 of 5 in phase 03-categorization
 Status: In progress
-Last activity: 2026-01-30 — Completed 03-01-PLAN.md (Categories API Foundation)
+Last activity: 2026-01-30 — Completed 03-02-PLAN.md (Transaction Category Assignment)
 
-Progress: [██████░░░░] 60% (6 of 10 plans complete across all phases)
+Progress: [███████░░░] 70% (7 of 10 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 58m 30s
-- Total execution time: 5.85 hours
+- Total plans completed: 7
+- Average duration: 50m 49s
+- Total execution time: 5.92 hours
 
 **By Phase:**
 
@@ -29,11 +29,11 @@ Progress: [██████░░░░] 60% (6 of 10 plans complete across al
 |-------|-------|-------|----------|
 | 01-ios-foundation | 2 | 31m 48s | 15m 54s |
 | 02-transaction-viewing | 3 | 4h 19m 25s | 1h 26m 28s |
-| 03-categorization | 1 | 5m 22s | 5m 22s |
+| 03-categorization | 2 | 10m 38s | 5m 19s |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (10m), 02-02 (2m 25s), 02-03 (4h 7m), 03-01 (5m 22s)
-- Trend: Phase 3 started - API-only tasks completing quickly without UI verification checkpoints
+- Last 5 plans: 02-02 (2m 25s), 02-03 (4h 7m), 03-01 (5m 22s), 03-02 (5m 16s)
+- Trend: Phase 3 progressing rapidly - API-only tasks completing in ~5 minutes without UI verification
 
 *Updated after each plan completion*
 
@@ -46,6 +46,9 @@ Recent decisions affecting current work:
 
 | ID | Title | Phase | Impact |
 |----|-------|-------|--------|
+| nested-category-response | CategoryInTransactionDto mirrors CreditCardInTransactionDto | 03-02 | Consistent nested object pattern, all display data in single response |
+| dual-validation-update | Update validates ownership and related resource validity | 03-02 | Security pattern for endpoints modifying resources with relations |
+| nullable-category | Category assignment is optional (null for uncategorized) | 03-02 | Supports gradual categorization workflow |
 | category-seeding-pattern | Use OnModuleInit with idempotent seeding | 03-01 | Individual checks prevent duplicate defaults on restart |
 | default-category-storage | Store defaults as is_default=true with null user_id | 03-01 | Single query for all available categories (defaults OR user's) |
 | nested-credit-card-response | Nest credit card in transaction DTO | 02-01 | Avoids N+1 queries, iOS gets all data in one request |
@@ -76,9 +79,9 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-30 20:37 UTC
-Stopped at: Completed 03-01-PLAN.md (Categories API Foundation)
+Stopped at: Completed 03-02-PLAN.md (Transaction Category Assignment)
 Resume file: None
-Next: Plan 03-02 (Transaction Category Assignment)
+Next: Continue Phase 3 (03-03 or later)
 
 ---
 *State initialized: 2026-01-30*
