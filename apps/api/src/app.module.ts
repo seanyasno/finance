@@ -7,6 +7,7 @@ import { ZodValidationPipe } from 'nestjs-zod';
 import { AuthModule } from './auth/auth.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { CreditCardsModule } from './credit-cards/credit-cards.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { CreditCardsModule } from './credit-cards/credit-cards.module';
     AuthModule,
     TransactionsModule,
     CreditCardsModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [
