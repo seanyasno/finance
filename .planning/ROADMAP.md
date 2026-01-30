@@ -13,7 +13,7 @@ This roadmap delivers a personal finance tracking app from the ground up, buildi
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: iOS Foundation** - iOS app with native UI and secure authentication
-- [ ] **Phase 2: Transaction Viewing** - View and filter credit card transactions
+- [x] **Phase 2: Transaction Viewing** - View and filter credit card transactions
 - [ ] **Phase 3: Categorization** - Create categories and assign to transactions
 - [ ] **Phase 4: Billing Cycles** - Configure billing periods and view cycle-based spending
 - [ ] **Phase 5: Statistics & Analytics** - Spending trends and category breakdowns
@@ -106,11 +106,11 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. iOS Foundation | 2/2 | Complete | 2026-01-30 |
-| 2. Transaction Viewing | 0/3 | Not started | - |
+| 2. Transaction Viewing | 3/3 | Complete | 2026-01-30 |
 | 3. Categorization | 0/TBD | Not started | - |
 | 4. Billing Cycles | 0/TBD | Not started | - |
 | 5. Statistics & Analytics | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-01-30 — Phase 2 planned (3 plans in 2 waves)*
+*Last updated: 2026-01-30 — Phase 2 complete (3/3 plans executed, goal verified)*

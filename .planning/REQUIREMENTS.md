@@ -7,10 +7,10 @@
 
 ### Transaction Management
 
-- [ ] **TRANS-01**: User can view list of all transactions from database
+- [x] **TRANS-01**: User can view list of all transactions from database
 - [ ] **TRANS-02**: User can add optional notes to transactions
-- [ ] **TRANS-03**: User can filter transactions by date range
-- [ ] **TRANS-04**: User can filter transactions by credit card
+- [x] **TRANS-03**: User can filter transactions by date range
+- [x] **TRANS-04**: User can filter transactions by credit card
 
 ### Categorization
 
@@ -94,9 +94,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | IOS-03 | Phase 1 | Complete |
 | IOS-04 | Phase 1 | Complete |
 | IOS-05 | Phase 1 | Complete |
-| TRANS-01 | Phase 2 | Pending |
-| TRANS-03 | Phase 2 | Pending |
-| TRANS-04 | Phase 2 | Pending |
+| TRANS-01 | Phase 2 | Complete |
+| TRANS-03 | Phase 2 | Complete |
+| TRANS-04 | Phase 2 | Complete |
 | CAT-01 | Phase 3 | Pending |
 | CAT-02 | Phase 3 | Pending |
 | CAT-03 | Phase 3 | Pending |
@@ -121,4 +121,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-01-30 after roadmap creation*
+*Last updated: 2026-01-30 — Phase 2 requirements marked complete*
