@@ -9,12 +9,14 @@ enum APIError: Error {
 }
 
 class APIService {
+    static let shared = APIService()
+
     var baseURL: String = "http://127.0.0.1:3100"
     var authToken: String?
 
     private let urlSession: URLSession
 
-    init() {
+    nonisolated init() {
         // Configure URLSession to handle cookies automatically
         let configuration = URLSessionConfiguration.default
         configuration.httpCookieAcceptPolicy = .always
