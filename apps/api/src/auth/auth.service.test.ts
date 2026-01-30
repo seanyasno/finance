@@ -1,9 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import {
-  BadRequestException,
-  UnauthorizedException,
-  ConflictException,
-} from '@nestjs/common';
+import { UnauthorizedException, ConflictException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
@@ -189,9 +185,7 @@ describe('AuthService', () => {
     it('should throw ConflictException when user already exists', async () => {
       prismaService.users.findUnique.mockResolvedValue(mockUser);
 
-      await expect(
-        service.register(registerDto, mockResponse),
-      ).rejects.toThrow(
+      await expect(service.register(registerDto, mockResponse)).rejects.toThrow(
         new ConflictException('User with this email already exists'),
       );
 
@@ -205,9 +199,9 @@ describe('AuthService', () => {
         new Error('Hashing failed'),
       );
 
-      await expect(
-        service.register(registerDto, mockResponse),
-      ).rejects.toThrow('Hashing failed');
+      await expect(service.register(registerDto, mockResponse)).rejects.toThrow(
+        'Hashing failed',
+      );
 
       expect(prismaService.users.create).not.toHaveBeenCalled();
     });
