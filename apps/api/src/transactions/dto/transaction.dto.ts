@@ -12,6 +12,19 @@ export class CreditCardInTransactionDto extends createZodDto(
   CreditCardInTransactionSchema,
 ) {}
 
+// Nested category DTO for inclusion in transaction response
+export const CategoryInTransactionSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string(),
+  icon: z.string().nullable(),
+  color: z.string().nullable(),
+  isDefault: z.boolean(),
+});
+
+export class CategoryInTransactionDto extends createZodDto(
+  CategoryInTransactionSchema,
+) {}
+
 // Transaction DTO
 export const TransactionSchema = z.object({
   id: z.string().uuid(),
@@ -25,9 +38,21 @@ export const TransactionSchema = z.object({
   status: z.enum(['completed', 'pending']),
   creditCardId: z.string().uuid().nullable(),
   creditCard: CreditCardInTransactionSchema.nullable(),
+  categoryId: z.string().uuid().nullable(),
+  category: CategoryInTransactionSchema.nullable(),
 });
 
 export class TransactionDto extends createZodDto(TransactionSchema) {}
+
+// Update transaction DTO
+export const UpdateTransactionSchema = z.object({
+  categoryId: z.string().uuid().nullable().optional(),
+  notes: z.string().nullable().optional(),
+});
+
+export class UpdateTransactionDto extends createZodDto(
+  UpdateTransactionSchema,
+) {}
 
 // Query DTO for filtering transactions
 export const TransactionQuerySchema = z.object({
