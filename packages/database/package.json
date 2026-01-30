@@ -13,6 +13,7 @@
     "db:pull": "prisma db pull"
   },
   "dependencies": {
+    "@nestjs/common": "^11.1.12",
     "@prisma/client": "^6.11.1"
   },
   "devDependencies": {

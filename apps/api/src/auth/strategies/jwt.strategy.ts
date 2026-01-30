@@ -3,14 +3,18 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request } from 'express';
+import { PrismaService } from '@finance/database';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private configService: ConfigService) {
-    const secret = configService.get<string>('SUPABASE_JWT_SECRET');
+  constructor(
+    private configService: ConfigService,
+    private prismaService: PrismaService,
+  ) {
+    const secret = configService.get<string>('JWT_SECRET');
 
     if (!secret) {
-      throw new Error('SUPABASE_JWT_SECRET is required');
+      throw new Error('JWT_SECRET is required');
     }
 
     super({
@@ -30,10 +34,20 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException('Invalid token payload');
     }
 
+    // Fetch user from database to get complete user data
+    const user = await this.prismaService.users.findUnique({
+      where: { id: payload.sub },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
     return {
-      id: payload.sub,
-      email: payload.email,
-      user_metadata: payload.user_metadata || {},
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
     };
   }
 }

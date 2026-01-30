@@ -11,10 +11,13 @@ datasource db {
 }
 
 model users {
-  id            String          @id @db.Uuid
-  created_at    DateTime?       @db.Timestamptz(6)
-  updated_at    DateTime?       @db.Timestamptz(6)
-  email         String?         @db.VarChar(255)
+  id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at    DateTime        @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime        @default(now()) @db.Timestamptz(6)
+  email         String          @unique @db.VarChar(255)
+  password      String          @db.VarChar(255)
+  firstName     String?         @db.VarChar(100)
+  lastName      String?         @db.VarChar(100)
   transactions  transactions[]
   bank_accounts bank_accounts[]
   credit_cards  credit_cards[]

@@ -2,17 +2,20 @@ import {
   Injectable,
   BadRequestException,
   UnauthorizedException,
+  ConflictException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
-import { SupabaseService } from './supabase.service';
+import { PrismaService } from '@finance/database';
 import { RegisterDto, LoginDto } from './dto';
-import { isEmptyString } from '@finance/libs';
+import { hashPassword, verifyPassword } from './utils/password.util';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private supabaseService: SupabaseService,
+    private prismaService: PrismaService,
+    private jwtService: JwtService,
     private configService: ConfigService,
   ) {}
 
@@ -20,82 +23,76 @@ export class AuthService {
     { email, password, firstName, lastName }: RegisterDto,
     response: Response,
   ) {
-    const supabase = this.supabaseService.getClient();
+    // Check if user already exists
+    const existingUser = await this.prismaService.users.findUnique({
+      where: { email },
+    });
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          first_name: firstName,
-          last_name: lastName,
-        },
+    if (existingUser) {
+      throw new ConflictException('User with this email already exists');
+    }
+
+    // Hash password
+    const hashedPassword = await hashPassword(password);
+
+    // Create user in database
+    const user = await this.prismaService.users.create({
+      data: {
+        email,
+        password: hashedPassword,
+        firstName: firstName || null,
+        lastName: lastName || null,
       },
     });
 
-    if (error) {
-      throw new BadRequestException(error.message);
-    }
+    // Generate JWT token
+    const token = this.generateJwtToken(user.id, user.email);
 
-    if (data.session) {
-      this.setAuthCookie(response, data.session.access_token);
-    }
-
-    if (!data.user) {
-      throw new BadRequestException('User registration failed');
-    }
-
-    if (!data.user.email) {
-      throw new BadRequestException('User email is required');
-    }
+    // Set auth cookie
+    this.setAuthCookie(response, token);
 
     return {
       user: {
-        id: data.user.id,
-        email: data.user.email,
-        firstName: data.user.user_metadata?.first_name ?? null,
-        lastName: data.user.user_metadata?.last_name ?? null,
-        createdAt: data.user.created_at,
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        createdAt: user.created_at.toISOString(),
       },
-      message: data.session
-        ? 'Registration successful'
-        : 'Please check your email to verify your account',
+      message: 'Registration successful',
     };
   }
 
   async login({ email, password }: LoginDto, response: Response) {
-    const supabase = this.supabaseService.getClient();
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+    // Find user by email
+    const user = await this.prismaService.users.findUnique({
+      where: { email },
     });
 
-    if (error) {
-      throw new UnauthorizedException(error.message);
+    if (!user) {
+      throw new UnauthorizedException('Invalid email or password');
     }
 
-    if (!data.session) {
-      throw new UnauthorizedException('Login failed');
+    // Verify password
+    const isPasswordValid = await verifyPassword(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid email or password');
     }
 
-    if (!data.user) {
-      throw new BadRequestException('User registration failed');
-    }
+    // Generate JWT token
+    const token = this.generateJwtToken(user.id, user.email);
 
-    if (!data.user.email || isEmptyString(data.user.email)) {
-      throw new UnauthorizedException('User email is required');
-    }
-
-    this.setAuthCookie(response, data.session.access_token);
+    // Set auth cookie
+    this.setAuthCookie(response, token);
 
     return {
       user: {
-        id: data.user.id,
-        email: data.user.email,
-        firstName: data.user.user_metadata?.first_name ?? null,
-        lastName: data.user.user_metadata?.last_name ?? null,
-        createdAt: data.user.created_at,
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        createdAt: user.created_at.toISOString(),
       },
     };
   }
@@ -104,6 +101,15 @@ export class AuthService {
     this.clearAuthCookie(response);
 
     return { message: 'Logged out successfully' };
+  }
+
+  private generateJwtToken(userId: string, email: string): string {
+    const payload = {
+      sub: userId,
+      email,
+    };
+
+    return this.jwtService.sign(payload);
   }
 
   private setAuthCookie(response: Response, token: string) {

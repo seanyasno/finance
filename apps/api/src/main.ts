@@ -21,8 +21,7 @@ async function bootstrap() {
   patchNestJsSwagger();
 
   const config = new DocumentBuilder()
-    .setTitle('Poke Playbook API')
-    .setDescription('Pokemon Team Builder API with Authentication')
+    .setTitle('Finance API')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

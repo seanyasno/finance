@@ -21,7 +21,8 @@ describe('AuthController', () => {
   const mockAuthUser = {
     id: 'user-id',
     email: 'test@example.com',
-    user_metadata: {},
+    firstName: 'John',
+    lastName: 'Doe',
   };
 
   beforeEach(async () => {
@@ -66,7 +67,7 @@ describe('AuthController', () => {
         registerDto,
         mockResponse,
       );
-      expect(result).toEqual({ user: mockResult });
+      expect(result).toEqual(mockResult);
     });
 
     it('should handle registration errors', async () => {
@@ -107,7 +108,7 @@ describe('AuthController', () => {
       const result = await controller.login(loginDto, mockResponse);
 
       expect(authService.login).toHaveBeenCalledWith(loginDto, mockResponse);
-      expect(result).toEqual({ user: mockResult });
+      expect(result).toEqual(mockResult);
     });
 
     it('should handle login errors', async () => {
