@@ -45,10 +45,12 @@ Plans:
   2. User can filter transactions by date range (start/end dates)
   3. User can filter transactions by credit card
   4. Transaction list displays card name, merchant, amount, and date
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] TBD (to be created during phase planning)
+- [ ] 02-01-PLAN.md — API transactions and credit cards modules (NestJS endpoints with filters)
+- [ ] 02-02-PLAN.md — iOS models and service layer (Transaction, CreditCard, TransactionService)
+- [ ] 02-03-PLAN.md — iOS transaction list UI with filter sheet
 
 ### Phase 3: Categorization
 **Goal**: Users can organize transactions into custom categories
@@ -104,11 +106,11 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. iOS Foundation | 2/2 | Complete | 2026-01-30 |
-| 2. Transaction Viewing | 0/TBD | Not started | - |
+| 2. Transaction Viewing | 0/3 | Not started | - |
 | 3. Categorization | 0/TBD | Not started | - |
 | 4. Billing Cycles | 0/TBD | Not started | - |
 | 5. Statistics & Analytics | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-01-30 — Phase 1 complete (iOS Foundation)*
+*Last updated: 2026-01-30 — Phase 2 planned (3 plans in 2 waves)*
