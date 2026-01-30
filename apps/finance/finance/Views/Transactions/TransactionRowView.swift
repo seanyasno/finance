@@ -13,8 +13,15 @@ struct TransactionRowView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text(transaction.merchantName)
-                    .font(.headline)
+                HStack(spacing: 6) {
+                    Text(transaction.merchantName)
+                        .font(.headline)
+                    if let category = transaction.category {
+                        Image(systemName: category.displayIcon)
+                            .foregroundColor(category.displayColor)
+                            .font(.caption)
+                    }
+                }
                 HStack(spacing: 8) {
                     if let card = transaction.creditCard {
                         Text("****\(card.cardNumber.suffix(4))")

@@ -45,7 +45,14 @@ struct TransactionListView: View {
                 )
             } else {
                 List(transactionService.transactions) { transaction in
-                    TransactionRowView(transaction: transaction)
+                    NavigationLink {
+                        TransactionDetailView(
+                            transaction: transaction,
+                            transactionService: transactionService
+                        )
+                    } label: {
+                        TransactionRowView(transaction: transaction)
+                    }
                 }
                 .refreshable {
                     await loadData()
