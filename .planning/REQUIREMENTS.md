@@ -89,13 +89,36 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (To be filled by roadmapper) | | |
+| IOS-01 | Phase 1 | Pending |
+| IOS-02 | Phase 1 | Pending |
+| IOS-03 | Phase 1 | Pending |
+| IOS-04 | Phase 1 | Pending |
+| IOS-05 | Phase 1 | Pending |
+| TRANS-01 | Phase 2 | Pending |
+| TRANS-03 | Phase 2 | Pending |
+| TRANS-04 | Phase 2 | Pending |
+| CAT-01 | Phase 3 | Pending |
+| CAT-02 | Phase 3 | Pending |
+| CAT-03 | Phase 3 | Pending |
+| CAT-04 | Phase 3 | Pending |
+| CAT-05 | Phase 3 | Pending |
+| TRANS-02 | Phase 3 | Pending |
+| BILL-01 | Phase 4 | Pending |
+| BILL-02 | Phase 4 | Pending |
+| BILL-03 | Phase 4 | Pending |
+| BILL-04 | Phase 4 | Pending |
+| BILL-05 | Phase 4 | Pending |
+| STATS-01 | Phase 5 | Pending |
+| STATS-02 | Phase 5 | Pending |
+| STATS-03 | Phase 5 | Pending |
+| STATS-04 | Phase 5 | Pending |
+| STATS-05 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 24 total
-- Mapped to phases: 0
-- Unmapped: 24 ⚠️
+- Mapped to phases: 24
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-01-30 after initial definition*
+*Last updated: 2026-01-30 after roadmap creation*
