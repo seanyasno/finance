@@ -30,10 +30,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. User can log in with existing credentials from iOS app
   4. Auth token persists securely across app restarts
   5. Authenticated requests to API include valid JWT token
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] TBD (to be created during phase planning)
+- [ ] 01-01-PLAN.md — Networking foundation (API service, auth manager, keychain storage)
+- [ ] 01-02-PLAN.md — Authentication UI (login, register, navigation flow)
 
 ### Phase 2: Transaction Viewing
 **Goal**: Users can view and filter their credit card transactions
@@ -102,7 +103,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. iOS Foundation | 0/TBD | Not started | - |
+| 1. iOS Foundation | 0/2 | Planned | - |
 | 2. Transaction Viewing | 0/TBD | Not started | - |
 | 3. Categorization | 0/TBD | Not started | - |
 | 4. Billing Cycles | 0/TBD | Not started | - |
@@ -110,4 +111,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-01-30*
+*Last updated: 2026-01-30 — Phase 1 planned (2 plans in 2 waves)*
