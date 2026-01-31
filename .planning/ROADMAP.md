@@ -66,11 +66,11 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Database schema + Categories API (Prisma model, NestJS CRUD endpoints, default categories)
-- [ ] 03-02-PLAN.md — Transaction update API (PATCH endpoint for category/notes assignment)
-- [ ] 03-03-PLAN.md — iOS Category model, service, and management UI
-- [ ] 03-04-PLAN.md — iOS Transaction detail view with category picker and notes
-- [ ] 03-05-PLAN.md — Category-grouped spending view with TabView navigation
+- [x] 03-01-PLAN.md — Database schema + Categories API (Prisma model, NestJS CRUD endpoints, default categories)
+- [x] 03-02-PLAN.md — Transaction update API (PATCH endpoint for category/notes assignment)
+- [x] 03-03-PLAN.md — iOS Category model, service, and management UI
+- [x] 03-04-PLAN.md — iOS Transaction detail view with category picker and notes
+- [x] 03-05-PLAN.md — Category-grouped spending view with TabView navigation
 
 ### Phase 4: Billing Cycles
 **Goal**: Users can configure and view spending by billing period
@@ -111,10 +111,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. iOS Foundation | 2/2 | Complete | 2026-01-30 |
 | 2. Transaction Viewing | 3/3 | Complete | 2026-01-30 |
-| 3. Categorization | 0/5 | Planned | - |
+| 3. Categorization | 5/5 | Complete | 2026-01-31 |
 | 4. Billing Cycles | 0/TBD | Not started | - |
 | 5. Statistics & Analytics | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-01-30 — Phase 3 planned (5 plans in 3 waves)*
+*Last updated: 2026-01-31 — Phase 3 complete (categorization feature delivered)*

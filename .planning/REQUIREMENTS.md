@@ -8,17 +8,17 @@
 ### Transaction Management
 
 - [x] **TRANS-01**: User can view list of all transactions from database
-- [ ] **TRANS-02**: User can add optional notes to transactions
+- [x] **TRANS-02**: User can add optional notes to transactions
 - [x] **TRANS-03**: User can filter transactions by date range
 - [x] **TRANS-04**: User can filter transactions by credit card
 
 ### Categorization
 
-- [ ] **CAT-01**: User can create custom categories
-- [ ] **CAT-02**: User can assign category to a transaction
-- [ ] **CAT-03**: User can change category of a transaction
-- [ ] **CAT-04**: User can view transactions grouped by category
-- [ ] **CAT-05**: System provides default categories (food, clothes, transit, subscriptions, entertainment, health, bills, other)
+- [x] **CAT-01**: User can create custom categories
+- [x] **CAT-02**: User can assign category to a transaction
+- [x] **CAT-03**: User can change category of a transaction
+- [x] **CAT-04**: User can view transactions grouped by category
+- [x] **CAT-05**: System provides default categories (food, clothes, transit, subscriptions, entertainment, health, bills, other)
 
 ### Billing Cycles
 
@@ -97,12 +97,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TRANS-01 | Phase 2 | Complete |
 | TRANS-03 | Phase 2 | Complete |
 | TRANS-04 | Phase 2 | Complete |
-| CAT-01 | Phase 3 | Pending |
-| CAT-02 | Phase 3 | Pending |
-| CAT-03 | Phase 3 | Pending |
-| CAT-04 | Phase 3 | Pending |
-| CAT-05 | Phase 3 | Pending |
-| TRANS-02 | Phase 3 | Pending |
+| CAT-01 | Phase 3 | Complete |
+| CAT-02 | Phase 3 | Complete |
+| CAT-03 | Phase 3 | Complete |
+| CAT-04 | Phase 3 | Complete |
+| CAT-05 | Phase 3 | Complete |
+| TRANS-02 | Phase 3 | Complete |
 | BILL-01 | Phase 4 | Pending |
 | BILL-02 | Phase 4 | Pending |
 | BILL-03 | Phase 4 | Pending |
