@@ -64,15 +64,20 @@ class AuthManager: ObservableObject {
 
             // Extract auth token from cookies
             if let authToken = extractAuthToken() {
+                print("🔐 AuthManager: Login success - extracted token (first 20 chars): \(String(authToken.prefix(20)))...")
                 // Save token to keychain
                 try keychainService.save(token: authToken, forKey: tokenKey)
 
                 // Set on API service
                 apiService.authToken = authToken
+                print("🔐 AuthManager: Auth token set on APIService.shared")
+            } else {
+                print("⚠️ AuthManager: Login succeeded but no auth token found in cookies!")
             }
 
             // Set current user
             currentUser = response.user
+            print("✅ AuthManager: Login complete, user: \(response.user.email)")
         } catch let apiError as APIError {
             let errorMessage = formatAPIError(apiError)
             error = errorMessage
