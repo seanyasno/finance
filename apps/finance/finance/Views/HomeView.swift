@@ -45,6 +45,22 @@ struct HomeView: View {
             }
 
             NavigationStack {
+                StatisticsView()
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Logout") {
+                                Task {
+                                    await authManager.logout()
+                                }
+                            }
+                        }
+                    }
+            }
+            .tabItem {
+                Label("Statistics", systemImage: "chart.bar")
+            }
+
+            NavigationStack {
                 CategoryListView()
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
