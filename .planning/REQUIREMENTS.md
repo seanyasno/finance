@@ -22,11 +22,11 @@
 
 ### Billing Cycles
 
-- [ ] **BILL-01**: User can configure billing cycle start date for each credit card
-- [ ] **BILL-02**: User can view spending for individual card's current billing cycle
-- [ ] **BILL-03**: User can view combined spending across all cards (each in their billing cycle)
-- [ ] **BILL-04**: User can view spending by calendar month (1st to end of month)
-- [ ] **BILL-05**: User can navigate between billing periods (previous/next)
+- [x] **BILL-01**: User can configure billing cycle start date for each credit card
+- [x] **BILL-02**: User can view spending for individual card's current billing cycle
+- [x] **BILL-03**: User can view combined spending across all cards (each in their billing cycle)
+- [x] **BILL-04**: User can view spending by calendar month (1st to end of month)
+- [x] **BILL-05**: User can navigate between billing periods (previous/next)
 
 ### Statistics & Analytics
 
@@ -103,11 +103,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CAT-04 | Phase 3 | Complete |
 | CAT-05 | Phase 3 | Complete |
 | TRANS-02 | Phase 3 | Complete |
-| BILL-01 | Phase 4 | Pending |
-| BILL-02 | Phase 4 | Pending |
-| BILL-03 | Phase 4 | Pending |
-| BILL-04 | Phase 4 | Pending |
-| BILL-05 | Phase 4 | Pending |
+| BILL-01 | Phase 4 | Complete |
+| BILL-02 | Phase 4 | Complete |
+| BILL-03 | Phase 4 | Complete |
+| BILL-04 | Phase 4 | Complete |
+| BILL-05 | Phase 4 | Complete |
 | STATS-01 | Phase 5 | Pending |
 | STATS-02 | Phase 5 | Pending |
 | STATS-03 | Phase 5 | Pending |

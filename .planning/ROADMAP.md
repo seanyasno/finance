@@ -87,6 +87,7 @@ Plans:
 Plans:
 - [x] 04-01-PLAN.md — API billing cycle configuration (schema + PATCH endpoint for credit cards)
 - [x] 04-02-PLAN.md — iOS credit card settings with billing cycle picker
+- [x] 04-03-PLAN.md — Billing cycle spending view with period navigation
 
 ### Phase 5: Statistics & Analytics
 **Goal**: Users can analyze spending patterns and trends
@@ -113,9 +114,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. iOS Foundation | 2/2 | Complete | 2026-01-30 |
 | 2. Transaction Viewing | 3/3 | Complete | 2026-01-30 |
 | 3. Categorization | 5/5 | Complete | 2026-01-31 |
-| 4. Billing Cycles | 2/2 | Complete | 2026-01-31 |
+| 4. Billing Cycles | 3/3 | Complete | 2026-01-31 |
 | 5. Statistics & Analytics | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-01-31 — Phase 4 complete (2/2 plans)*
+*Last updated: 2026-01-31 — Phase 4 complete (3/3 plans)*
