@@ -9,7 +9,7 @@ class CategoryService: ObservableObject {
     @Published var isLoading = false
     @Published var error: String?
 
-    init(apiService: APIService = APIService()) {
+    init(apiService: APIService = .shared) {
         self.apiService = apiService
     }
 

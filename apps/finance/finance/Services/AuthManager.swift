@@ -16,7 +16,7 @@ class AuthManager: ObservableObject {
     }
 
     init() {
-        self.apiService = APIService()
+        self.apiService = .shared
         Task {
             await loadStoredToken()
         }
