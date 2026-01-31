@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 3 of 5 (Categorization)
-Plan: 2 of 5 in phase 03-categorization
-Status: In progress
-Last activity: 2026-01-30 — Completed 03-02-PLAN.md (Transaction Category Assignment)
+Plan: 5 of 5 in phase 03-categorization
+Status: Phase complete
+Last activity: 2026-01-31 — Completed 03-05-PLAN.md (Category Spending View)
 
-Progress: [███████░░░] 70% (7 of 10 plans complete across all phases)
+Progress: [█████████░] 90% (9 of 10 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
-- Average duration: 50m 49s
-- Total execution time: 5.92 hours
+- Total plans completed: 9
+- Average duration: 43m 33s
+- Total execution time: 6.52 hours
 
 **By Phase:**
 
@@ -29,11 +29,11 @@ Progress: [███████░░░] 70% (7 of 10 plans complete across al
 |-------|-------|-------|----------|
 | 01-ios-foundation | 2 | 31m 48s | 15m 54s |
 | 02-transaction-viewing | 3 | 4h 19m 25s | 1h 26m 28s |
-| 03-categorization | 2 | 10m 38s | 5m 19s |
+| 03-categorization | 4 | 39m 43s | 9m 56s |
 
 **Recent Trend:**
-- Last 5 plans: 02-02 (2m 25s), 02-03 (4h 7m), 03-01 (5m 22s), 03-02 (5m 16s)
-- Trend: Phase 3 progressing rapidly - API-only tasks completing in ~5 minutes without UI verification
+- Last 5 plans: 03-01 (5m 22s), 03-02 (5m 16s), 03-04 (3m 43s), 03-05 (25m 22s)
+- Trend: Phase 3 complete with rapid execution - averaging under 10 minutes per plan
 
 *Updated after each plan completion*
 
@@ -46,6 +46,9 @@ Recent decisions affecting current work:
 
 | ID | Title | Phase | Impact |
 |----|-------|-------|--------|
+| category-grouping-logic | Sort categorized by spending, uncategorized at end | 03-05 | Highlights biggest spending areas first |
+| spending-breakdown-display | DisclosureGroup sections sorted by total spending | 03-05 | Quick overview with expandable details |
+| tabview-navigation | TabView with three tabs for primary navigation | 03-05 | Sets primary UX pattern for app navigation |
 | nested-category-response | CategoryInTransactionDto mirrors CreditCardInTransactionDto | 03-02 | Consistent nested object pattern, all display data in single response |
 | dual-validation-update | Update validates ownership and related resource validity | 03-02 | Security pattern for endpoints modifying resources with relations |
 | nullable-category | Category assignment is optional (null for uncategorized) | 03-02 | Supports gradual categorization workflow |
@@ -69,6 +72,14 @@ None yet.
 
 ### Blockers/Concerns
 
+**Custom category creation broken (03-05):**
+- Custom categories created successfully in database but not appearing in iOS UI
+- CategoryService.fetchCategories() returning only default categories
+- Neither Categories tab nor transaction picker show custom categories
+- Root cause not investigated during Phase 3
+- **User decision**: Defer fix to future phase
+- **Impact**: Default categories work correctly, custom categories blocked until fixed
+
 **Authentication guard issue (02-01):**
 - JwtAuthGuard not properly enforcing authentication despite correct decorators
 - Fixed method signature but guard still allows unauthenticated requests
@@ -78,11 +89,11 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-30 20:37 UTC
-Stopped at: Completed 03-02-PLAN.md (Transaction Category Assignment)
+Last session: 2026-01-31 10:32 UTC
+Stopped at: Completed 03-05-PLAN.md (Category Spending View) - Phase 3 complete
 Resume file: None
-Next: Continue Phase 3 (03-03 or later)
+Next: Phase 4 or 5 (or fix custom category bug)
 
 ---
 *State initialized: 2026-01-30*
-*Last updated: 2026-01-30 20:37 UTC*
+*Last updated: 2026-01-31 10:32 UTC*
