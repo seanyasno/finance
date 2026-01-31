@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Transaction Viewing** - View and filter credit card transactions
 - [x] **Phase 3: Categorization** - Create categories and assign to transactions
 - [x] **Phase 4: Billing Cycles** - Configure billing periods and view cycle-based spending
-- [ ] **Phase 5: Statistics & Analytics** - Spending trends and category breakdowns
+- [x] **Phase 5: Statistics & Analytics** - Spending trends and category breakdowns
 
 ## Phase Details
 
@@ -102,9 +102,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — OpenAPI Swift code generation setup and iOS model migration
-- [ ] 05-02-PLAN.md — Statistics API endpoint (5-month spending summary with trends)
-- [ ] 05-03-PLAN.md — Statistics iOS UI (bar chart, comparisons, trend indicators)
+- [x] 05-01-PLAN.md — OpenAPI Swift code generation setup and iOS model migration
+- [x] 05-02-PLAN.md — Statistics API endpoint (5-month spending summary with trends)
+- [x] 05-03-PLAN.md — Statistics iOS UI (bar chart, comparisons, trend indicators)
 
 ## Progress
 
@@ -117,8 +117,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Transaction Viewing | 3/3 | Complete | 2026-01-30 |
 | 3. Categorization | 5/5 | Complete | 2026-01-31 |
 | 4. Billing Cycles | 3/3 | Complete | 2026-01-31 |
-| 5. Statistics & Analytics | 0/3 | Not started | - |
+| 5. Statistics & Analytics | 3/3 | Complete | 2026-01-31 |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-01-31 — Phase 5 planned (3 plans)*
+*Last updated: 2026-01-31 — Phase 5 complete (all 16 plans executed)*

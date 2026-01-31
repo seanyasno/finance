@@ -30,11 +30,11 @@
 
 ### Statistics & Analytics
 
-- [ ] **STATS-01**: User can see total spending for current period
-- [ ] **STATS-02**: User can see spending breakdown by category (with percentages)
-- [ ] **STATS-03**: User can view bar chart of spending for last 5 months
-- [ ] **STATS-04**: User can compare current month to previous month spending
-- [ ] **STATS-05**: User can see spending trends (increasing/decreasing)
+- [x] **STATS-01**: User can see total spending for current period
+- [x] **STATS-02**: User can see spending breakdown by category (with percentages)
+- [x] **STATS-03**: User can view bar chart of spending for last 5 months
+- [x] **STATS-04**: User can compare current month to previous month spending
+- [x] **STATS-05**: User can see spending trends (increasing/decreasing)
 
 ### iOS Application
 
@@ -108,11 +108,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BILL-03 | Phase 4 | Complete |
 | BILL-04 | Phase 4 | Complete |
 | BILL-05 | Phase 4 | Complete |
-| STATS-01 | Phase 5 | Pending |
-| STATS-02 | Phase 5 | Pending |
-| STATS-03 | Phase 5 | Pending |
-| STATS-04 | Phase 5 | Pending |
-| STATS-05 | Phase 5 | Pending |
+| STATS-01 | Phase 5 | Complete |
+| STATS-02 | Phase 5 | Complete |
+| STATS-03 | Phase 5 | Complete |
+| STATS-04 | Phase 5 | Complete |
+| STATS-05 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 24 total
@@ -121,4 +121,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-01-30 — Phase 2 requirements marked complete*
+*Last updated: 2026-01-31 — Phase 5 requirements marked complete (all v1 requirements complete)*
