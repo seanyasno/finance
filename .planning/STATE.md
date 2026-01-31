@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 5 of 5 (Statistics & Analytics)
-Plan: 1 of 3 in phase 05-statistics-and-analytics
+Plan: 2 of 3 in phase 05-statistics-and-analytics
 Status: In progress
-Last activity: 2026-01-31 — Completed 05-01-PLAN.md (Swift Code Generation Setup)
+Last activity: 2026-01-31 — Completed 05-02-PLAN.md (Statistics API Backend)
 
-Progress: [████████████░] 93% (14 of 15 plans complete across all phases)
+Progress: [████████████░] 93% (15 of 16 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
-- Average duration: 28m 54s
-- Total execution time: 6.92 hours
+- Total plans completed: 15
+- Average duration: 26m 36s
+- Total execution time: 6.98 hours
 
 **By Phase:**
 
@@ -31,11 +31,11 @@ Progress: [████████████░] 93% (14 of 15 plans complete
 | 02-transaction-viewing | 3 | 4h 19m 25s | 1h 26m 28s |
 | 03-categorization | 5 | 39m 43s | 7m 57s |
 | 04-billing-cycles | 3 | 6m 3s | 2m 1s |
-| 05-statistics-and-analytics | 1 | 9m 18s | 9m 18s |
+| 05-statistics-and-analytics | 2 | 12m 53s | 6m 27s |
 
 **Recent Trend:**
-- Last 5 plans: 04-01 (1m 42s), 04-02 (52s), 04-03 (3m 29s), 05-01 (9m 18s)
-- Trend: Rapid execution continues, code generation setup complete
+- Last 5 plans: 04-02 (52s), 04-03 (3m 29s), 05-01 (9m 18s), 05-02 (3m 35s)
+- Trend: Consistent rapid execution, backend APIs completing efficiently
 
 *Updated after each plan completion*
 
@@ -48,6 +48,10 @@ Recent decisions affecting current work:
 
 | ID | Title | Phase | Impact |
 |----|-------|-------|--------|
+| single-statistics-endpoint | Single endpoint with full spending summary data | 05-02 | Reduces API round trips - one fetch gets all chart data, comparisons, trends |
+| server-side-aggregation | Statistics calculated server-side vs database GROUP BY | 05-02 | Flexibility for complex calculations, easier testing and maintenance |
+| trend-threshold-5-percent | ±5% threshold for trend indicators (up/down/stable) | 05-02 | Separates meaningful trends from noise for UI display |
+| five-month-window | 5-month aggregation window for spending analysis | 05-02 | Balances seasonal insight with mobile data volume constraints |
 | dual-model-approach | Dual-model approach for generated and manual types | 05-01 | Generated types validate API compatibility, manual models provide iOS conveniences |
 | explicit-operation-ids | Explicit operationIds in all API operations | 05-01 | Prevents duplicate operationId errors in OpenAPI spec for code generation |
 | consolidated-models-swift | Consolidated Models.swift over raw openapi-generator output | 05-01 | Avoids dependency issues while maintaining type-safety validation |
@@ -103,11 +107,11 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-31 16:31 UTC
-Stopped at: Completed 05-01-PLAN.md (Swift Code Generation Setup) - Phase 5 plan 1 of 3
+Last session: 2026-01-31 20:10 UTC
+Stopped at: Completed 05-02-PLAN.md (Statistics API Backend) - Phase 5 plan 2 of 3
 Resume file: None
-Next: 05-02-PLAN.md (Statistics API Backend)
+Next: 05-03-PLAN.md (iOS Statistics UI)
 
 ---
 *State initialized: 2026-01-30*
-*Last updated: 2026-01-31 16:31 UTC*
+*Last updated: 2026-01-31 20:10 UTC*
