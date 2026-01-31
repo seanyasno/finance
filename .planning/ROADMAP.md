@@ -99,10 +99,12 @@ Plans:
   3. User can view bar chart of spending for last 5 months
   4. User can compare current month to previous month spending
   5. User can see spending trends (increasing/decreasing indicators)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] TBD (to be created during phase planning)
+- [ ] 05-01-PLAN.md — OpenAPI Swift code generation setup and iOS model migration
+- [ ] 05-02-PLAN.md — Statistics API endpoint (5-month spending summary with trends)
+- [ ] 05-03-PLAN.md — Statistics iOS UI (bar chart, comparisons, trend indicators)
 
 ## Progress
 
@@ -115,8 +117,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Transaction Viewing | 3/3 | Complete | 2026-01-30 |
 | 3. Categorization | 5/5 | Complete | 2026-01-31 |
 | 4. Billing Cycles | 3/3 | Complete | 2026-01-31 |
-| 5. Statistics & Analytics | 0/TBD | Not started | - |
+| 5. Statistics & Analytics | 0/3 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-01-31 — Phase 4 complete (3/3 plans)*
+*Last updated: 2026-01-31 — Phase 5 planned (3 plans)*
