@@ -82,10 +82,12 @@ Plans:
   3. User can view combined spending across all cards (each in their own billing cycle)
   4. User can view spending by calendar month (1st to end of month)
   5. User can navigate between billing periods (previous/next cycle)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] TBD (to be created during phase planning)
+- [ ] 04-01-PLAN.md — API billing cycle configuration (schema + PATCH endpoint for credit cards)
+- [ ] 04-02-PLAN.md — iOS credit card settings with billing cycle picker
+- [ ] 04-03-PLAN.md — Billing cycle spending view with period navigation
 
 ### Phase 5: Statistics & Analytics
 **Goal**: Users can analyze spending patterns and trends
@@ -112,9 +114,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. iOS Foundation | 2/2 | Complete | 2026-01-30 |
 | 2. Transaction Viewing | 3/3 | Complete | 2026-01-30 |
 | 3. Categorization | 5/5 | Complete | 2026-01-31 |
-| 4. Billing Cycles | 0/TBD | Not started | - |
+| 4. Billing Cycles | 0/3 | Ready | - |
 | 5. Statistics & Analytics | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-01-31 — Phase 3 complete (categorization feature delivered)*
+*Last updated: 2026-01-31 — Phase 4 planned (3 plans in 3 waves)*
