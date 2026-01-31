@@ -57,6 +57,10 @@ struct Transaction: Codable, Identifiable {
         category?.name
     }
 
+    var date: Date? {
+        ISO8601DateFormatter().date(from: timestamp)
+    }
+
     // MARK: - Private Helpers
 
     private func currencySymbol(for currencyCode: String) -> String {
