@@ -1,20 +1,6 @@
 import Foundation
 import Combine
 
-// MARK: - Response Wrappers
-
-struct TransactionsResponse: Codable {
-    let transactions: [Transaction]
-}
-
-struct CreditCardsResponse: Codable {
-    let creditCards: [CreditCard]
-}
-
-struct UpdateCreditCardRequest: Codable {
-    let billingCycleStartDay: Int?
-}
-
 // MARK: - TransactionService
 
 @MainActor

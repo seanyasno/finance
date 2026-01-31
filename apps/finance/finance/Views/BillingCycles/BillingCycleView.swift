@@ -129,7 +129,7 @@ struct BillingCycleView: View {
         guard let cycle = currentCycle else { return [] }
 
         return transactionService.transactions.filter { transaction in
-            guard let date = transaction.date else { return false }
+            let date = transaction.date
 
             // Date must be within cycle
             let inDateRange = date >= cycle.startDate && date <= cycle.endDate

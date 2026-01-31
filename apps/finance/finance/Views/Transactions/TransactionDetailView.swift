@@ -106,12 +106,10 @@ struct TransactionDetailView: View {
                 chargedCurrency: "USD",
                 status: "completed",
                 creditCardId: "card1",
-                creditCard: CreditCard(
+                creditCard: Transaction.TransactionCreditCard(
                     id: "card1",
                     cardNumber: "1234567890123456",
-                    company: "Visa",
-                    billingCycleStartDay: nil,
-                    createdAt: nil
+                    company: "Visa"
                 ),
                 categoryId: nil,
                 category: nil

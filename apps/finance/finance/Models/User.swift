@@ -1,9 +1,0 @@
-import Foundation
-
-struct User: Codable, Identifiable {
-    let id: String
-    let email: String
-    let firstName: String?
-    let lastName: String?
-    let createdAt: String?
-}
