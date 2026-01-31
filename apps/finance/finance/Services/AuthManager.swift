@@ -77,7 +77,9 @@ class AuthManager: ObservableObject {
 
             // Set current user
             currentUser = response.user
-            print("✅ AuthManager: Login complete, user: \(response.user.email)")
+            if let user = response.user {
+                print("✅ AuthManager: Login complete, user: \(user.email)")
+            }
         } catch let apiError as APIError {
             let errorMessage = formatAPIError(apiError)
             error = errorMessage
