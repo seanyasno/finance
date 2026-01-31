@@ -25,16 +25,21 @@ class AuthManager: ObservableObject {
     func loadStoredToken() async {
         // Try to load token from keychain
         guard let token = keychainService.load(forKey: tokenKey) else {
+            print("🔐 AuthManager: No stored token in keychain")
             return
         }
 
+        print("🔐 AuthManager: Loaded token from keychain (first 20 chars): \(String(token.prefix(20)))...")
         // Set token on API service
         apiService.authToken = token
+        print("🔐 AuthManager: Auth token set on APIService.shared from keychain")
 
         // Try to fetch current user to verify token is still valid
         do {
             try await checkAuthStatus()
+            print("✅ AuthManager: Token is valid, user authenticated")
         } catch {
+            print("❌ AuthManager: Token invalid, clearing auth state")
             // Token is invalid, clear it
             try? keychainService.delete(forKey: tokenKey)
             apiService.authToken = nil
