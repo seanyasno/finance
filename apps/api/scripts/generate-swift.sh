@@ -6,9 +6,9 @@
 set -e
 
 API_URL="http://localhost:3100/api-json"
-OUTPUT_DIR="../../apps/finance/finance/Generated"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+OUTPUT_DIR="$PROJECT_ROOT/apps/finance/finance/Generated"
 
 echo "🔍 Checking API server..."
 
@@ -25,10 +25,10 @@ fi
 echo "✅ API server is running"
 
 # Create output directory if needed
-mkdir -p "$PROJECT_ROOT/$OUTPUT_DIR"
+mkdir -p "$OUTPUT_DIR"
 
 echo "🧹 Cleaning previous generated files..."
-rm -rf "$PROJECT_ROOT/$OUTPUT_DIR"/*
+rm -rf "$OUTPUT_DIR"/*
 
 echo "🔄 Generating Swift models from OpenAPI spec..."
 
@@ -42,12 +42,12 @@ echo "🔄 Generating Swift models from OpenAPI spec..."
 npx @openapitools/openapi-generator-cli generate \
     -i "$API_URL" \
     -g swift5 \
-    -o "$PROJECT_ROOT/$OUTPUT_DIR" \
+    -o "$OUTPUT_DIR" \
     --global-property models \
     --additional-properties=library=urlsession,modelPackage=Generated
 
 echo "✅ Swift models generated successfully"
-echo "📁 Output: $OUTPUT_DIR"
+echo "📁 Output: apps/finance/finance/Generated/"
 echo ""
 echo "Next steps:"
 echo "  1. Open apps/finance/finance.xcodeproj in Xcode"

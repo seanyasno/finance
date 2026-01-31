@@ -35,7 +35,7 @@ export class TransactionsController {
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get transactions with optional filters' })
+  @ApiOperation({ summary: 'Get transactions with optional filters', operationId: 'getTransactions' })
   @ApiQuery({
     name: 'startDate',
     required: false,
@@ -75,7 +75,7 @@ export class TransactionsController {
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Update transaction category or notes' })
+  @ApiOperation({ summary: 'Update transaction category or notes', operationId: 'updateTransaction' })
   @ApiParam({ name: 'id', description: 'Transaction UUID' })
   @ApiBody({ type: UpdateTransactionDto })
   @ApiResponse({

@@ -30,7 +30,7 @@ export class CreditCardsController {
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get all credit cards for the authenticated user' })
+  @ApiOperation({ summary: 'Get all credit cards for the authenticated user', operationId: 'getCreditCards' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Credit cards retrieved successfully',
@@ -51,7 +51,7 @@ export class CreditCardsController {
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Update credit card billing cycle configuration' })
+  @ApiOperation({ summary: 'Update credit card billing cycle configuration', operationId: 'updateCreditCard' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Credit card updated successfully',
