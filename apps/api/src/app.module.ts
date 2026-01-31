@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { CreditCardsModule } from './credit-cards/credit-cards.module';
 import { CategoriesModule } from './categories/categories.module';
+import { StatisticsModule } from './statistics/statistics.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CategoriesModule } from './categories/categories.module';
     TransactionsModule,
     CreditCardsModule,
     CategoriesModule,
+    StatisticsModule,
   ],
   controllers: [AppController],
   providers: [
