@@ -32,11 +32,19 @@ class CategoryService: ObservableObject {
         do {
             let response: CategoriesResponse = try await apiService.get("/categories", authenticated: true)
             categories = response.categories
+            print("📦 CategoryService: Fetched \(categories.count) categories")
+            print("   - Default: \(defaultCategories.count)")
+            print("   - Custom: \(customCategories.count)")
+            for category in categories {
+                print("   - \(category.name) (isDefault: \(category.isDefault))")
+            }
             isLoading = false
 
         } catch let apiError as APIError {
+            print("❌ CategoryService: Error fetching categories - \(apiError)")
             handleAPIError(apiError)
         } catch {
+            print("❌ CategoryService: Unexpected error - \(error)")
             self.error = "An unexpected error occurred: \(error.localizedDescription)"
             isLoading = false
         }
@@ -49,16 +57,20 @@ class CategoryService: ObservableObject {
 
         do {
             let request = CreateCategoryRequest(name: name, icon: icon, color: color)
-            let _: Category = try await apiService.post("/categories", body: request, authenticated: true)
+            print("📤 CategoryService: Creating category '\(name)'")
+            let createdCategory: Category = try await apiService.post("/categories", body: request, authenticated: true)
+            print("✅ CategoryService: Created category - id: \(createdCategory.id), isDefault: \(createdCategory.isDefault)")
 
             // Refresh the categories list
             await fetchCategories()
             return true
 
         } catch let apiError as APIError {
+            print("❌ CategoryService: Error creating category - \(apiError)")
             handleAPIError(apiError)
             return false
         } catch {
+            print("❌ CategoryService: Unexpected error - \(error)")
             self.error = "An unexpected error occurred: \(error.localizedDescription)"
             return false
         }

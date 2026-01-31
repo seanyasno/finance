@@ -42,8 +42,13 @@ class APIService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         // Add auth header if authenticated and token exists
-        if authenticated, let token = authToken {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        if authenticated {
+            if let token = authToken {
+                request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                print("🔑 APIService: Using auth token (first 20 chars): \(String(token.prefix(20)))...")
+            } else {
+                print("⚠️ APIService: Authenticated request but no auth token available!")
+            }
         }
 
         // Encode body if provided
