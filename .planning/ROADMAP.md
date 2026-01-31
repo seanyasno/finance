@@ -14,8 +14,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: iOS Foundation** - iOS app with native UI and secure authentication
 - [x] **Phase 2: Transaction Viewing** - View and filter credit card transactions
-- [ ] **Phase 3: Categorization** - Create categories and assign to transactions
-- [ ] **Phase 4: Billing Cycles** - Configure billing periods and view cycle-based spending
+- [x] **Phase 3: Categorization** - Create categories and assign to transactions
+- [x] **Phase 4: Billing Cycles** - Configure billing periods and view cycle-based spending
 - [ ] **Phase 5: Statistics & Analytics** - Spending trends and category breakdowns
 
 ## Phase Details
@@ -85,9 +85,8 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — API billing cycle configuration (schema + PATCH endpoint for credit cards)
-- [ ] 04-02-PLAN.md — iOS credit card settings with billing cycle picker
-- [ ] 04-03-PLAN.md — Billing cycle spending view with period navigation
+- [x] 04-01-PLAN.md — API billing cycle configuration (schema + PATCH endpoint for credit cards)
+- [x] 04-02-PLAN.md — iOS credit card settings with billing cycle picker
 
 ### Phase 5: Statistics & Analytics
 **Goal**: Users can analyze spending patterns and trends
@@ -114,9 +113,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. iOS Foundation | 2/2 | Complete | 2026-01-30 |
 | 2. Transaction Viewing | 3/3 | Complete | 2026-01-30 |
 | 3. Categorization | 5/5 | Complete | 2026-01-31 |
-| 4. Billing Cycles | 0/3 | Ready | - |
+| 4. Billing Cycles | 2/2 | Complete | 2026-01-31 |
 | 5. Statistics & Analytics | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-01-31 — Phase 4 planned (3 plans in 3 waves)*
+*Last updated: 2026-01-31 — Phase 4 complete (2/2 plans)*
