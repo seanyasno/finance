@@ -161,7 +161,7 @@ struct GeneratedMessageResponse: Codable {
 // MARK: - Validation
 
 /// Compile-time validation that generated types can decode API responses
-/// Run `npm run generate:swift` in apps/api to regenerate after API changes
+/// Run \`npm run generate:swift\` in apps/api to regenerate after API changes
 extension GeneratedTransaction {
     static func validateAPICompatibility() {
         // This ensures the structure matches what the API returns
