@@ -29,7 +29,7 @@ struct HomeView: View {
             }
 
             NavigationStack {
-                CategorySpendingView()
+                BillingCycleView()
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button("Logout") {
@@ -41,7 +41,7 @@ struct HomeView: View {
                     }
             }
             .tabItem {
-                Label("Spending", systemImage: "chart.pie")
+                Label("Cycles", systemImage: "calendar")
             }
 
             NavigationStack {
