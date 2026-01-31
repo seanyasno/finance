@@ -20,7 +20,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "codegen": "openapi-generator-cli generate -i http://localhost:3100/api-json -g typescript-axios -o ../../packages/api-client/src",
-    "codegen:file": "openapi-generator-cli generate -i http://localhost:3100/api-json -g openapi-yaml -o ../../packages/api-client/src"
+    "codegen:file": "openapi-generator-cli generate -i http://localhost:3100/api-json -g openapi-yaml -o ../../packages/api-client/src",
+    "generate:swift": "bash scripts/generate-swift.sh"
   },
   "dependencies": {
     "@finance/database": "*",
