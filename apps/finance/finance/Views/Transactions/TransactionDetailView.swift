@@ -110,6 +110,7 @@ struct TransactionDetailView: View {
                     id: "card1",
                     cardNumber: "1234567890123456",
                     company: "Visa",
+                    billingCycleStartDay: nil,
                     createdAt: nil
                 ),
                 categoryId: nil,

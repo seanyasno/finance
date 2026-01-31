@@ -11,6 +11,10 @@ struct CreditCardsResponse: Codable {
     let creditCards: [CreditCard]
 }
 
+struct UpdateCreditCardRequest: Codable {
+    let billingCycleStartDay: Int?
+}
+
 // MARK: - TransactionService
 
 @MainActor
@@ -107,6 +111,27 @@ class TransactionService: ObservableObject {
         } catch {
             self.error = "An unexpected error occurred: \(error.localizedDescription)"
             isLoading = false
+        }
+    }
+
+    // MARK: - Update Credit Card
+
+    func updateCreditCard(id: String, billingCycleStartDay: Int?) async -> CreditCard? {
+        let request = UpdateCreditCardRequest(billingCycleStartDay: billingCycleStartDay)
+
+        do {
+            let updated: CreditCard = try await apiService.patch("/credit-cards/\(id)", body: request)
+            // Update local array
+            if let index = creditCards.firstIndex(where: { $0.id == id }) {
+                creditCards[index] = updated
+            }
+            return updated
+        } catch let apiError as APIError {
+            handleAPIError(apiError)
+            return nil
+        } catch {
+            self.error = "An unexpected error occurred: \(error.localizedDescription)"
+            return nil
         }
     }
 
