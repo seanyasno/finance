@@ -11,17 +11,54 @@ struct HomeView: View {
     @EnvironmentObject var authManager: AuthManager
 
     var body: some View {
-        NavigationStack {
-            TransactionListView()
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Logout") {
-                            Task {
-                                await authManager.logout()
+        TabView {
+            NavigationStack {
+                TransactionListView()
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Logout") {
+                                Task {
+                                    await authManager.logout()
+                                }
                             }
                         }
                     }
-                }
+            }
+            .tabItem {
+                Label("Transactions", systemImage: "list.bullet")
+            }
+
+            NavigationStack {
+                CategorySpendingView()
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Logout") {
+                                Task {
+                                    await authManager.logout()
+                                }
+                            }
+                        }
+                    }
+            }
+            .tabItem {
+                Label("Spending", systemImage: "chart.pie")
+            }
+
+            NavigationStack {
+                CategoryListView()
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Logout") {
+                                Task {
+                                    await authManager.logout()
+                                }
+                            }
+                        }
+                    }
+            }
+            .tabItem {
+                Label("Categories", systemImage: "tag")
+            }
         }
     }
 }
