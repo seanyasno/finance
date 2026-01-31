@@ -6,6 +6,7 @@ export const CreditCardSchema = z.object({
   id: z.string().uuid(),
   cardNumber: z.string(),
   company: z.enum(['max', 'isracard', 'visaCal']),
+  billingCycleStartDay: z.number().int().min(1).max(31).nullable(),
   createdAt: z.date(),
 });
 
@@ -18,4 +19,13 @@ export const CreditCardsResponseSchema = z.object({
 
 export class CreditCardsResponseDto extends createZodDto(
   CreditCardsResponseSchema,
+) {}
+
+// Update Credit Card DTO
+export const UpdateCreditCardSchema = z.object({
+  billingCycleStartDay: z.number().int().min(1).max(31).nullable(),
+});
+
+export class UpdateCreditCardDto extends createZodDto(
+  UpdateCreditCardSchema,
 ) {}

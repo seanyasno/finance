@@ -1,4 +1,12 @@
-import { Controller, Get, UseGuards, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Patch,
+  UseGuards,
+  HttpStatus,
+  Param,
+  Body,
+} from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -8,7 +16,11 @@ import {
 import { CreditCardsService } from './credit-cards.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser, AuthUser } from '../auth/auth.decorator';
-import { CreditCardsResponseDto } from './dto';
+import {
+  CreditCardsResponseDto,
+  CreditCardDto,
+  UpdateCreditCardDto,
+} from './dto';
 
 @ApiTags('Credit Cards')
 @Controller('credit-cards')
@@ -34,5 +46,26 @@ export class CreditCardsController {
     const creditCards = await this.creditCardsService.findAll(user.id);
 
     return { creditCards };
+  }
+
+  @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Update credit card billing cycle configuration' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Credit card updated successfully',
+    type: CreditCardDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Credit card not found',
+  })
+  async update(
+    @CurrentUser() user: AuthUser,
+    @Param('id') id: string,
+    @Body() updateDto: UpdateCreditCardDto,
+  ): Promise<CreditCardDto> {
+    return this.creditCardsService.update(user.id, id, updateDto);
   }
 }
