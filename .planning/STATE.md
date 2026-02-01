@@ -114,17 +114,19 @@ None yet.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 001 | fix cycles page showing no data in all tabs | 2026-02-01 | fb36458 | [001-fix-cycles-page-showing-no-data-in-all-t](./quick/001-fix-cycles-page-showing-no-data-in-all-t/) |
+| 002 | fix cycles page period navigation and calculation | 2026-02-01 | 2ffcd8e | [002-fix-cycles-page-period-navigation-and-ca](./quick/002-fix-cycles-page-period-navigation-and-ca/) |
 
 ## Session Continuity
 
-Last session: 2026-02-01 18:33 UTC
-Stopped at: Completed quick-001 (Fix Cycles Page Showing No Data) - All planned phases complete
+Last session: 2026-02-01 18:44 UTC
+Stopped at: Completed quick-002 (Fix Cycles Page Period Navigation) - All planned phases complete
 Resume file: None
 Next: All planned phases complete
 
 **Recent quick tasks:**
 - quick-001 (2026-02-01): Fixed BillingCycle endDate to include entire last day (23:59:59)
+- quick-002 (2026-02-01): Separated base cycle calculation from navigation offset for correct historical periods
 
 ---
 *State initialized: 2026-01-30*
-*Last updated: 2026-02-01 18:33 UTC*
+*Last updated: 2026-02-01 18:44 UTC*
