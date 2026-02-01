@@ -8,28 +8,49 @@ A personal finance management app to track credit card spending by category acro
 
 Being able to categorize transactions to understand where money goes each month.
 
+## Current Milestone: v1.1 Transactions Page
+
+**Goal:** Enhance transaction list UI with search, flexible grouping, improved formatting, and better visual indicators
+
+**Target features:**
+- Search transactions by merchant, amount, or notes
+- Multiple view modes (grouped by date, by card, by month)
+- Improved date formatting (DD/MM/YY)
+- Simplified card number display (last 4 digits only)
+- Visual indicators for pending transactions
+- Pull-to-refresh capability
+
 ## Requirements
 
 ### Validated
 
-- ✓ Transaction scraping from Israeli credit cards — existing
-- ✓ User authentication with JWT — existing
-- ✓ Transaction persistence in PostgreSQL — existing
-- ✓ Monorepo structure with Turborepo — existing
+- ✓ Transaction scraping from Israeli credit cards — v1.0
+- ✓ User authentication with JWT — v1.0
+- ✓ Transaction persistence in PostgreSQL — v1.0
+- ✓ Monorepo structure with Turborepo — v1.0
+- ✓ View list of all transactions from database — v1.0
+- ✓ Manually assign categories to transactions — v1.0
+- ✓ Add optional notes to transactions — v1.0
+- ✓ Configure billing cycle date per credit card — v1.0
+- ✓ View spending by individual card billing cycle — v1.0
+- ✓ View combined spending across all cards in their billing cycles — v1.0
+- ✓ View spending by calendar month (1st to end of month) — v1.0
+- ✓ Calculate monthly spending totals — v1.0
+- ✓ Display bar chart of spending for last 5 months — v1.0
+- ✓ Compare spending trends month-over-month — v1.0
+- ✓ iOS app with native design patterns for all views — v1.0
 
 ### Active
 
-- [ ] View list of all transactions from database
-- [ ] Manually assign categories to transactions (clothes, food, transit, subscriptions, etc.)
-- [ ] Add optional notes to transactions
-- [ ] Configure billing cycle date per credit card
-- [ ] View spending by individual card billing cycle
-- [ ] View combined spending across all cards in their billing cycles
-- [ ] View spending by calendar month (1st to end of month)
-- [ ] Calculate monthly spending totals
-- [ ] Display bar chart of spending for last 5 months
-- [ ] Compare spending trends month-over-month
-- [ ] iOS app with native design patterns for all views
+- [ ] Search transactions by merchant name, amount, or notes
+- [ ] Group transactions by date (today, yesterday, this week, earlier)
+- [ ] Group transactions by credit card
+- [ ] Group transactions by month (chronological)
+- [ ] Switch between different grouping views
+- [ ] Display dates in DD/MM/YY format throughout app
+- [ ] Display card numbers as last 4 digits only
+- [ ] Show visual indicator for pending transactions
+- [ ] Pull-to-refresh transaction list
 
 ### Out of Scope
 
@@ -80,4 +101,4 @@ Being able to categorize transactions to understand where money goes each month.
 | Native iOS design | Leverage platform conventions for familiar, polished UX | — Pending |
 
 ---
-*Last updated: 2026-01-30 after initialization*
+*Last updated: 2026-02-01 after v1.1 milestone start*
