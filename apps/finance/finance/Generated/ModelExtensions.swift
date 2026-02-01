@@ -78,7 +78,16 @@ extension Transaction: Identifiable {
         guard let timestampString = timestamp?.value as? String else {
             return Date()
         }
-        return ISO8601DateFormatter().date(from: timestampString) ?? Date()
+
+        // Try standard ISO8601 first (without fractional seconds)
+        let formatter = ISO8601DateFormatter()
+        if let date = formatter.date(from: timestampString) {
+            return date
+        }
+
+        // Try with fractional seconds
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter.date(from: timestampString) ?? Date()
     }
 
     var categoryName: String {
