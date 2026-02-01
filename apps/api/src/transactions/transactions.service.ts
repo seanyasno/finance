@@ -11,14 +11,7 @@ export class TransactionsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll(userId: string, query: TransactionQueryDto) {
-    const whereClause: {
-      user_id: string;
-      timestamp?: {
-        gte?: Date;
-        lte?: Date;
-      };
-      credit_card_id?: string;
-    } = {
+    const whereClause: any = {
       user_id: userId,
     };
 
@@ -36,6 +29,24 @@ export class TransactionsService {
     // Add credit card filter if provided
     if (query.creditCardId) {
       whereClause.credit_card_id = query.creditCardId;
+    }
+
+    // Add search filter if provided
+    if (query.search) {
+      whereClause.OR = [
+        {
+          description: {
+            contains: query.search,
+            mode: 'insensitive' as const,
+          },
+        },
+        {
+          notes: {
+            contains: query.search,
+            mode: 'insensitive' as const,
+          },
+        },
+      ];
     }
 
     const transactions = await this.prisma.transactions.findMany({
