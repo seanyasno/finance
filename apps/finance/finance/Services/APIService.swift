@@ -11,7 +11,7 @@ enum APIError: Error {
 class APIService {
     static let shared = APIService()
 
-    var baseURL: String = "http://127.0.0.1:3100"
+    var baseURL: String = Config.apiBaseURL
     var authToken: String?
 
     private let urlSession: URLSession

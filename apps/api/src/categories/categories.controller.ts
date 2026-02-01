@@ -29,7 +29,10 @@ export class CategoriesController {
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get all categories (defaults + user custom)', operationId: 'getCategories' })
+  @ApiOperation({
+    summary: 'Get all categories (defaults + user custom)',
+    operationId: 'getCategories',
+  })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Categories retrieved successfully',

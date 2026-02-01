@@ -58,6 +58,7 @@ export class AuthService {
         lastName: user.lastName,
         createdAt: user.created_at.toISOString(),
       },
+      token, // Include token in response for mobile apps
       message: 'Registration successful',
     };
   }
@@ -93,6 +94,7 @@ export class AuthService {
         lastName: user.lastName,
         createdAt: user.created_at.toISOString(),
       },
+      token, // Include token in response for mobile apps
     };
   }
 

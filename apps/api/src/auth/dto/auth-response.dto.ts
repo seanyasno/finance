@@ -24,6 +24,7 @@ export const AuthResponseSchema = z.object({
     })
     .nullable()
     .optional(),
+  token: z.string().optional(),
   message: z.string().optional(),
 });
 

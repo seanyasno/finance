@@ -230,6 +230,7 @@ struct RegisterRequest: Codable {
 /// Auth response
 struct AuthResponse: Codable {
     let user: User?
+    let token: String?
     let message: String?
 }
 

@@ -10,7 +10,7 @@ import { isNotNullOrUndefined, isNullOrUndefined } from '@finance/libs';
 export class JwtAuthGuard extends AuthGuard('jwt') {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   handleRequest(error: any, user: any, _info: any, _context: ExecutionContext) {
-    if (isNotNullOrUndefined(error) || isNullOrUndefined(user)) {
+    if (isNotNullOrUndefined(error) || isNullOrUndefined(user) || !user) {
       throw error || new UnauthorizedException('Authentication required');
     }
 

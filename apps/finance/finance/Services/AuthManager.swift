@@ -62,9 +62,9 @@ class AuthManager: ObservableObject {
                 authenticated: false
             )
 
-            // Extract auth token from cookies
-            if let authToken = extractAuthToken() {
-                print("🔐 AuthManager: Login success - extracted token (first 20 chars): \(String(authToken.prefix(20)))...")
+            // Get auth token from response body (preferred for mobile apps)
+            if let authToken = response.token {
+                print("🔐 AuthManager: Login success - got token from response (first 20 chars): \(String(authToken.prefix(20)))...")
                 // Save token to keychain
                 try keychainService.save(token: authToken, forKey: tokenKey)
 
@@ -72,7 +72,7 @@ class AuthManager: ObservableObject {
                 apiService.authToken = authToken
                 print("🔐 AuthManager: Auth token set on APIService.shared")
             } else {
-                print("⚠️ AuthManager: Login succeeded but no auth token found in cookies!")
+                print("⚠️ AuthManager: Login succeeded but no auth token in response!")
             }
 
             // Set current user
@@ -116,8 +116,8 @@ class AuthManager: ObservableObject {
                 authenticated: false
             )
 
-            // Extract auth token from cookies
-            if let authToken = extractAuthToken() {
+            // Get auth token from response body (preferred for mobile apps)
+            if let authToken = response.token {
                 // Save token to keychain
                 try keychainService.save(token: authToken, forKey: tokenKey)
 
