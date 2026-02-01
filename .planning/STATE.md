@@ -115,18 +115,20 @@ None yet.
 |---|-------------|------|--------|-----------|
 | 001 | fix cycles page showing no data in all tabs | 2026-02-01 | fb36458 | [001-fix-cycles-page-showing-no-data-in-all-t](./quick/001-fix-cycles-page-showing-no-data-in-all-t/) |
 | 002 | fix cycles page period navigation and calendar month data display | 2026-02-01 | 8b6e91f | [002-fix-cycles-page-period-navigation-and-ca](./quick/002-fix-cycles-page-period-navigation-and-ca/) |
+| 003 | refactor services to use generated API client types | 2026-02-01 | e175e97 | [003-refactor-services-to-use-generated-api-c](./quick/003-refactor-services-to-use-generated-api-c/) |
 
 ## Session Continuity
 
-Last session: 2026-02-01 18:44 UTC
-Stopped at: Completed quick-002 (Fix Cycles Page Period Navigation) - All planned phases complete
+Last session: 2026-02-01 21:06 UTC
+Stopped at: Completed quick-003 (Refactor Services to Use Generated API Client) - All planned phases complete
 Resume file: None
 Next: All planned phases complete
 
 **Recent quick tasks:**
 - quick-001 (2026-02-01): Fixed BillingCycle endDate to include entire last day (23:59:59)
 - quick-002 (2026-02-01): Separated base cycle calculation from navigation offset for correct historical periods
+- quick-003 (2026-02-01): Consolidated type definitions by moving EmptyBody and EmptyResponse to Models.swift
 
 ---
 *State initialized: 2026-01-30*
-*Last updated: 2026-02-01 18:44 UTC*
+*Last updated: 2026-02-01 21:06 UTC*
