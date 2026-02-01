@@ -1,50 +1,3 @@
-#!/bin/bash
-
-# Swift code generation from OpenAPI spec
-# Generates a full Swift5 client with API methods using openapi-generator-cli
-
-set -e
-
-API_URL="http://localhost:3100/api-json"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-OUTPUT_DIR="$PROJECT_ROOT/apps/finance/finance/Generated"
-
-echo "🔍 Checking API server..."
-
-# Health check - verify API is running
-if ! curl -s -f "$API_URL" > /dev/null 2>&1; then
-    echo "❌ Error: API server is not running or not accessible at $API_URL"
-    echo ""
-    echo "Please start the API server first:"
-    echo "  cd apps/api && npm run dev"
-    echo ""
-    exit 1
-fi
-
-echo "✅ API server is running"
-
-# Create output directory if needed
-mkdir -p "$OUTPUT_DIR"
-
-echo "🧹 Cleaning previous generated files..."
-rm -rf "$OUTPUT_DIR"/*
-
-echo "📝 Generating Swift5 client with openapi-generator-cli..."
-
-# Generate full Swift client with openapi-generator-cli
-npx @openapitools/openapi-generator-cli generate \
-    -i "$API_URL" \
-    -g swift5 \
-    -o "$OUTPUT_DIR/OpenAPIClient" \
-    --additional-properties=library=urlsession,responseAs=Result,useSPMFileStructure=false
-
-echo "✅ OpenAPI client generated successfully"
-
-# Create CustomModels.swift for client-only models
-echo "📝 Creating CustomModels.swift for client-only models..."
-
-cat > "$OUTPUT_DIR/CustomModels.swift" << 'SWIFT_EOF'
 //
 // CustomModels.swift
 // finance
@@ -174,16 +127,3 @@ extension Color {
         self.init(.sRGB, red: Double(r) / 255, green: Double(g) / 255, blue: Double(b) / 255, opacity: Double(a) / 255)
     }
 }
-SWIFT_EOF
-
-echo "✅ CustomModels.swift created"
-
-echo ""
-echo "✅ Swift client generation complete!"
-echo "📁 Generated client: apps/finance/finance/Generated/OpenAPIClient/"
-echo "📁 Custom models: apps/finance/finance/Generated/CustomModels.swift"
-echo ""
-echo "✨ Generated client includes:"
-echo "   - Full API methods (not just models)"
-echo "   - Type-safe request/response handling"
-echo "   - URLSession-based networking"
