@@ -157,6 +157,24 @@ Which phases cover which requirements. Updated during roadmap creation.
 | STATS-03 | Phase 5 | Complete |
 | STATS-04 | Phase 5 | Complete |
 | STATS-05 | Phase 5 | Complete |
+| SEARCH-01 | Phase 6 | Pending |
+| SEARCH-02 | Phase 6 | Pending |
+| SEARCH-03 | Phase 6 | Pending |
+| SEARCH-04 | Phase 6 | Pending |
+| SEARCH-05 | Phase 6 | Pending |
+| SEARCH-06 | Phase 6 | Pending |
+| GROUP-01 | Phase 7 | Pending |
+| GROUP-02 | Phase 7 | Pending |
+| GROUP-03 | Phase 7 | Pending |
+| FORMAT-01 | Phase 7 | Pending |
+| FORMAT-02 | Phase 7 | Pending |
+| FORMAT-03 | Phase 7 | Pending |
+| GROUP-04 | Phase 8 | Pending |
+| GROUP-05 | Phase 8 | Pending |
+| GROUP-06 | Phase 8 | Pending |
+| FORMAT-04 | Phase 9 | Pending |
+| FORMAT-05 | Phase 9 | Pending |
+| FORMAT-06 | Phase 9 | Pending |
 
 **Coverage (v1.0):**
 - v1.0 requirements: 24 total
@@ -164,10 +182,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 - Unmapped: 0
 
 **Coverage (v1.1):**
-- v1.1 requirements: 17 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 17
+- v1.1 requirements: 18 total
+- Mapped to phases: 18
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-02-01 — v1.1 milestone requirements defined*
+*Last updated: 2026-02-01 — v1.1 milestone roadmap created with full traceability*

@@ -1,27 +1,17 @@
 # Roadmap: Personal Finance Tracker
 
-## Overview
+## Milestones
 
-This roadmap delivers a personal finance tracking app from the ground up, building feature-by-feature with complete API and iOS implementations at each phase. Starting with iOS foundation and authentication, we progress through transaction viewing, categorization, billing cycle management, and analytics. Each phase delivers a complete, usable capability before moving to the next.
+- ✅ **v1.0 MVP** - Phases 1-5 (shipped 2026-01-31)
+- 🚧 **v1.1 Transactions Page** - Phases 6-9 (in progress)
 
 ## Phases
 
-**Phase Numbering:**
-- Integer phases (1, 2, 3): Planned milestone work
-- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
-
-Decimal phases appear between their surrounding integers in numeric order.
-
-- [x] **Phase 1: iOS Foundation** - iOS app with native UI and secure authentication
-- [x] **Phase 2: Transaction Viewing** - View and filter credit card transactions
-- [x] **Phase 3: Categorization** - Create categories and assign to transactions
-- [x] **Phase 4: Billing Cycles** - Configure billing periods and view cycle-based spending
-- [x] **Phase 5: Statistics & Analytics** - Spending trends and category breakdowns
-
-## Phase Details
+<details>
+<summary>✅ v1.0 MVP (Phases 1-5) - SHIPPED 2026-01-31</summary>
 
 ### Phase 1: iOS Foundation
-**Goal**: Users can authenticate with the NestJS API from a native iOS app
+**Goal**: iOS app with native UI and secure authentication
 **Depends on**: Nothing (first phase)
 **Requirements**: IOS-01, IOS-02, IOS-03, IOS-04, IOS-05
 **Success Criteria** (what must be TRUE):
@@ -106,19 +96,94 @@ Plans:
 - [x] 05-02-PLAN.md — Statistics API endpoint (5-month spending summary with trends)
 - [x] 05-03-PLAN.md — Statistics iOS UI (bar chart, comparisons, trend indicators)
 
+</details>
+
+### 🚧 v1.1 Transactions Page (In Progress)
+
+**Milestone Goal:** Enhance transaction list UI with search, flexible grouping, improved formatting, and better visual indicators
+
+#### Phase 6: Search Functionality
+**Goal**: Users can search and filter transactions in real-time
+**Depends on**: Phase 5
+**Requirements**: SEARCH-01, SEARCH-02, SEARCH-03, SEARCH-04, SEARCH-05, SEARCH-06
+**Success Criteria** (what must be TRUE):
+  1. User can type in search bar and see transactions filtered in real-time
+  2. Search filters by merchant name, showing only matching transactions
+  3. Search filters by amount, matching exact or partial values
+  4. Search filters by notes content
+  5. Empty search results show clear message with search query displayed
+  6. User can pull-to-refresh during search without cancelling the search or refresh operation
+**Plans**: TBD
+
+Plans:
+- [ ] 06-01: TBD
+- [ ] 06-02: TBD
+
+#### Phase 7: Date-Based Grouping
+**Goal**: Users can view transactions organized by date with clear temporal context
+**Depends on**: Phase 6
+**Requirements**: GROUP-01, GROUP-02, GROUP-03, FORMAT-01, FORMAT-02, FORMAT-03
+**Success Criteria** (what must be TRUE):
+  1. Transactions appear in sections with date headers
+  2. Recent transactions show relative dates (Today, Yesterday) as section headers
+  3. Older transactions show formatted dates (DD/MM/YY format) as section headers
+  4. All dates throughout the app display in DD/MM/YY format consistently
+  5. Transaction list items show dates in DD/MM/YY format
+  6. Transaction detail page shows dates in DD/MM/YY format
+**Plans**: TBD
+
+Plans:
+- [ ] 07-01: TBD
+- [ ] 07-02: TBD
+
+#### Phase 8: Multiple Grouping Modes
+**Goal**: Users can switch between different ways of organizing transactions
+**Depends on**: Phase 7
+**Requirements**: GROUP-04, GROUP-05, GROUP-06
+**Success Criteria** (what must be TRUE):
+  1. User can access grouping mode selector in transaction list view
+  2. User can select to group transactions by date (default from Phase 7)
+  3. User can select to group transactions by credit card, showing sections for each card
+  4. User can select to group transactions by month, showing chronological monthly sections
+  5. Switching between grouping modes updates the list immediately
+**Plans**: TBD
+
+Plans:
+- [ ] 08-01: TBD
+- [ ] 08-02: TBD
+
+#### Phase 9: Visual Formatting & Polish
+**Goal**: Users see clear visual indicators and simplified information display
+**Depends on**: Phase 8
+**Requirements**: FORMAT-04, FORMAT-05, FORMAT-06
+**Success Criteria** (what must be TRUE):
+  1. Card numbers display only last 4 digits throughout the app (no asterisks)
+  2. Card display follows format "CardName ••1234" consistently
+  3. Pending transactions show clear visual indicator (badge or icon)
+  4. User can immediately distinguish pending from settled transactions
+  5. Visual formatting works correctly across all grouping modes
+**Plans**: TBD
+
+Plans:
+- [ ] 09-01: TBD
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. iOS Foundation | 2/2 | Complete | 2026-01-30 |
-| 2. Transaction Viewing | 3/3 | Complete | 2026-01-30 |
-| 3. Categorization | 5/5 | Complete | 2026-01-31 |
-| 4. Billing Cycles | 3/3 | Complete | 2026-01-31 |
-| 5. Statistics & Analytics | 3/3 | Complete | 2026-01-31 |
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. iOS Foundation | v1.0 | 2/2 | Complete | 2026-01-30 |
+| 2. Transaction Viewing | v1.0 | 3/3 | Complete | 2026-01-30 |
+| 3. Categorization | v1.0 | 5/5 | Complete | 2026-01-31 |
+| 4. Billing Cycles | v1.0 | 3/3 | Complete | 2026-01-31 |
+| 5. Statistics & Analytics | v1.0 | 3/3 | Complete | 2026-01-31 |
+| 6. Search Functionality | v1.1 | 0/TBD | Not started | - |
+| 7. Date-Based Grouping | v1.1 | 0/TBD | Not started | - |
+| 8. Multiple Grouping Modes | v1.1 | 0/TBD | Not started | - |
+| 9. Visual Formatting & Polish | v1.1 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-01-31 — Phase 5 complete (all 16 plans executed)*
+*Last updated: 2026-02-01 — v1.1 milestone roadmap added (Phases 6-9)*
