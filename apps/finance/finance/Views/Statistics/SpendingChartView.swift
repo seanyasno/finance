@@ -5,7 +5,7 @@ struct SpendingChartView: View {
     @Binding var selectedMonth: MonthlySpending?
 
     private var maxTotal: Double {
-        months.map { $0.total }.max() ?? 1
+        months.map { abs($0.total) }.max() ?? 1
     }
 
     var body: some View {
@@ -80,8 +80,8 @@ struct SpendingChartView: View {
 
     private func barHeight(for month: MonthlySpending) -> CGFloat {
         guard maxTotal > 0 else { return 0 }
-        let proportion = month.total / maxTotal
-        return max(CGFloat(proportion) * 120, month.total > 0 ? 4 : 0)
+        let proportion = abs(month.total) / maxTotal
+        return max(CGFloat(proportion) * 120, abs(month.total) > 0 ? 4 : 0)
     }
 
     private func barColor(for month: MonthlySpending) -> Color {
@@ -101,9 +101,10 @@ struct SpendingChartView: View {
     }
 
     private func formatAmount(_ amount: Double) -> String {
-        if amount >= 1000 {
-            return String(format: "%.1fK", amount / 1000)
+        let absAmount = abs(amount)
+        if absAmount >= 1000 {
+            return String(format: "%.1fK", absAmount / 1000)
         }
-        return String(format: "%.0f", amount)
+        return String(format: "%.0f", absAmount)
     }
 }
