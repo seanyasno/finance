@@ -122,7 +122,7 @@ None yet.
 | 005 | fix billing cycles UI not displaying transactions despite data being fetched | 2026-02-01 | c2c44ba | [005-fix-billing-cycles-ui-not-displaying-tra](./quick/005-fix-billing-cycles-ui-not-displaying-tra/) |
 | 006 | fix billing cycles UI not observing TransactionService data updates | 2026-02-01 | d84cbb2 | [006-fix-billing-cycles-ui-not-observing-tran](./quick/006-fix-billing-cycles-ui-not-observing-tran/) |
 | 007 | fix Statistics page Spending Trend bar chart not displaying bars despite having values | 2026-02-01 | 5990003 | [007-fix-statistics-page-spending-trend-bar-c](./quick/007-fix-statistics-page-spending-trend-bar-c/) |
-| 008 | fix bar chart not rendering bars for negative spending values | 2026-02-01 | 2345adf | [008-fix-bar-chart-not-rendering-bars-for-neg](./quick/008-fix-bar-chart-not-rendering-bars-for-neg/) |
+| 008 | fix bar chart not rendering bars for negative spending values | 2026-02-01 | 642a263 | [008-fix-bar-chart-not-rendering-bars-for-neg](./quick/008-fix-bar-chart-not-rendering-bars-for-neg/) |
 
 ## Session Continuity
 
