@@ -128,7 +128,7 @@ struct BillingCycleView: View {
     private var filteredTransactions: [Transaction] {
         guard let cycle = currentCycle else { return [] }
 
-        let filtered = transactionService.transactions.filter { transaction in
+        return transactionService.transactions.filter { transaction in
             let date = transaction.date
 
             // Date must be within cycle
@@ -141,8 +141,6 @@ struct BillingCycleView: View {
 
             return inDateRange
         }
-        print("DEBUG Cycles: Filtered to \(filtered.count) transactions for cycle")
-        return filtered
     }
 
     // MARK: - Data Loading
@@ -166,13 +164,11 @@ struct BillingCycleView: View {
         // The UI will filter based on billing cycle
         guard let cycle = currentCycle else { return }
 
-        print("DEBUG Cycles: Loading transactions for cycle \(cycle.startDate) to \(cycle.endDate)")
         await transactionService.fetchTransactions(
             startDate: cycle.startDate,
             endDate: cycle.endDate,
             creditCardId: viewMode == .singleCard ? selectedCard?.id : nil
         )
-        print("DEBUG Cycles: Loaded \(transactionService.transactions.count) transactions")
     }
 }
 
