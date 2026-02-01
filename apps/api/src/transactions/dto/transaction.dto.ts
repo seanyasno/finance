@@ -59,6 +59,7 @@ export const TransactionQuerySchema = z.object({
   startDate: z.string().datetime().optional(),
   endDate: z.string().datetime().optional(),
   creditCardId: z.string().uuid().optional(),
+  search: z.string().optional(),
 });
 
 export class TransactionQueryDto extends createZodDto(TransactionQuerySchema) {}
