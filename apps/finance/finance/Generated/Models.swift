@@ -331,11 +331,20 @@ struct BillingCycle: Identifiable, Equatable {
         let today = Date()
         var components = calendar.dateComponents([.year, .month, .day], from: today)
         let currentDay = components.day ?? 1
-        var monthOffset = offset
-        if currentDay < billingDay { monthOffset -= 1 }
+
+        // First: Find the start of the CURRENT billing cycle
+        // If we're before the billing day, current cycle started last month
+        var baseMonthOffset = 0
+        if currentDay < billingDay {
+            baseMonthOffset = -1
+        }
+
+        // Combine base with navigation offset
+        let totalMonthOffset = baseMonthOffset + offset
+
         components.day = min(billingDay, daysInMonth(year: components.year!, month: components.month!))
         if let adjustedDate = calendar.date(from: components),
-           let startDate = calendar.date(byAdding: .month, value: monthOffset, to: adjustedDate),
+           let startDate = calendar.date(byAdding: .month, value: totalMonthOffset, to: adjustedDate),
            let nextCycleStart = calendar.date(byAdding: .month, value: 1, to: startDate),
            let endDate = calendar.date(byAdding: .day, value: -1, to: nextCycleStart),
            let endOfDayDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endDate) {
