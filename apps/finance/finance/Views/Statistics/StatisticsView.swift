@@ -29,7 +29,7 @@ struct StatisticsView: View {
 
                             Spacer()
 
-                            TrendIndicatorView(trend: summary.trends.overall, showLabel: true)
+                            TrendIndicatorView(trend: summary.trends.overallTrend, showLabel: true)
                         }
                         .padding(.horizontal)
 
@@ -53,7 +53,7 @@ struct StatisticsView: View {
                                 VStack(spacing: 8) {
                                     ForEach(summary.trends.categoryTrends) { trend in
                                         HStack {
-                                            TrendIndicatorView(trend: trend.trend)
+                                            TrendIndicatorView(trend: trend.trendDirection)
 
                                             Text(trend.categoryName)
 

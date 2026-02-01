@@ -9,6 +9,7 @@ API_URL="http://localhost:3100/api-json"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 OUTPUT_DIR="$PROJECT_ROOT/apps/finance/finance/Generated"
+TEMP_DIR="$OUTPUT_DIR/temp_openapi_client"
 
 echo "🔍 Checking API server..."
 
@@ -28,18 +29,38 @@ echo "✅ API server is running"
 mkdir -p "$OUTPUT_DIR"
 
 echo "🧹 Cleaning previous generated files..."
-rm -rf "$OUTPUT_DIR"/*
+rm -rf "$OUTPUT_DIR/OpenAPI"
+rm -f "$OUTPUT_DIR/ModelExtensions.swift"
+rm -f "$OUTPUT_DIR/CustomModels.swift"
 
 echo "📝 Generating Swift5 client with openapi-generator-cli..."
 
-# Generate full Swift client with openapi-generator-cli
+# Generate full Swift client to temp directory
+# Configuration:
+# - library=urlsession: Use URLSession instead of Alamofire
+# - responseAs=Result: Return Result<T, Error> instead of callbacks
+# - useSPMFileStructure=false: Don't use SPM file structure
+# - useUuidFor=: Don't convert UUID strings to Swift UUID type
 npx @openapitools/openapi-generator-cli generate \
     -i "$API_URL" \
     -g swift5 \
-    -o "$OUTPUT_DIR/OpenAPIClient" \
-    --additional-properties=library=urlsession,responseAs=Result,useSPMFileStructure=false
+    -o "$TEMP_DIR" \
+    --additional-properties=library=urlsession,responseAs=Result,useSPMFileStructure=false \
+    --type-mappings=UUID=String
 
 echo "✅ OpenAPI client generated successfully"
+
+# Flatten structure - copy generated files to OpenAPI directory
+echo "📁 Flattening generated client structure..."
+mkdir -p "$OUTPUT_DIR/OpenAPI"
+cp -r "$TEMP_DIR/Sources/OpenAPIClient/"*.swift "$OUTPUT_DIR/OpenAPI/" || true
+cp -r "$TEMP_DIR/Sources/OpenAPIClient/APIs" "$OUTPUT_DIR/OpenAPI/" || true
+cp -r "$TEMP_DIR/Sources/OpenAPIClient/Models" "$OUTPUT_DIR/OpenAPI/" || true
+
+# Clean up temp directory
+rm -rf "$TEMP_DIR"
+
+echo "✅ Generated client flattened successfully"
 
 # Create CustomModels.swift for client-only models
 echo "📝 Creating CustomModels.swift for client-only models..."
@@ -178,12 +199,212 @@ SWIFT_EOF
 
 echo "✅ CustomModels.swift created"
 
+# Create ModelExtensions.swift with type aliases and extensions
+echo "📝 Creating ModelExtensions.swift with type aliases and extensions..."
+
+cat > "$OUTPUT_DIR/ModelExtensions.swift" << 'SWIFT_EOF'
+//
+// ModelExtensions.swift
+// finance
+//
+// Type aliases and extensions for generated OpenAPI models
+// Bridges generated DTOs to simple names used throughout the app
+//
+
+import Foundation
+import SwiftUI
+
+// MARK: - Type Aliases (Generated -> Simple Names)
+
+// Transaction models
+typealias Transaction = TransactionsResponseDtoTransactionsInner
+typealias TransactionCreditCard = TransactionsResponseDtoTransactionsInnerCreditCard
+typealias TransactionCategory = TransactionsResponseDtoTransactionsInnerCategory
+
+// Credit card models
+typealias CreditCard = CreditCardsResponseDtoCreditCardsInner
+
+// Category models
+typealias Category = CategoriesResponseDtoCategoriesInner
+
+// Statistics models
+typealias SpendingSummary = SpendingSummaryDto
+typealias MonthlySpending = SpendingSummaryDtoMonthsInner
+typealias CategorySpending = SpendingSummaryDtoMonthsInnerCategoryBreakdownInner
+typealias MonthComparison = SpendingSummaryDtoComparison
+typealias CategoryComparison = SpendingSummaryDtoComparisonCategoryComparisonsInner
+typealias SpendingTrends = SpendingSummaryDtoTrends
+typealias CategoryTrend = SpendingSummaryDtoTrendsCategoryTrendsInner
+
+// User/Auth models
+typealias User = AuthResponseDtoUser
+
+// Request DTOs
+typealias LoginRequest = LoginDto
+typealias RegisterRequest = RegisterDto
+typealias UpdateTransactionRequest = UpdateTransactionDto
+typealias UpdateCreditCardRequest = UpdateCreditCardDto
+typealias CreateCategoryRequest = CreateCategoryDto
+
+// Response wrappers
+typealias TransactionsResponse = TransactionsResponseDto
+typealias CreditCardsResponse = CreditCardsResponseDto
+typealias CategoriesResponse = CategoriesResponseDto
+typealias UserResponse = UserResponseDto
+typealias AuthResponse = AuthResponseDto
+typealias MessageResponse = MessageResponseDto
+
+// MARK: - Transaction Extensions
+
+extension Transaction: Identifiable, Hashable {
+    public var id: String { _id }
+
+    var formattedAmount: String {
+        String(format: "%.2f %@", chargedAmount, chargedCurrency ?? originalCurrency)
+    }
+
+    var formattedDate: String {
+        guard let date = ISO8601DateFormatter().date(from: timestamp) else {
+            return timestamp
+        }
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
+
+    var merchantName: String {
+        _description ?? "Unknown Merchant"
+    }
+
+    var date: Date {
+        ISO8601DateFormatter().date(from: timestamp) ?? Date()
+    }
+
+    var categoryName: String {
+        category?.name ?? "Uncategorized"
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(_id)
+    }
+
+    public static func == (lhs: Transaction, rhs: Transaction) -> Bool {
+        lhs._id == rhs._id
+    }
+}
+
+// MARK: - Transaction Nested Types Extensions
+
+extension TransactionCreditCard: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    public static func == (lhs: TransactionCreditCard, rhs: TransactionCreditCard) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+extension TransactionCategory: Hashable {
+    var displayIcon: String {
+        icon ?? "tag"
+    }
+
+    var displayColor: Color {
+        if let colorHex = color {
+            return Color(hex: colorHex) ?? .blue
+        }
+        return .blue
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    public static func == (lhs: TransactionCategory, rhs: TransactionCategory) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+// MARK: - Credit Card Extensions
+
+extension CreditCard: Identifiable, Hashable {
+    public var id: String { _id }
+
+    var displayName: String {
+        "\(company) ****\(String(cardNumber.suffix(4)))"
+    }
+
+    var effectiveBillingCycleDay: Int {
+        billingCycleStartDay ?? 1
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(_id)
+    }
+
+    public static func == (lhs: CreditCard, rhs: CreditCard) -> Bool {
+        lhs._id == rhs._id
+    }
+}
+
+// MARK: - Category Extensions
+
+extension Category: Identifiable {
+    public var id: String { _id }
+
+    var displayIcon: String {
+        icon ?? "tag"
+    }
+
+    var displayColor: Color {
+        if let colorHex = color {
+            return Color(hex: colorHex) ?? .blue
+        }
+        return .blue
+    }
+}
+
+// MARK: - Statistics Extensions
+
+extension MonthlySpending: Identifiable {
+    public var id: String { month }
+
+    var formattedTotal: String {
+        String(format: "%.0f", total)
+    }
+}
+
+extension CategorySpending: Identifiable {
+    public var id: String { categoryId ?? "uncategorized" }
+}
+
+extension CategoryComparison: Identifiable {
+    public var id: String { categoryId ?? "uncategorized" }
+}
+
+extension CategoryTrend: Identifiable {
+    public var id: String { categoryId ?? "uncategorized" }
+}
+
+// MARK: - User Extensions
+
+extension User: Identifiable {
+    public var id: String { _id }
+}
+SWIFT_EOF
+
+echo "✅ ModelExtensions.swift created"
+
 echo ""
 echo "✅ Swift client generation complete!"
-echo "📁 Generated client: apps/finance/finance/Generated/OpenAPIClient/"
+echo "📁 Generated client: apps/finance/finance/Generated/OpenAPI/"
+echo "📁 Model extensions: apps/finance/finance/Generated/ModelExtensions.swift"
 echo "📁 Custom models: apps/finance/finance/Generated/CustomModels.swift"
 echo ""
 echo "✨ Generated client includes:"
 echo "   - Full API methods (not just models)"
 echo "   - Type-safe request/response handling"
 echo "   - URLSession-based networking"
+echo "   - Flattened structure for easy Xcode integration"

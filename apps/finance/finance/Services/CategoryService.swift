@@ -3,15 +3,9 @@ import Combine
 
 @MainActor
 class CategoryService: ObservableObject {
-    private let apiService: APIService
-
     @Published var categories: [Category] = []
     @Published var isLoading = false
     @Published var error: String?
-
-    init(apiService: APIService = .shared) {
-        self.apiService = apiService
-    }
 
     // MARK: - Computed Properties
 
@@ -29,24 +23,27 @@ class CategoryService: ObservableObject {
         isLoading = true
         error = nil
 
-        do {
-            let response: CategoriesResponse = try await apiService.get("/categories", authenticated: true)
-            categories = response.categories
-            print("📦 CategoryService: Fetched \(categories.count) categories")
-            print("   - Default: \(defaultCategories.count)")
-            print("   - Custom: \(customCategories.count)")
-            for category in categories {
-                print("   - \(category.name) (isDefault: \(category.isDefault))")
-            }
-            isLoading = false
+        await withCheckedContinuation { continuation in
+            CategoriesAPI.getCategories { result in
+                Task { @MainActor in
+                    switch result {
+                    case .success(let response):
+                        self.categories = response.categories
+                        print("📦 CategoryService: Fetched \(self.categories.count) categories")
+                        print("   - Default: \(self.defaultCategories.count)")
+                        print("   - Custom: \(self.customCategories.count)")
+                        for category in self.categories {
+                            print("   - \(category.name) (isDefault: \(category.isDefault))")
+                        }
+                        self.isLoading = false
 
-        } catch let apiError as APIError {
-            print("❌ CategoryService: Error fetching categories - \(apiError)")
-            handleAPIError(apiError)
-        } catch {
-            print("❌ CategoryService: Unexpected error - \(error)")
-            self.error = "An unexpected error occurred: \(error.localizedDescription)"
-            isLoading = false
+                    case .failure(let apiError):
+                        print("❌ CategoryService: Error fetching categories - \(apiError)")
+                        self.handleOpenAPIError(apiError)
+                    }
+                    continuation.resume()
+                }
+            }
         }
     }
 
@@ -55,24 +52,27 @@ class CategoryService: ObservableObject {
     func createCategory(name: String, icon: String?, color: String?) async -> Bool {
         error = nil
 
-        do {
+        return await withCheckedContinuation { continuation in
             let request = CreateCategoryRequest(name: name, icon: icon, color: color)
             print("📤 CategoryService: Creating category '\(name)'")
-            let createdCategory: Category = try await apiService.post("/categories", body: request, authenticated: true)
-            print("✅ CategoryService: Created category - id: \(createdCategory.id), isDefault: \(createdCategory.isDefault)")
 
-            // Refresh the categories list
-            await fetchCategories()
-            return true
+            CategoriesAPI.create(createCategoryDto: request) { result in
+                Task { @MainActor in
+                    switch result {
+                    case .success(let createdCategory):
+                        print("✅ CategoryService: Created category - id: \(createdCategory.id), isDefault: \(createdCategory.isDefault)")
 
-        } catch let apiError as APIError {
-            print("❌ CategoryService: Error creating category - \(apiError)")
-            handleAPIError(apiError)
-            return false
-        } catch {
-            print("❌ CategoryService: Unexpected error - \(error)")
-            self.error = "An unexpected error occurred: \(error.localizedDescription)"
-            return false
+                        // Refresh the categories list
+                        await self.fetchCategories()
+                        continuation.resume(returning: true)
+
+                    case .failure(let apiError):
+                        print("❌ CategoryService: Error creating category - \(apiError)")
+                        self.handleOpenAPIError(apiError)
+                        continuation.resume(returning: false)
+                    }
+                }
+            }
         }
     }
 
@@ -81,40 +81,30 @@ class CategoryService: ObservableObject {
     func deleteCategory(id: String) async -> Bool {
         error = nil
 
-        do {
-            let _: EmptyResponse = try await apiService.request(
-                "/categories/\(id)",
-                method: "DELETE",
-                authenticated: true
-            )
+        return await withCheckedContinuation { continuation in
+            CategoriesAPI.delete(id: id) { result in
+                Task { @MainActor in
+                    switch result {
+                    case .success:
+                        // Refresh the categories list
+                        await self.fetchCategories()
+                        continuation.resume(returning: true)
 
-            // Refresh the categories list
-            await fetchCategories()
-            return true
-
-        } catch let apiError as APIError {
-            handleAPIError(apiError)
-            return false
-        } catch {
-            self.error = "An unexpected error occurred: \(error.localizedDescription)"
-            return false
+                    case .failure(let apiError):
+                        self.handleOpenAPIError(apiError)
+                        continuation.resume(returning: false)
+                    }
+                }
+            }
         }
     }
 
     // MARK: - Error Handling
 
-    private func handleAPIError(_ error: APIError) {
+    private func handleOpenAPIError(_ error: ErrorResponse) {
         switch error {
-        case .invalidURL:
-            self.error = "Invalid URL"
-        case .networkError(let underlyingError):
-            self.error = "Network error: \(underlyingError.localizedDescription)"
-        case .invalidResponse:
-            self.error = "Invalid response from server"
-        case .httpError(let statusCode, let message):
-            self.error = message ?? "HTTP error: \(statusCode)"
-        case .decodingError(let underlyingError):
-            self.error = "Failed to decode response: \(underlyingError.localizedDescription)"
+        case .error(let statusCode, _, _, let underlyingError):
+            self.error = "HTTP \(statusCode): \(underlyingError.localizedDescription)"
         }
         isLoading = false
     }

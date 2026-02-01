@@ -7,7 +7,6 @@ class AuthManager: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var error: String?
 
-    private let apiService: APIService
     private let keychainService = KeychainService()
     private let tokenKey = "auth_token"
 
@@ -16,7 +15,9 @@ class AuthManager: ObservableObject {
     }
 
     init() {
-        self.apiService = .shared
+        // Configure OpenAPI client base path
+        OpenAPIClientAPI.basePath = Config.apiBaseURL
+
         Task {
             await loadStoredToken()
         }
@@ -30,9 +31,10 @@ class AuthManager: ObservableObject {
         }
 
         print("🔐 AuthManager: Loaded token from keychain (first 20 chars): \(String(token.prefix(20)))...")
-        // Set token on API service
-        apiService.authToken = token
-        print("🔐 AuthManager: Auth token set on APIService.shared from keychain")
+
+        // Set token in OpenAPI client custom headers
+        OpenAPIClientAPI.customHeaders["Authorization"] = "Bearer \(token)"
+        print("🔐 AuthManager: Auth token set on OpenAPIClientAPI")
 
         // Try to fetch current user to verify token is still valid
         do {
@@ -42,7 +44,7 @@ class AuthManager: ObservableObject {
             print("❌ AuthManager: Token invalid, clearing auth state")
             // Token is invalid, clear it
             try? keychainService.delete(forKey: tokenKey)
-            apiService.authToken = nil
+            OpenAPIClientAPI.customHeaders.removeValue(forKey: "Authorization")
         }
     }
 
@@ -54,39 +56,48 @@ class AuthManager: ObservableObject {
             isLoading = false
         }
 
-        do {
-            let request = LoginRequest(email: email, password: password)
-            let response: AuthResponse = try await apiService.post(
-                "/auth/login",
-                body: request,
-                authenticated: false
-            )
+        return try await withCheckedThrowingContinuation { continuation in
+            let loginDto = LoginRequest(email: email, password: password)
 
-            // Get auth token from response body (preferred for mobile apps)
-            if let authToken = response.token {
-                print("🔐 AuthManager: Login success - got token from response (first 20 chars): \(String(authToken.prefix(20)))...")
-                // Save token to keychain
-                try keychainService.save(token: authToken, forKey: tokenKey)
+            AuthenticationAPI.login(loginDto: loginDto) { result in
+                Task { @MainActor in
+                    switch result {
+                    case .success(let response):
+                        // Get auth token from response body (preferred for mobile apps)
+                        if let authToken = response.token {
+                            print("🔐 AuthManager: Login success - got token from response (first 20 chars): \(String(authToken.prefix(20)))...")
 
-                // Set on API service
-                apiService.authToken = authToken
-                print("🔐 AuthManager: Auth token set on APIService.shared")
-            } else {
-                print("⚠️ AuthManager: Login succeeded but no auth token in response!")
+                            // Save token to keychain
+                            do {
+                                try self.keychainService.save(token: authToken, forKey: self.tokenKey)
+
+                                // Set on OpenAPI client
+                                OpenAPIClientAPI.customHeaders["Authorization"] = "Bearer \(authToken)"
+                                print("🔐 AuthManager: Auth token set on OpenAPIClientAPI")
+                            } catch {
+                                self.error = "Failed to save token: \(error.localizedDescription)"
+                                continuation.resume(throwing: error)
+                                return
+                            }
+                        } else {
+                            print("⚠️ AuthManager: Login succeeded but no auth token in response!")
+                        }
+
+                        // Set current user
+                        self.currentUser = response.user
+                        if let user = response.user {
+                            print("✅ AuthManager: Login complete, user: \(user.email)")
+                        }
+
+                        continuation.resume()
+
+                    case .failure(let apiError):
+                        let errorMessage = self.formatOpenAPIError(apiError)
+                        self.error = errorMessage
+                        continuation.resume(throwing: apiError)
+                    }
+                }
             }
-
-            // Set current user
-            currentUser = response.user
-            if let user = response.user {
-                print("✅ AuthManager: Login complete, user: \(user.email)")
-            }
-        } catch let apiError as APIError {
-            let errorMessage = formatAPIError(apiError)
-            error = errorMessage
-            throw apiError
-        } catch let thrownError {
-            error = "Login failed: \(thrownError.localizedDescription)"
-            throw thrownError
         }
     }
 
@@ -103,114 +114,92 @@ class AuthManager: ObservableObject {
             isLoading = false
         }
 
-        do {
-            let request = RegisterRequest(
+        return try await withCheckedThrowingContinuation { continuation in
+            let registerDto = RegisterRequest(
                 email: email,
                 password: password,
                 firstName: firstName,
                 lastName: lastName
             )
-            let response: AuthResponse = try await apiService.post(
-                "/auth/register",
-                body: request,
-                authenticated: false
-            )
 
-            // Get auth token from response body (preferred for mobile apps)
-            if let authToken = response.token {
-                // Save token to keychain
-                try keychainService.save(token: authToken, forKey: tokenKey)
+            AuthenticationAPI.register(registerDto: registerDto) { result in
+                Task { @MainActor in
+                    switch result {
+                    case .success(let response):
+                        // Get auth token from response body (preferred for mobile apps)
+                        if let authToken = response.token {
+                            do {
+                                // Save token to keychain
+                                try self.keychainService.save(token: authToken, forKey: self.tokenKey)
 
-                // Set on API service
-                apiService.authToken = authToken
+                                // Set on OpenAPI client
+                                OpenAPIClientAPI.customHeaders["Authorization"] = "Bearer \(authToken)"
+                            } catch {
+                                self.error = "Failed to save token: \(error.localizedDescription)"
+                                continuation.resume(throwing: error)
+                                return
+                            }
+                        }
+
+                        // Set current user
+                        self.currentUser = response.user
+
+                        continuation.resume()
+
+                    case .failure(let apiError):
+                        let errorMessage = self.formatOpenAPIError(apiError)
+                        self.error = errorMessage
+                        continuation.resume(throwing: apiError)
+                    }
+                }
             }
-
-            // Set current user
-            currentUser = response.user
-        } catch let apiError as APIError {
-            let errorMessage = formatAPIError(apiError)
-            error = errorMessage
-            throw apiError
-        } catch let thrownError {
-            error = "Registration failed: \(thrownError.localizedDescription)"
-            throw thrownError
         }
     }
 
     func logout() async {
         // Try to call logout endpoint (best effort)
-        do {
-            let _: AuthResponse = try await apiService.post(
-                "/auth/logout",
-                body: EmptyBody(),
-                authenticated: false
-            )
-        } catch {
-            // Ignore logout endpoint errors
+        await withCheckedContinuation { continuation in
+            AuthenticationAPI.logout { _ in
+                // Ignore result - best effort
+                continuation.resume()
+            }
         }
 
         // Clear token from keychain
         try? keychainService.delete(forKey: tokenKey)
 
-        // Clear token from API service
-        apiService.authToken = nil
-
-        // Clear cookies
-        clearAuthCookies()
+        // Clear token from OpenAPI client
+        OpenAPIClientAPI.customHeaders.removeValue(forKey: "Authorization")
 
         // Clear current user
         currentUser = nil
     }
 
     func checkAuthStatus() async throws {
-        do {
-            let response: UserResponse = try await apiService.get(
-                "/auth/me",
-                authenticated: true
-            )
+        return try await withCheckedThrowingContinuation { continuation in
+            AuthenticationAPI.getCurrentUser { result in
+                Task { @MainActor in
+                    switch result {
+                    case .success(let response):
+                        self.currentUser = response.user
+                        continuation.resume()
 
-            currentUser = response.user
-        } catch {
-            // If check fails, clear auth state
-            await logout()
-            throw error
+                    case .failure(let apiError):
+                        // If check fails, clear auth state
+                        await self.logout()
+                        continuation.resume(throwing: apiError)
+                    }
+                }
+            }
         }
     }
 
     // MARK: - Private helpers
 
-    private func extractAuthToken() -> String? {
-        guard let baseURL = URL(string: apiService.baseURL),
-              let cookies = HTTPCookieStorage.shared.cookies(for: baseURL) else {
-            return nil
-        }
-
-        return cookies.first { $0.name == "auth-token" }?.value
-    }
-
-    private func clearAuthCookies() {
-        guard let baseURL = URL(string: apiService.baseURL),
-              let cookies = HTTPCookieStorage.shared.cookies(for: baseURL) else {
-            return
-        }
-
-        for cookie in cookies where cookie.name == "auth-token" {
-            HTTPCookieStorage.shared.deleteCookie(cookie)
-        }
-    }
-
-    private func formatAPIError(_ error: APIError) -> String {
+    private func formatOpenAPIError(_ error: ErrorResponse) -> String {
         switch error {
-        case .invalidURL:
-            return "Invalid URL"
-        case .networkError(let underlyingError):
-            return "Network error: \(underlyingError.localizedDescription)"
-        case .invalidResponse:
-            return "Invalid response from server"
-        case .httpError(let statusCode, let message):
-            return message ?? "HTTP error \(statusCode)"
-        case .decodingError(let underlyingError):
-            return "Data decoding error: \(underlyingError.localizedDescription)"
+        case .error(let statusCode, _, _, let underlyingError):
+            return "HTTP \(statusCode): \(underlyingError.localizedDescription)"
         }
     }
 }

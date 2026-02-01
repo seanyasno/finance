@@ -15,7 +15,7 @@ struct MonthComparisonView: View {
                     if let changePercent = comparison.changePercent,
                        let changeAmount = comparison.changeAmount {
                         HStack(spacing: 8) {
-                            TrendIndicatorView(trend: comparison.trend)
+                            TrendIndicatorView(trend: comparison.trendDirection)
 
                             Text(formatChange(changeAmount, percent: changePercent))
                                 .font(.title2)
@@ -52,7 +52,7 @@ struct MonthComparisonView: View {
 
                     ForEach(comparison.categoryComparisons) { category in
                         HStack {
-                            TrendIndicatorView(trend: category.trend)
+                            TrendIndicatorView(trend: category.trendDirection)
 
                             Text(category.categoryName)
 
@@ -61,7 +61,7 @@ struct MonthComparisonView: View {
                             if let changePercent = category.changePercent {
                                 Text("\(changePercent > 0 ? "+" : "")\(changePercent)%")
                                     .font(.caption)
-                                    .foregroundColor(categoryChangeColor(category.trend))
+                                    .foregroundColor(categoryChangeColor(category.trendDirection))
                             }
 
                             Text(formatAmount(category.currentAmount))
@@ -93,9 +93,9 @@ struct MonthComparisonView: View {
         }
     }
 
-    private func formatChange(_ amount: Double, percent: Int) -> String {
+    private func formatChange(_ amount: Double, percent: Double) -> String {
         let sign = amount >= 0 ? "+" : ""
-        return "\(sign)\(formatAmount(amount)) (\(sign)\(percent)%)"
+        return "\(sign)\(formatAmount(amount)) (\(sign)\(Int(percent))%)"
     }
 
     private func formatAmount(_ amount: Double) -> String {

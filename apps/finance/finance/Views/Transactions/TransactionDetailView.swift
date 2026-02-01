@@ -36,7 +36,7 @@ struct TransactionDetailView: View {
                 if let card = transaction.creditCard {
                     LabeledContent("Card", value: "****\(card.cardNumber.suffix(4))")
                 }
-                LabeledContent("Status", value: transaction.status.capitalized)
+                LabeledContent("Status", value: transaction.status.rawValue.capitalized)
             }
 
             // Category Section
@@ -85,7 +85,7 @@ struct TransactionDetailView: View {
             id: transaction.id,
             categoryId: selectedCategoryId,
             notes: notesToSave
-        ) != nil {
+        ) {
             hasChanges = false
         }
         isSaving = false
@@ -98,18 +98,18 @@ struct TransactionDetailView: View {
             transaction: Transaction(
                 id: "1",
                 description: "Starbucks Coffee",
-                timestamp: "2026-01-30T12:00:00Z",
+                timestamp: AnyCodable("2026-01-30T12:00:00Z"),
                 notes: nil,
                 originalAmount: 5.50,
                 originalCurrency: "USD",
                 chargedAmount: 5.50,
                 chargedCurrency: "USD",
-                status: "completed",
+                status: .completed,
                 creditCardId: "card1",
-                creditCard: Transaction.TransactionCreditCard(
+                creditCard: TransactionCreditCard(
                     id: "card1",
                     cardNumber: "1234567890123456",
-                    company: "Visa"
+                    company: .max
                 ),
                 categoryId: nil,
                 category: nil

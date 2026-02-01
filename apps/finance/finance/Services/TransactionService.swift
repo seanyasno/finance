@@ -5,16 +5,10 @@ import Combine
 
 @MainActor
 class TransactionService: ObservableObject {
-    private let apiService: APIService
-
     @Published var transactions: [Transaction] = []
     @Published var creditCards: [CreditCard] = []
     @Published var isLoading = false
     @Published var error: String?
-
-    init(apiService: APIService = .shared) {
-        self.apiService = apiService
-    }
 
     // MARK: - Fetch Transactions
 
@@ -26,58 +20,51 @@ class TransactionService: ObservableObject {
         isLoading = true
         error = nil
 
-        do {
-            // Build query string
-            var queryParams: [String] = []
+        await withCheckedContinuation { continuation in
+            // Convert dates to ISO8601 strings
+            let startDateString = startDate.map { ISO8601DateFormatter().string(from: $0) }
+            let endDateString = endDate.map { ISO8601DateFormatter().string(from: $0) }
 
-            if let startDate = startDate {
-                let dateString = ISO8601DateFormatter().string(from: startDate)
-                queryParams.append("startDate=\(dateString)")
+            TransactionsAPI.getTransactions(
+                creditCardId: creditCardId,
+                endDate: endDateString,
+                startDate: startDateString
+            ) { result in
+                Task { @MainActor in
+                    switch result {
+                    case .success(let response):
+                        self.transactions = response.transactions
+                        self.isLoading = false
+
+                    case .failure(let apiError):
+                        self.handleOpenAPIError(apiError)
+                    }
+                    continuation.resume()
+                }
             }
-
-            if let endDate = endDate {
-                let dateString = ISO8601DateFormatter().string(from: endDate)
-                queryParams.append("endDate=\(dateString)")
-            }
-
-            if let creditCardId = creditCardId {
-                queryParams.append("creditCardId=\(creditCardId)")
-            }
-
-            let queryString = queryParams.isEmpty ? "" : "?" + queryParams.joined(separator: "&")
-            let endpoint = "/transactions\(queryString)"
-
-            // Fetch transactions
-            let response: TransactionsResponse = try await apiService.get(endpoint, authenticated: true)
-            transactions = response.transactions
-            isLoading = false
-
-        } catch let apiError as APIError {
-            handleAPIError(apiError)
-        } catch {
-            self.error = "An unexpected error occurred: \(error.localizedDescription)"
-            isLoading = false
         }
     }
 
     // MARK: - Update Transaction
 
-    func updateTransaction(id: String, categoryId: String?, notes: String?) async -> Transaction? {
+    func updateTransaction(id: String, categoryId: String?, notes: String?) async -> Bool {
         let request = UpdateTransactionRequest(categoryId: categoryId, notes: notes)
 
-        do {
-            let updated: Transaction = try await apiService.patch("/transactions/\(id)", body: request)
-            // Update local array
-            if let index = transactions.firstIndex(where: { $0.id == id }) {
-                transactions[index] = updated
+        return await withCheckedContinuation { continuation in
+            TransactionsAPI.updateTransaction(id: id, updateTransactionDto: request) { result in
+                Task { @MainActor in
+                    switch result {
+                    case .success:
+                        // Refetch transactions to get updated data
+                        // (API returns different DTO type than list type)
+                        continuation.resume(returning: true)
+
+                    case .failure(let apiError):
+                        self.handleOpenAPIError(apiError)
+                        continuation.resume(returning: false)
+                    }
+                }
             }
-            return updated
-        } catch let apiError as APIError {
-            handleAPIError(apiError)
-            return nil
-        } catch {
-            self.error = "An unexpected error occurred: \(error.localizedDescription)"
-            return nil
         }
     }
 
@@ -87,54 +74,52 @@ class TransactionService: ObservableObject {
         isLoading = true
         error = nil
 
-        do {
-            let response: CreditCardsResponse = try await apiService.get("/credit-cards", authenticated: true)
-            creditCards = response.creditCards
-            isLoading = false
+        await withCheckedContinuation { continuation in
+            CreditCardsAPI.getCreditCards { result in
+                Task { @MainActor in
+                    switch result {
+                    case .success(let response):
+                        self.creditCards = response.creditCards
+                        self.isLoading = false
 
-        } catch let apiError as APIError {
-            handleAPIError(apiError)
-        } catch {
-            self.error = "An unexpected error occurred: \(error.localizedDescription)"
-            isLoading = false
+                    case .failure(let apiError):
+                        self.handleOpenAPIError(apiError)
+                    }
+                    continuation.resume()
+                }
+            }
         }
     }
 
     // MARK: - Update Credit Card
 
-    func updateCreditCard(id: String, billingCycleStartDay: Int?) async -> CreditCard? {
+    func updateCreditCard(id: String, billingCycleStartDay: Int?) async -> Bool {
         let request = UpdateCreditCardRequest(billingCycleStartDay: billingCycleStartDay)
 
-        do {
-            let updated: CreditCard = try await apiService.patch("/credit-cards/\(id)", body: request)
-            // Update local array
-            if let index = creditCards.firstIndex(where: { $0.id == id }) {
-                creditCards[index] = updated
+        return await withCheckedContinuation { continuation in
+            CreditCardsAPI.updateCreditCard(id: id, updateCreditCardDto: request) { result in
+                Task { @MainActor in
+                    switch result {
+                    case .success:
+                        // Refetch credit cards to get updated data
+                        // (API returns different DTO type than list type)
+                        continuation.resume(returning: true)
+
+                    case .failure(let apiError):
+                        self.handleOpenAPIError(apiError)
+                        continuation.resume(returning: false)
+                    }
+                }
             }
-            return updated
-        } catch let apiError as APIError {
-            handleAPIError(apiError)
-            return nil
-        } catch {
-            self.error = "An unexpected error occurred: \(error.localizedDescription)"
-            return nil
         }
     }
 
     // MARK: - Error Handling
 
-    private func handleAPIError(_ error: APIError) {
+    private func handleOpenAPIError(_ error: ErrorResponse) {
         switch error {
-        case .invalidURL:
-            self.error = "Invalid URL"
-        case .networkError(let underlyingError):
-            self.error = "Network error: \(underlyingError.localizedDescription)"
-        case .invalidResponse:
-            self.error = "Invalid response from server"
-        case .httpError(let statusCode, let message):
-            self.error = message ?? "HTTP error: \(statusCode)"
-        case .decodingError(let underlyingError):
-            self.error = "Failed to decode response: \(underlyingError.localizedDescription)"
+        case .error(let statusCode, _, _, let underlyingError):
+            self.error = "HTTP \(statusCode): \(underlyingError.localizedDescription)"
         }
         isLoading = false
     }

@@ -73,6 +73,8 @@ export class ScrapingService {
         return withDefault(scrapeResult.accounts, []);
       }
 
+      console.error(scrapeResult);
+
       throw new Error(scrapeResult.errorMessage);
     } catch (error) {
       if (error instanceof Error) {

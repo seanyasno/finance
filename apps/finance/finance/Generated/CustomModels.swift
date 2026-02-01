@@ -11,6 +11,13 @@ import SwiftUI
 
 // MARK: - Client-Only Models (Not from API)
 
+/// Trend direction enum (consolidates various generated Trend enums)
+enum TrendDirection: String, Codable {
+    case up
+    case down
+    case stable
+}
+
 /// Billing cycle configuration (client-side only)
 struct BillingCycle: Identifiable, Equatable {
     let startDate: Date

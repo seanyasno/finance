@@ -86,7 +86,7 @@ struct CreditCardSettingsView: View {
         isSaving = true
         Task {
             let newDay = selectedDay == 1 ? nil : selectedDay  // null means default (1st)
-            if await transactionService.updateCreditCard(id: card.id, billingCycleStartDay: newDay) != nil {
+            if await transactionService.updateCreditCard(id: card.id, billingCycleStartDay: newDay) {
                 dismiss()
             }
             isSaving = false
@@ -101,7 +101,7 @@ struct CreditCardSettingsView: View {
             card: CreditCard(
                 id: "1",
                 cardNumber: "1234567890123456",
-                company: "max",
+                company: .max,
                 billingCycleStartDay: nil,
                 createdAt: nil
             )

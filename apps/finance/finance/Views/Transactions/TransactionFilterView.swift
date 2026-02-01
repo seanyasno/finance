@@ -107,14 +107,14 @@ struct TransactionFilterView: View {
                     CreditCard(
                         id: "1",
                         cardNumber: "1234567890123456",
-                        company: "Visa",
+                        company: .max,
                         billingCycleStartDay: nil,
                         createdAt: nil
                     ),
                     CreditCard(
                         id: "2",
                         cardNumber: "9876543210987654",
-                        company: "Mastercard",
+                        company: .isracard,
                         billingCycleStartDay: nil,
                         createdAt: nil
                     )
