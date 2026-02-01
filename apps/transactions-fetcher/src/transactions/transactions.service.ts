@@ -25,25 +25,25 @@ export class TransactionsService {
 
   async fetchAllTransactions(): Promise<FetchedTransactions> {
     const [
-      // discountTransactions,
-      // oneZeroTransactions,
-      // isracardTransactions,
+      discountTransactions,
+      oneZeroTransactions,
+      isracardTransactions,
       maxTransactions,
-      // visaCalTransactions,
+      visaCalTransactions,
     ] = await Promise.all([
-      // this.scrapingService.scrapeCompany(CompanyTypes.discount, true),
-      // this.scrapingService.scrapeCompany(CompanyTypes.oneZero, true),
-      // this.scrapingService.scrapeCompany(CompanyTypes.isracard, false),
+      this.scrapingService.scrapeCompany(CompanyTypes.discount, true),
+      this.scrapingService.scrapeCompany(CompanyTypes.oneZero, true),
+      this.scrapingService.scrapeCompany(CompanyTypes.isracard, false),
       this.scrapingService.scrapeCompany(CompanyTypes.max, false),
-      // this.scrapingService.scrapeCompany(CompanyTypes.visaCal, false),
+      this.scrapingService.scrapeCompany(CompanyTypes.visaCal, false),
     ]);
 
     return {
-      discountTransactions: [],
-      oneZeroTransactions: [],
-      isracardTransactions: [],
+      discountTransactions,
+      oneZeroTransactions,
+      isracardTransactions,
       maxTransactions,
-      visaCalTransactions: [],
+      visaCalTransactions,
     };
   }
 
