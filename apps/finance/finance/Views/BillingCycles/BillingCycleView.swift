@@ -164,10 +164,6 @@ struct BillingCycleView: View {
         // The UI will filter based on billing cycle
         guard let cycle = currentCycle else { return }
 
-        print("[BillingCycle Debug] viewMode: \(viewMode), periodOffset: \(periodOffset)")
-        print("[BillingCycle Debug] cycle: \(cycle.startDate) to \(cycle.endDate)")
-        print("[BillingCycle Debug] displayPeriod: \(cycle.displayPeriod)")
-
         await transactionService.fetchTransactions(
             startDate: cycle.startDate,
             endDate: cycle.endDate,
