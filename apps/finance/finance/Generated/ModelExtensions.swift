@@ -60,9 +60,9 @@ extension Transaction: Identifiable {
 
     var formattedDate: String {
         // timestamp is AnyCodable, need to extract as String
-        guard let timestampString = timestamp as? String,
+        guard let timestampString = timestamp?.value as? String,
               let date = ISO8601DateFormatter().date(from: timestampString) else {
-            return (timestamp as? String) ?? ""
+            return (timestamp?.value as? String) ?? ""
         }
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -75,7 +75,7 @@ extension Transaction: Identifiable {
     }
 
     var date: Date {
-        guard let timestampString = timestamp as? String else {
+        guard let timestampString = timestamp?.value as? String else {
             return Date()
         }
         return ISO8601DateFormatter().date(from: timestampString) ?? Date()
