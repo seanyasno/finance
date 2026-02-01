@@ -113,11 +113,11 @@ Plans:
   4. Search filters by notes content
   5. Empty search results show clear message with search query displayed
   6. User can pull-to-refresh during search without cancelling the search or refresh operation
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: TBD
-- [ ] 06-02: TBD
+- [ ] 06-01-PLAN.md — API search parameter (add search query to transactions endpoint)
+- [ ] 06-02-PLAN.md — iOS search UI (searchable modifier, debounce, empty state messaging)
 
 #### Phase 7: Date-Based Grouping
 **Goal**: Users can view transactions organized by date with clear temporal context
@@ -179,7 +179,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 3. Categorization | v1.0 | 5/5 | Complete | 2026-01-31 |
 | 4. Billing Cycles | v1.0 | 3/3 | Complete | 2026-01-31 |
 | 5. Statistics & Analytics | v1.0 | 3/3 | Complete | 2026-01-31 |
-| 6. Search Functionality | v1.1 | 0/TBD | Not started | - |
+| 6. Search Functionality | v1.1 | 0/2 | Not started | - |
 | 7. Date-Based Grouping | v1.1 | 0/TBD | Not started | - |
 | 8. Multiple Grouping Modes | v1.1 | 0/TBD | Not started | - |
 | 9. Visual Formatting & Polish | v1.1 | 0/TBD | Not started | - |
