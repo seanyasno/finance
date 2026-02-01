@@ -214,6 +214,3 @@ class AuthManager: ObservableObject {
         }
     }
 }
-
-// Empty body for requests that don't need a body
-private struct EmptyBody: Codable {}

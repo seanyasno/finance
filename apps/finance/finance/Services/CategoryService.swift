@@ -82,7 +82,6 @@ class CategoryService: ObservableObject {
         error = nil
 
         do {
-            struct EmptyResponse: Codable {}
             let _: EmptyResponse = try await apiService.request(
                 "/categories/\(id)",
                 method: "DELETE",
