@@ -54,6 +54,12 @@ export class TransactionsController {
     description: 'Filter transactions by credit card UUID',
     type: String,
   })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    description: 'Search transactions by merchant name or notes',
+    type: String,
+  })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Transactions retrieved successfully',

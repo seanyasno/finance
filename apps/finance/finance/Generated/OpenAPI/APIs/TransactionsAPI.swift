@@ -15,6 +15,7 @@ open class TransactionsAPI {
     /**
      Get transactions with optional filters
      
+     - parameter search: (query) Search transactions by merchant name or notes (optional)
      - parameter creditCardId: (query) Filter transactions by credit card UUID (optional)
      - parameter endDate: (query) Filter transactions until this date (ISO 8601 format) (optional)
      - parameter startDate: (query) Filter transactions from this date (ISO 8601 format) (optional)
@@ -22,8 +23,8 @@ open class TransactionsAPI {
      - parameter completion: completion handler to receive the result
      */
     @discardableResult
-    open class func getTransactions(creditCardId: String? = nil, endDate: String? = nil, startDate: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ result: Swift.Result<TransactionsResponseDto, ErrorResponse>) -> Void)) -> RequestTask {
-        return getTransactionsWithRequestBuilder(creditCardId: creditCardId, endDate: endDate, startDate: startDate).execute(apiResponseQueue) { result in
+    open class func getTransactions(search: String? = nil, creditCardId: String? = nil, endDate: String? = nil, startDate: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ result: Swift.Result<TransactionsResponseDto, ErrorResponse>) -> Void)) -> RequestTask {
+        return getTransactionsWithRequestBuilder(search: search, creditCardId: creditCardId, endDate: endDate, startDate: startDate).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(.success(response.body))
@@ -39,18 +40,20 @@ open class TransactionsAPI {
      - Bearer Token:
        - type: http
        - name: bearer
+     - parameter search: (query) Search transactions by merchant name or notes (optional)
      - parameter creditCardId: (query) Filter transactions by credit card UUID (optional)
      - parameter endDate: (query) Filter transactions until this date (ISO 8601 format) (optional)
      - parameter startDate: (query) Filter transactions from this date (ISO 8601 format) (optional)
      - returns: RequestBuilder<TransactionsResponseDto> 
      */
-    open class func getTransactionsWithRequestBuilder(creditCardId: String? = nil, endDate: String? = nil, startDate: String? = nil) -> RequestBuilder<TransactionsResponseDto> {
+    open class func getTransactionsWithRequestBuilder(search: String? = nil, creditCardId: String? = nil, endDate: String? = nil, startDate: String? = nil) -> RequestBuilder<TransactionsResponseDto> {
         let localVariablePath = "/transactions"
         let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
         localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "search": (wrappedValue: search?.encodeToJSON(), isExplode: true),
             "creditCardId": (wrappedValue: creditCardId?.encodeToJSON(), isExplode: true),
             "endDate": (wrappedValue: endDate?.encodeToJSON(), isExplode: true),
             "startDate": (wrappedValue: startDate?.encodeToJSON(), isExplode: true),

@@ -51,18 +51,16 @@ typealias MessageResponse = MessageResponseDto
 
 // MARK: - Transaction Extensions
 
-extension Transaction: Identifiable {
-    // Generated model already has 'id' property
+extension Transaction: Identifiable, Hashable {
+    public var id: String { _id }
 
     var formattedAmount: String {
         String(format: "%.2f %@", chargedAmount, chargedCurrency ?? originalCurrency)
     }
 
     var formattedDate: String {
-        // timestamp is AnyCodable, need to extract as String
-        guard let timestampString = timestamp?.value as? String,
-              let date = ISO8601DateFormatter().date(from: timestampString) else {
-            return (timestamp?.value as? String) ?? ""
+        guard let date = ISO8601DateFormatter().date(from: timestamp) else {
+            return timestamp
         }
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -71,33 +69,39 @@ extension Transaction: Identifiable {
     }
 
     var merchantName: String {
-        description ?? "Unknown Merchant"
+        _description ?? "Unknown Merchant"
     }
 
     var date: Date {
-        guard let timestampString = timestamp?.value as? String else {
-            return Date()
-        }
-
-        // Try standard ISO8601 first (without fractional seconds)
-        let formatter = ISO8601DateFormatter()
-        if let date = formatter.date(from: timestampString) {
-            return date
-        }
-
-        // Try with fractional seconds
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        return formatter.date(from: timestampString) ?? Date()
+        ISO8601DateFormatter().date(from: timestamp) ?? Date()
     }
 
     var categoryName: String {
         category?.name ?? "Uncategorized"
     }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(_id)
+    }
+
+    public static func == (lhs: Transaction, rhs: Transaction) -> Bool {
+        lhs._id == rhs._id
+    }
 }
 
 // MARK: - Transaction Nested Types Extensions
 
-extension TransactionCategory {
+extension TransactionCreditCard: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    public static func == (lhs: TransactionCreditCard, rhs: TransactionCreditCard) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+extension TransactionCategory: Hashable {
     var displayIcon: String {
         icon ?? "tag"
     }
@@ -108,26 +112,42 @@ extension TransactionCategory {
         }
         return .blue
     }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    public static func == (lhs: TransactionCategory, rhs: TransactionCategory) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 // MARK: - Credit Card Extensions
 
-extension CreditCard: Identifiable {
-    // Generated model already has 'id' property
+extension CreditCard: Identifiable, Hashable {
+    public var id: String { _id }
 
     var displayName: String {
-        "\(company.rawValue) ****\(String(cardNumber.suffix(4)))"
+        "\(company) ****\(String(cardNumber.suffix(4)))"
     }
 
     var effectiveBillingCycleDay: Int {
         billingCycleStartDay ?? 1
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(_id)
+    }
+
+    public static func == (lhs: CreditCard, rhs: CreditCard) -> Bool {
+        lhs._id == rhs._id
     }
 }
 
 // MARK: - Category Extensions
 
 extension Category: Identifiable {
-    // Generated model already has 'id' property
+    public var id: String { _id }
 
     var displayIcon: String {
         icon ?? "tag"
@@ -166,31 +186,5 @@ extension CategoryTrend: Identifiable {
 // MARK: - User Extensions
 
 extension User: Identifiable {
-    // Generated model already has 'id' property
-}
-
-// MARK: - Trend Direction Conversions
-
-extension SpendingSummaryDtoComparison {
-    var trendDirection: TrendDirection {
-        TrendDirection(rawValue: trend.rawValue) ?? .stable
-    }
-}
-
-extension SpendingSummaryDtoTrends {
-    var overallTrend: TrendDirection {
-        TrendDirection(rawValue: overall.rawValue) ?? .stable
-    }
-}
-
-extension SpendingSummaryDtoComparisonCategoryComparisonsInner {
-    var trendDirection: TrendDirection {
-        TrendDirection(rawValue: trend.rawValue) ?? .stable
-    }
-}
-
-extension SpendingSummaryDtoTrendsCategoryTrendsInner {
-    var trendDirection: TrendDirection {
-        TrendDirection(rawValue: trend.rawValue) ?? .stable
-    }
+    public var id: String { _id }
 }
