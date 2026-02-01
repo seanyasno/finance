@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 Phase: 5 of 5 (Statistics & Analytics)
 Plan: 3 of 3 in phase 05-statistics-and-analytics
 Status: Phase complete
-Last activity: 2026-02-01 — Completed quick task 004: generate full Swift OpenAPI client and replace manual APIService with generated client
+Last activity: 2026-02-01 — Completed quick task 005: fix billing cycles UI not displaying transactions despite data being fetched
 
 Progress: [█████████████] 100% (16 of 16 plans complete across all phases)
 
@@ -118,7 +118,7 @@ None yet.
 | 002 | fix cycles page period navigation and calendar month data display | 2026-02-01 | 8b6e91f | [002-fix-cycles-page-period-navigation-and-ca](./quick/002-fix-cycles-page-period-navigation-and-ca/) |
 | 003 | refactor services to use generated API client from Generated folder | 2026-02-01 | 140e59c | [003-refactor-services-to-use-generated-api-c](./quick/003-refactor-services-to-use-generated-api-c/) |
 | 004 | generate full Swift OpenAPI client and replace manual APIService with generated client | 2026-02-01 | 9e09f71 | [004-generate-full-swift-openapi-client-and-r](./quick/004-generate-full-swift-openapi-client-and-r/) |
-| 005 | fix billing cycles UI not displaying transactions | 2026-02-01 | baa7900 | [005-fix-billing-cycles-ui-not-displaying-tra](./quick/005-fix-billing-cycles-ui-not-displaying-tra/) |
+| 005 | fix billing cycles UI not displaying transactions despite data being fetched | 2026-02-01 | c2c44ba | [005-fix-billing-cycles-ui-not-displaying-tra](./quick/005-fix-billing-cycles-ui-not-displaying-tra/) |
 
 ## Session Continuity
 
