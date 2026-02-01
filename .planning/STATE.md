@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 Phase: 5 of 5 (Statistics & Analytics)
 Plan: 3 of 3 in phase 05-statistics-and-analytics
 Status: Phase complete
-Last activity: 2026-02-01 — Completed quick task 007: fix statistics page spending trend bar chart layout
+Last activity: 2026-02-01 — Completed quick task 007: fix Statistics page Spending Trend bar chart not displaying bars despite having values
 
 Progress: [█████████████] 100% (16 of 16 plans complete across all phases)
 
@@ -121,7 +121,7 @@ None yet.
 | 004 | generate full Swift OpenAPI client and replace manual APIService with generated client | 2026-02-01 | 9e09f71 | [004-generate-full-swift-openapi-client-and-r](./quick/004-generate-full-swift-openapi-client-and-r/) |
 | 005 | fix billing cycles UI not displaying transactions despite data being fetched | 2026-02-01 | c2c44ba | [005-fix-billing-cycles-ui-not-displaying-tra](./quick/005-fix-billing-cycles-ui-not-displaying-tra/) |
 | 006 | fix billing cycles UI not observing TransactionService data updates | 2026-02-01 | d84cbb2 | [006-fix-billing-cycles-ui-not-observing-tran](./quick/006-fix-billing-cycles-ui-not-observing-tran/) |
-| 007 | fix statistics page spending trend bar chart layout | 2026-02-01 | 5f14a65 | [007-fix-statistics-page-spending-trend-bar-c](./quick/007-fix-statistics-page-spending-trend-bar-c/) |
+| 007 | fix Statistics page Spending Trend bar chart not displaying bars despite having values | 2026-02-01 | 5990003 | [007-fix-statistics-page-spending-trend-bar-c](./quick/007-fix-statistics-page-spending-trend-bar-c/) |
 
 ## Session Continuity
 
