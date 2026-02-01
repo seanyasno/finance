@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 Phase: 5 of 5 (Statistics & Analytics)
 Plan: 3 of 3 in phase 05-statistics-and-analytics
 Status: Phase complete
-Last activity: 2026-02-01 — Completed quick task 005: fix billing cycles UI not displaying transactions despite data being fetched
+Last activity: 2026-02-01 — Completed quick task 006: fix billing cycles UI not observing transaction updates
 
 Progress: [█████████████] 100% (16 of 16 plans complete across all phases)
 
@@ -48,6 +48,7 @@ Recent decisions affecting current work:
 
 | ID | Title | Phase | Impact |
 |----|-------|-------|--------|
+| multi-format-iso8601-parsing | Try standard ISO8601 first, then fractional seconds format | quick-006 | Robust date parsing handles timestamps with or without fractional seconds |
 | anycodable-value-extraction | Access AnyCodable.value property for type extraction | quick-005 | Required pattern for all AnyCodable fields in generated OpenAPI models |
 | statistics-tab-placement | Statistics tab positioned between Cycles and Categories | 05-03 | Logical flow from period-based spending view to analytics |
 | interactive-bar-chart | Bar chart with tap-to-toggle category breakdown | 05-03 | Detail-on-demand without cluttering initial view |
@@ -119,11 +120,12 @@ None yet.
 | 003 | refactor services to use generated API client from Generated folder | 2026-02-01 | 140e59c | [003-refactor-services-to-use-generated-api-c](./quick/003-refactor-services-to-use-generated-api-c/) |
 | 004 | generate full Swift OpenAPI client and replace manual APIService with generated client | 2026-02-01 | 9e09f71 | [004-generate-full-swift-openapi-client-and-r](./quick/004-generate-full-swift-openapi-client-and-r/) |
 | 005 | fix billing cycles UI not displaying transactions despite data being fetched | 2026-02-01 | c2c44ba | [005-fix-billing-cycles-ui-not-displaying-tra](./quick/005-fix-billing-cycles-ui-not-displaying-tra/) |
+| 006 | fix billing cycles UI not observing transaction updates | 2026-02-01 | 7b21a1a | [006-fix-billing-cycles-ui-not-observing-tran](./quick/006-fix-billing-cycles-ui-not-observing-tran/) |
 
 ## Session Continuity
 
-Last session: 2026-02-01 19:51 UTC
-Stopped at: Completed quick-005 (Fix billing cycles UI not displaying transactions) - All planned phases complete
+Last session: 2026-02-01 20:03 UTC
+Stopped at: Completed quick-006 (Fix billing cycles UI not observing transaction updates) - All planned phases complete
 Resume file: None
 Next: All planned phases complete
 
@@ -133,7 +135,8 @@ Next: All planned phases complete
 - quick-003 (2026-02-01): Consolidated type definitions by moving EmptyBody and EmptyResponse to Models.swift
 - quick-004 (2026-02-01): Generated full OpenAPI client with URLSession, replaced manual APIService with type-safe auto-generated API methods
 - quick-005 (2026-02-01): Fixed Transaction date parsing from AnyCodable to enable billing cycles transaction display
+- quick-006 (2026-02-01): Enhanced ISO8601 date parsing with fractional seconds support for robust transaction filtering
 
 ---
 *State initialized: 2026-01-30*
-*Last updated: 2026-02-01 19:51 UTC*
+*Last updated: 2026-02-01 20:03 UTC*
