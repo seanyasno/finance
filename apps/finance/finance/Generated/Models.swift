@@ -281,6 +281,12 @@ struct MessageResponse: Codable {
     let message: String
 }
 
+/// Empty request body for endpoints that don't require a body
+struct EmptyBody: Codable {}
+
+/// Empty response for endpoints that don't return data
+struct EmptyResponse: Codable {}
+
 // MARK: - Client-Only Models (Not from API)
 
 /// Billing cycle configuration (client-side only)
