@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 Phase: 5 of 5 (Statistics & Analytics)
 Plan: 3 of 3 in phase 05-statistics-and-analytics
 Status: Phase complete
-Last activity: 2026-01-31 — Completed 05-03-PLAN.md (iOS Statistics UI)
+Last activity: 2026-02-01 — Completed quick task 001: fix cycles page showing no data in all tabs
 
 Progress: [█████████████] 100% (16 of 16 plans complete across all phases)
 
@@ -108,6 +108,12 @@ None yet.
 - Endpoints marked as protected in Swagger, guard code present in controllers
 - Deferred full investigation to 02-03 (iOS integration testing)
 - Not blocking data layer or UI development work
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 001 | fix cycles page showing no data in all tabs | 2026-02-01 | fb36458 | [001-fix-cycles-page-showing-no-data-in-all-t](./quick/001-fix-cycles-page-showing-no-data-in-all-t/) |
 
 ## Session Continuity
 
