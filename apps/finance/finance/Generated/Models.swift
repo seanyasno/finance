@@ -337,12 +337,14 @@ struct BillingCycle: Identifiable, Equatable {
         if let adjustedDate = calendar.date(from: components),
            let startDate = calendar.date(byAdding: .month, value: monthOffset, to: adjustedDate),
            let nextCycleStart = calendar.date(byAdding: .month, value: 1, to: startDate),
-           let endDate = calendar.date(byAdding: .day, value: -1, to: nextCycleStart) {
-            return BillingCycle(startDate: startDate, endDate: endDate, card: card)
+           let endDate = calendar.date(byAdding: .day, value: -1, to: nextCycleStart),
+           let endOfDayDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endDate) {
+            return BillingCycle(startDate: startDate, endDate: endOfDayDate, card: card)
         }
         let fallbackStart = calendar.date(from: DateComponents(year: components.year, month: components.month, day: 1))!
         let fallbackEnd = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: fallbackStart)!
-        return BillingCycle(startDate: fallbackStart, endDate: fallbackEnd, card: card)
+        let fallbackEndOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: fallbackEnd)!
+        return BillingCycle(startDate: fallbackStart, endDate: fallbackEndOfDay, card: card)
     }
 
     private static func daysInMonth(year: Int, month: Int) -> Int {
