@@ -3,7 +3,7 @@
 **Defined:** 2026-01-30
 **Core Value:** Being able to categorize transactions to understand where money goes each month
 
-## v1 Requirements
+## v1.0 Requirements (Completed)
 
 ### Transaction Management
 
@@ -44,7 +44,48 @@
 - [x] **IOS-04**: iOS app handles authentication (login/register)
 - [x] **IOS-05**: iOS app persists auth token securely
 
-## v2 Requirements
+## v1.1 Requirements (Transactions Page Milestone)
+
+### Search & Discovery
+
+- [ ] **SEARCH-01**: User can search transactions in real-time as they type
+- [ ] **SEARCH-02**: Search filters transactions by merchant name
+- [ ] **SEARCH-03**: Search filters transactions by amount
+- [ ] **SEARCH-04**: Search filters transactions by notes
+- [ ] **SEARCH-05**: Empty search results show clear messaging with search query
+- [ ] **SEARCH-06**: Search works correctly with pull-to-refresh (no cancellation)
+
+### Grouping & Organization
+
+- [ ] **GROUP-01**: Transactions are grouped by date with section headers
+- [ ] **GROUP-02**: Recent transactions show relative dates (Today, Yesterday)
+- [ ] **GROUP-03**: Older transactions show formatted dates as section headers
+- [ ] **GROUP-04**: User can switch between grouping modes (date, card, month)
+- [ ] **GROUP-05**: User can view transactions grouped by credit card
+- [ ] **GROUP-06**: User can view transactions grouped by month
+
+### Visual Formatting
+
+- [ ] **FORMAT-01**: All dates display in DD/MM/YY format throughout the app
+- [ ] **FORMAT-02**: Transaction list items show dates in DD/MM/YY format
+- [ ] **FORMAT-03**: Transaction detail page shows dates in DD/MM/YY format
+- [ ] **FORMAT-04**: Card numbers display only last 4 digits (no asterisks)
+- [ ] **FORMAT-05**: Pending transactions show visual indicator (badge/icon)
+- [ ] **FORMAT-06**: Card display format is "CardName ••1234"
+
+## v1.2+ Requirements (Future Enhancements)
+
+### Advanced Search
+
+- **SEARCH-07**: Search history shows recent searches
+- **SEARCH-08**: User can clear search history
+- **SEARCH-09**: Multi-criteria search with advanced filters
+
+### Enhanced Grouping
+
+- **GROUP-07**: Grouped sections show summary footers with totals
+- **GROUP-08**: User's grouping preference persists across sessions
+- **GROUP-09**: Collapsible section headers (iOS 17+)
 
 ### Advanced Analytics
 
@@ -82,6 +123,9 @@
 | Multi-user | Personal use only - avoid complexity |
 | Investment tracking | Out of domain - this is spending analysis |
 | Bill payment | Read-only analysis, not a banking app |
+| Infinite scroll | Pagination preferred for performance |
+| Over-animated transitions | Performance over visual effects |
+| Real-time balance updates during scroll | Unnecessary cognitive load |
 
 ## Traceability
 
@@ -114,11 +158,16 @@ Which phases cover which requirements. Updated during roadmap creation.
 | STATS-04 | Phase 5 | Complete |
 | STATS-05 | Phase 5 | Complete |
 
-**Coverage:**
-- v1 requirements: 24 total
+**Coverage (v1.0):**
+- v1.0 requirements: 24 total
 - Mapped to phases: 24
 - Unmapped: 0
 
+**Coverage (v1.1):**
+- v1.1 requirements: 17 total
+- Mapped to phases: 0 (pending roadmap)
+- Unmapped: 17
+
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-01-31 — Phase 5 requirements marked complete (all v1 requirements complete)*
+*Last updated: 2026-02-01 — v1.1 milestone requirements defined*
