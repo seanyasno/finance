@@ -13,7 +13,7 @@ struct SpendingChartView: View {
             // Bar chart
             HStack(alignment: .bottom, spacing: 12) {
                 ForEach(months) { month in
-                    VStack {
+                    VStack(spacing: 4) {
                         // Amount label
                         Text(formatAmount(month.total))
                             .font(.caption2)
@@ -21,7 +21,10 @@ struct SpendingChartView: View {
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
 
-                        // Bar
+                        // Spacer pushes bar to bottom
+                        Spacer(minLength: 0)
+
+                        // Bar grows upward from bottom
                         RoundedRectangle(cornerRadius: 4)
                             .fill(barColor(for: month))
                             .frame(height: barHeight(for: month))
@@ -37,6 +40,7 @@ struct SpendingChartView: View {
                             .font(.caption)
                             .foregroundColor(.primary)
                     }
+                    .frame(maxWidth: .infinity)
                 }
             }
             .frame(height: 180)
