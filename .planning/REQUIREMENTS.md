@@ -48,12 +48,12 @@
 
 ### Search & Discovery
 
-- [ ] **SEARCH-01**: User can search transactions in real-time as they type
-- [ ] **SEARCH-02**: Search filters transactions by merchant name
-- [ ] **SEARCH-03**: Search filters transactions by amount
-- [ ] **SEARCH-04**: Search filters transactions by notes
-- [ ] **SEARCH-05**: Empty search results show clear messaging with search query
-- [ ] **SEARCH-06**: Search works correctly with pull-to-refresh (no cancellation)
+- [x] **SEARCH-01**: User can search transactions in real-time as they type
+- [x] **SEARCH-02**: Search filters transactions by merchant name
+- [x] **SEARCH-03**: Search filters transactions by amount
+- [x] **SEARCH-04**: Search filters transactions by notes
+- [x] **SEARCH-05**: Empty search results show clear messaging with search query
+- [x] **SEARCH-06**: Search works correctly with pull-to-refresh (no cancellation)
 
 ### Grouping & Organization
 
@@ -157,12 +157,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | STATS-03 | Phase 5 | Complete |
 | STATS-04 | Phase 5 | Complete |
 | STATS-05 | Phase 5 | Complete |
-| SEARCH-01 | Phase 6 | Pending |
-| SEARCH-02 | Phase 6 | Pending |
-| SEARCH-03 | Phase 6 | Pending |
-| SEARCH-04 | Phase 6 | Pending |
-| SEARCH-05 | Phase 6 | Pending |
-| SEARCH-06 | Phase 6 | Pending |
+| SEARCH-01 | Phase 6 | Complete |
+| SEARCH-02 | Phase 6 | Complete |
+| SEARCH-03 | Phase 6 | Complete |
+| SEARCH-04 | Phase 6 | Complete |
+| SEARCH-05 | Phase 6 | Complete |
+| SEARCH-06 | Phase 6 | Complete |
 | GROUP-01 | Phase 7 | Pending |
 | GROUP-02 | Phase 7 | Pending |
 | GROUP-03 | Phase 7 | Pending |
@@ -188,4 +188,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-02-01 — v1.1 milestone roadmap created with full traceability*
+*Last updated: 2026-02-02 — Phase 6 complete (all SEARCH requirements satisfied)*
