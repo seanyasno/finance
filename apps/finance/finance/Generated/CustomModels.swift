@@ -110,6 +110,13 @@ struct EmptyBody: Codable {}
 /// Empty response for endpoints that don't return data
 struct EmptyResponse: Codable {}
 
+/// Unified trend direction enum matching API trend values
+enum TrendDirection: String, Codable, CaseIterable {
+    case up = "up"
+    case down = "down"
+    case stable = "stable"
+}
+
 // MARK: - Utility Extensions
 
 extension Color {
