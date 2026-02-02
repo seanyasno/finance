@@ -47,6 +47,24 @@ export class TransactionsService {
           },
         },
       ];
+
+      // Add amount matching for numeric searches
+      const isNumericSearch = /^-?\d*\.?\d+$/.test(query.search);
+      if (isNumericSearch) {
+        // Raw SQL for partial amount matching (CAST to TEXT for LIKE)
+        const amountMatchIds = await this.prisma.$queryRaw<{ id: string }[]>`
+          SELECT id FROM transactions
+          WHERE user_id = ${userId}
+          AND CAST(original_amount AS TEXT) LIKE ${'%' + query.search + '%'}
+        `;
+
+        // Add to OR clause (combines with description/notes matching)
+        if (amountMatchIds.length > 0) {
+          whereClause.OR.push({
+            id: { in: amountMatchIds.map((row) => row.id) },
+          });
+        }
+      }
     }
 
     const transactions = await this.prisma.transactions.findMany({
