@@ -117,6 +117,58 @@ enum TrendDirection: String, Codable, CaseIterable {
     case stable = "stable"
 }
 
+/// Date formatting utilities with cached formatters for performance
+enum DateFormatting {
+    /// Cached short date formatter (DD/MM/YY)
+    static let shortDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yy"
+        return formatter
+    }()
+
+    /// Cached ISO8601 formatter for parsing timestamps
+    static let iso8601Formatter = ISO8601DateFormatter()
+
+    /// Cached calendar reference
+    static let calendar = Calendar.current
+
+    /// Format a date as DD/MM/YY
+    static func formatShortDate(_ date: Date) -> String {
+        return shortDateFormatter.string(from: date)
+    }
+
+    /// Get a date grouping key (date-only string for Dictionary grouping)
+    static func dateGroupingKey(_ date: Date) -> String {
+        let components = calendar.dateComponents([.year, .month, .day], from: date)
+        return String(format: "%04d-%02d-%02d",
+                     components.year ?? 0,
+                     components.month ?? 0,
+                     components.day ?? 0)
+    }
+
+    /// Get relative date label if applicable (Today, Yesterday, or nil)
+    static func relativeLabel(for date: Date) -> String? {
+        let today = calendar.startOfDay(for: Date())
+        let targetDate = calendar.startOfDay(for: date)
+
+        if targetDate == today {
+            return "Today"
+        }
+
+        if let yesterday = calendar.date(byAdding: .day, value: -1, to: today),
+           targetDate == yesterday {
+            return "Yesterday"
+        }
+
+        return nil
+    }
+
+    /// Get section header title (relative label if available, otherwise DD/MM/YY)
+    static func sectionHeader(for date: Date) -> String {
+        return relativeLabel(for: date) ?? formatShortDate(date)
+    }
+}
+
 // MARK: - Utility Extensions
 
 extension Color {
