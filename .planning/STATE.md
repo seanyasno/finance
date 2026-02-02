@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-01)
 
 **Core value:** Being able to categorize transactions to understand where money goes each month
-**Current focus:** Phase 7 - Date-Based Grouping (v1.1 Transactions Page milestone)
+**Current focus:** Phase 8 - Multiple Grouping Modes (v1.1 Transactions Page milestone)
 
 ## Current Position
 
 Phase: 8 of 9 (Multiple Grouping Modes)
-Plan: 1 of 2 (in progress)
-Status: In progress
-Last activity: 2026-02-02 — Completed 08-01-PLAN.md
+Plan: 2 of 2 (complete)
+Status: Phase complete
+Last activity: 2026-02-02 — Completed 08-02-PLAN.md
 
-Progress: [█████████████░░░░░░░] 76% (22/29 estimated plans complete)
+Progress: [█████████████░░░░░░░] 79% (23/29 estimated plans complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 22
-- Average duration: 16m 50s
-- Total execution time: 7h 16m 34s
+- Total plans completed: 23
+- Average duration: 15m 44s
+- Total execution time: 7h 20m 45s
 
 **By Phase:**
 
@@ -34,11 +34,11 @@ Progress: [█████████████░░░░░░░] 76% (22
 | 05-statistics-and-analytics | 3 | 16m 21s | 5m 27s |
 | 06-search-functionality | 3 | 8m 33s | 2m 51s |
 | 07-date-based-grouping | 2 | 4m 39s | 2m 20s |
-| 08-multiple-grouping-modes | 1 | 1m 49s | 1m 49s |
+| 08-multiple-grouping-modes | 2 | 4m 10s | 2m 5s |
 
 **Recent Trend:**
-- Last 5 plans: 06-03 (1m 14s), 07-01 (2m 12s), 07-02 (2m 27s), 08-01 (1m 49s)
-- Trend: Efficient execution continues, Phase 8 started with infrastructure implementation
+- Last 5 plans: 07-01 (2m 12s), 07-02 (2m 27s), 08-01 (1m 49s), 08-02 (2m 21s)
+- Trend: Efficient execution continues, Phase 8 complete with UI implementation
 
 *Updated after each plan completion*
 
@@ -69,6 +69,10 @@ Recent decisions affecting current work:
 - Card grouping fallback (08-01): Unknown cards grouped under "Unknown Card" label
 - Month header format (08-01): Full month name + year (e.g., "February 2026") for readability
 - SF Symbol icons (08-01): calendar, creditcard, calendar.badge.clock for mode representation
+- Menu placement (08-02): Mode selector in leading toolbar position, filters stay in trailing
+- Header precomputation (08-02): Pre-compute section headers in tuple for cleaner ForEach rendering
+- Card sort order (08-02): Alphabetical sorting by card ID for predictable ordering with multiple cards
+- Checkmark indication (08-02): Show checkmark in menu for selected mode (standard iOS pattern)
 
 ### Pending Todos
 
@@ -103,10 +107,10 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-02
-Stopped at: Completed 08-01-PLAN.md
+Stopped at: Completed 08-02-PLAN.md
 Resume file: None
-Next: Continue Phase 8 - Plan 08-02 (TransactionList UI grouping mode selector)
+Next: Phase 8 complete - Ready for Phase 9 or other priorities
 
 ---
 *State initialized: 2026-01-30*
-*Last updated: 2026-02-02 — Completed 08-01 Grouping Infrastructure*
+*Last updated: 2026-02-02 — Completed 08-02 TransactionList UI Grouping*
