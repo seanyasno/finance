@@ -34,9 +34,27 @@ struct TransactionDetailView: View {
                 LabeledContent("Amount", value: transaction.formattedAmount)
                 LabeledContent("Date", value: transaction.formattedDate)
                 if let card = transaction.creditCard {
-                    LabeledContent("Card", value: "****\(card.cardNumber.suffix(4))")
+                    HStack {
+                        Text("Card")
+                        Spacer()
+                        CardLabel(card: card)
+                    }
                 }
-                LabeledContent("Status", value: transaction.status.rawValue.capitalized)
+                HStack {
+                    Text("Status")
+                    Spacer()
+                    if transaction.isPending {
+                        HStack(spacing: 4) {
+                            Image(systemName: "clock.fill")
+                                .foregroundColor(.orange)
+                            Text("Pending")
+                                .foregroundColor(.secondary)
+                        }
+                    } else {
+                        Text("Completed")
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
 
             // Category Section
@@ -97,14 +115,14 @@ struct TransactionDetailView: View {
         TransactionDetailView(
             transaction: Transaction(
                 id: "1",
-                description: "Starbucks Coffee",
-                timestamp: AnyCodable("2026-01-30T12:00:00Z"),
-                notes: nil,
-                originalAmount: 5.50,
+                description: "Amazon Purchase",
+                timestamp: AnyCodable("2026-02-02T10:00:00Z"),
+                notes: "Pending order",
+                originalAmount: 29.99,
                 originalCurrency: "USD",
-                chargedAmount: 5.50,
+                chargedAmount: 29.99,
                 chargedCurrency: "USD",
-                status: .completed,
+                status: .pending,
                 creditCardId: "card1",
                 creditCard: TransactionCreditCard(
                     id: "card1",
