@@ -67,10 +67,11 @@ extension Transaction: Identifiable {
     }
 
     var date: Date {
-        guard let timestampString = timestamp as? String else {
+        guard let anyCodable = timestamp,
+              let timestampString = anyCodable.value as? String else {
             return Date()
         }
-        return ISO8601DateFormatter().date(from: timestampString) ?? Date()
+        return DateFormatting.iso8601Formatter.date(from: timestampString) ?? Date()
     }
 
     var dateGroupingKey: String {
