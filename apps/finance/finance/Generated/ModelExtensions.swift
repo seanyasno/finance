@@ -59,15 +59,7 @@ extension Transaction: Identifiable {
     }
 
     var formattedDate: String {
-        // timestamp is AnyCodable, need to extract as String
-        guard let timestampString = timestamp as? String,
-              let date = ISO8601DateFormatter().date(from: timestampString) else {
-            return (timestamp as? String) ?? ""
-        }
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
+        return DateFormatting.formatShortDate(date)
     }
 
     var merchantName: String {
@@ -79,6 +71,14 @@ extension Transaction: Identifiable {
             return Date()
         }
         return ISO8601DateFormatter().date(from: timestampString) ?? Date()
+    }
+
+    var dateGroupingKey: String {
+        return DateFormatting.dateGroupingKey(date)
+    }
+
+    var sectionHeaderTitle: String {
+        return DateFormatting.sectionHeader(for: date)
     }
 
     var categoryName: String {
