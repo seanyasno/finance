@@ -51,16 +51,18 @@ typealias MessageResponse = MessageResponseDto
 
 // MARK: - Transaction Extensions
 
-extension Transaction: Identifiable, Hashable {
-    public var id: String { _id }
+extension Transaction: Identifiable {
+    // Generated model already has 'id' property
 
     var formattedAmount: String {
         String(format: "%.2f %@", chargedAmount, chargedCurrency ?? originalCurrency)
     }
 
     var formattedDate: String {
-        guard let date = ISO8601DateFormatter().date(from: timestamp) else {
-            return timestamp
+        // timestamp is AnyCodable, need to extract as String
+        guard let timestampString = timestamp as? String,
+              let date = ISO8601DateFormatter().date(from: timestampString) else {
+            return (timestamp as? String) ?? ""
         }
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -69,39 +71,24 @@ extension Transaction: Identifiable, Hashable {
     }
 
     var merchantName: String {
-        _description ?? "Unknown Merchant"
+        description ?? "Unknown Merchant"
     }
 
     var date: Date {
-        ISO8601DateFormatter().date(from: timestamp) ?? Date()
+        guard let timestampString = timestamp as? String else {
+            return Date()
+        }
+        return ISO8601DateFormatter().date(from: timestampString) ?? Date()
     }
 
     var categoryName: String {
         category?.name ?? "Uncategorized"
     }
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(_id)
-    }
-
-    public static func == (lhs: Transaction, rhs: Transaction) -> Bool {
-        lhs._id == rhs._id
-    }
 }
 
 // MARK: - Transaction Nested Types Extensions
 
-extension TransactionCreditCard: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-
-    public static func == (lhs: TransactionCreditCard, rhs: TransactionCreditCard) -> Bool {
-        lhs.id == rhs.id
-    }
-}
-
-extension TransactionCategory: Hashable {
+extension TransactionCategory {
     var displayIcon: String {
         icon ?? "tag"
     }
@@ -112,42 +99,26 @@ extension TransactionCategory: Hashable {
         }
         return .blue
     }
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-
-    public static func == (lhs: TransactionCategory, rhs: TransactionCategory) -> Bool {
-        lhs.id == rhs.id
-    }
 }
 
 // MARK: - Credit Card Extensions
 
-extension CreditCard: Identifiable, Hashable {
-    public var id: String { _id }
+extension CreditCard: Identifiable {
+    // Generated model already has 'id' property
 
     var displayName: String {
-        "\(company) ****\(String(cardNumber.suffix(4)))"
+        "\(company.rawValue) ****\(String(cardNumber.suffix(4)))"
     }
 
     var effectiveBillingCycleDay: Int {
         billingCycleStartDay ?? 1
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(_id)
-    }
-
-    public static func == (lhs: CreditCard, rhs: CreditCard) -> Bool {
-        lhs._id == rhs._id
     }
 }
 
 // MARK: - Category Extensions
 
 extension Category: Identifiable {
-    public var id: String { _id }
+    // Generated model already has 'id' property
 
     var displayIcon: String {
         icon ?? "tag"
@@ -186,5 +157,31 @@ extension CategoryTrend: Identifiable {
 // MARK: - User Extensions
 
 extension User: Identifiable {
-    public var id: String { _id }
+    // Generated model already has 'id' property
+}
+
+// MARK: - Trend Direction Conversions
+
+extension SpendingSummaryDtoComparison {
+    var trendDirection: TrendDirection {
+        TrendDirection(rawValue: trend.rawValue) ?? .stable
+    }
+}
+
+extension SpendingSummaryDtoTrends {
+    var overallTrend: TrendDirection {
+        TrendDirection(rawValue: overall.rawValue) ?? .stable
+    }
+}
+
+extension SpendingSummaryDtoComparisonCategoryComparisonsInner {
+    var trendDirection: TrendDirection {
+        TrendDirection(rawValue: trend.rawValue) ?? .stable
+    }
+}
+
+extension SpendingSummaryDtoTrendsCategoryTrendsInner {
+    var trendDirection: TrendDirection {
+        TrendDirection(rawValue: trend.rawValue) ?? .stable
+    }
 }

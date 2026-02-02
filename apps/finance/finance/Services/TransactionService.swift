@@ -15,7 +15,8 @@ class TransactionService: ObservableObject {
     func fetchTransactions(
         startDate: Date? = nil,
         endDate: Date? = nil,
-        creditCardId: String? = nil
+        creditCardId: String? = nil,
+        search: String? = nil
     ) async {
         isLoading = true
         error = nil
@@ -26,6 +27,7 @@ class TransactionService: ObservableObject {
             let endDateString = endDate.map { ISO8601DateFormatter().string(from: $0) }
 
             TransactionsAPI.getTransactions(
+                search: search,
                 creditCardId: creditCardId,
                 endDate: endDateString,
                 startDate: startDateString
