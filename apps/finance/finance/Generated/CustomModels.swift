@@ -134,7 +134,11 @@ enum DateFormatting {
     }()
 
     /// Cached ISO8601 formatter for parsing timestamps
-    static let iso8601Formatter = ISO8601DateFormatter()
+    static let iso8601Formatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }()
 
     /// Cached calendar reference
     static let calendar = Calendar.current
