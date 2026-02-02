@@ -69,9 +69,9 @@
 - [x] **FORMAT-01**: All dates display in DD/MM/YY format throughout the app
 - [x] **FORMAT-02**: Transaction list items show dates in DD/MM/YY format
 - [x] **FORMAT-03**: Transaction detail page shows dates in DD/MM/YY format
-- [ ] **FORMAT-04**: Card numbers display only last 4 digits (no asterisks)
-- [ ] **FORMAT-05**: Pending transactions show visual indicator (badge/icon)
-- [ ] **FORMAT-06**: Card display format is "CardName 1234" (spaces only, per user decision)
+- [x] **FORMAT-04**: Card numbers display only last 4 digits (no asterisks)
+- [x] **FORMAT-05**: Pending transactions show visual indicator (badge/icon)
+- [x] **FORMAT-06**: Card display format is "CardName 1234" (spaces only, per user decision)
 
 ## v1.2+ Requirements (Future Enhancements)
 
@@ -172,9 +172,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GROUP-04 | Phase 8 | Complete |
 | GROUP-05 | Phase 8 | Complete |
 | GROUP-06 | Phase 8 | Complete |
-| FORMAT-04 | Phase 9 | Pending |
-| FORMAT-05 | Phase 9 | Pending |
-| FORMAT-06 | Phase 9 | Pending |
+| FORMAT-04 | Phase 9 | Complete |
+| FORMAT-05 | Phase 9 | Complete |
+| FORMAT-06 | Phase 9 | Complete |
 
 **Coverage (v1.0):**
 - v1.0 requirements: 24 total
@@ -188,4 +188,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-02-02 — Phase 8 complete (GROUP-04, GROUP-05, GROUP-06 verified)*
+*Last updated: 2026-02-02 — Phase 9 complete (FORMAT-04, FORMAT-05, FORMAT-06 verified)*
