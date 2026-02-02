@@ -104,6 +104,10 @@ extension Transaction: Identifiable {
     var categoryName: String {
         category?.name ?? "Uncategorized"
     }
+
+    var isPending: Bool {
+        status == .pending
+    }
 }
 
 // MARK: - Transaction Nested Types Extensions
