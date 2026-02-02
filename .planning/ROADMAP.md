@@ -159,14 +159,15 @@ Plans:
 **Requirements**: FORMAT-04, FORMAT-05, FORMAT-06
 **Success Criteria** (what must be TRUE):
   1. Card numbers display only last 4 digits throughout the app (no asterisks)
-  2. Card display follows format "CardName ••1234" consistently
+  2. Card display follows format "CardName 1234" consistently
   3. Pending transactions show clear visual indicator (badge or icon)
   4. User can immediately distinguish pending from settled transactions
   5. Visual formatting works correctly across all grouping modes
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 09-01: TBD
+- [ ] 09-01-PLAN.md — CardLabel component and card formatting infrastructure
+- [ ] 09-02-PLAN.md — Pending indicators and UI integration across views
 
 ## Progress
 
@@ -183,7 +184,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 6. Search Functionality | v1.1 | 3/3 | Complete | 2026-02-02 |
 | 7. Date-Based Grouping | v1.1 | 2/2 | Complete | 2026-02-02 |
 | 8. Multiple Grouping Modes | v1.1 | 2/2 | Complete | 2026-02-02 |
-| 9. Visual Formatting & Polish | v1.1 | 0/TBD | Not started | - |
+| 9. Visual Formatting & Polish | v1.1 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
