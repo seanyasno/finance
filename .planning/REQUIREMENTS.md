@@ -71,7 +71,7 @@
 - [x] **FORMAT-03**: Transaction detail page shows dates in DD/MM/YY format
 - [ ] **FORMAT-04**: Card numbers display only last 4 digits (no asterisks)
 - [ ] **FORMAT-05**: Pending transactions show visual indicator (badge/icon)
-- [ ] **FORMAT-06**: Card display format is "CardName ••1234"
+- [ ] **FORMAT-06**: Card display format is "CardName 1234" (spaces only, per user decision)
 
 ## v1.2+ Requirements (Future Enhancements)
 
