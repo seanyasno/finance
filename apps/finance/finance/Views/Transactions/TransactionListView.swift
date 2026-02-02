@@ -74,9 +74,7 @@ struct TransactionListView: View {
                                 }
                             }
                         } header: {
-                            if let firstTransaction = group.transactions.first {
-                                Text(firstTransaction.sectionHeaderTitle)
-                            }
+                            Text(group.header)
                         }
                     }
                 }
@@ -159,10 +157,25 @@ struct TransactionListView: View {
 
     // MARK: - Private Helpers
 
-    private var groupedTransactions: [(key: String, transactions: [Transaction])] {
-        let grouped = Dictionary(grouping: transactionService.transactions) { $0.dateGroupingKey }
-        return grouped.map { (key: $0.key, transactions: $0.value) }
-            .sorted { $0.key > $1.key } // Descending order (newest first)
+    private var groupedTransactions: [(key: String, transactions: [Transaction], header: String)] {
+        let transactions = transactionService.transactions
+
+        switch groupingMode {
+        case .date:
+            let grouped = Dictionary(grouping: transactions) { $0.dateGroupingKey }
+            return grouped.map { (key: $0.key, transactions: $0.value, header: $0.value.first?.sectionHeaderTitle ?? $0.key) }
+                .sorted { $0.key > $1.key }
+
+        case .creditCard:
+            let grouped = Dictionary(grouping: transactions) { $0.cardGroupingKey }
+            return grouped.map { (key: $0.key, transactions: $0.value.sorted { $0.date > $1.date }, header: $0.value.first?.cardSectionHeader ?? "Unknown Card") }
+                .sorted { $0.key < $1.key }  // Alphabetical by card ID
+
+        case .month:
+            let grouped = Dictionary(grouping: transactions) { $0.monthGroupingKey }
+            return grouped.map { (key: $0.key, transactions: $0.value.sorted { $0.date > $1.date }, header: $0.value.first?.monthSectionHeader ?? $0.key) }
+                .sorted { $0.key > $1.key }  // Newest month first
+        }
     }
 
     private var activeFilterCount: Int {
