@@ -126,6 +126,13 @@ enum DateFormatting {
         return formatter
     }()
 
+    /// Cached month-year formatter (MMMM yyyy)
+    static let monthYearFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter
+    }()
+
     /// Cached ISO8601 formatter for parsing timestamps
     static let iso8601Formatter = ISO8601DateFormatter()
 
@@ -144,6 +151,19 @@ enum DateFormatting {
                      components.year ?? 0,
                      components.month ?? 0,
                      components.day ?? 0)
+    }
+
+    /// Get a month grouping key (YYYY-MM format for Dictionary grouping)
+    static func monthGroupingKey(_ date: Date) -> String {
+        let components = calendar.dateComponents([.year, .month], from: date)
+        return String(format: "%04d-%02d",
+                     components.year ?? 0,
+                     components.month ?? 0)
+    }
+
+    /// Get month section header (e.g., "February 2026")
+    static func monthSectionHeader(for date: Date) -> String {
+        return monthYearFormatter.string(from: date)
     }
 
     /// Get relative date label if applicable (Today, Yesterday, or nil)
@@ -166,6 +186,37 @@ enum DateFormatting {
     /// Get section header title (relative label if available, otherwise DD/MM/YY)
     static func sectionHeader(for date: Date) -> String {
         return relativeLabel(for: date) ?? formatShortDate(date)
+    }
+}
+
+/// Transaction grouping mode
+enum GroupingMode: String, CaseIterable, Identifiable {
+    case date
+    case creditCard
+    case month
+
+    var id: String { rawValue }
+
+    var displayName: String {
+        switch self {
+        case .date:
+            return "Date"
+        case .creditCard:
+            return "Card"
+        case .month:
+            return "Month"
+        }
+    }
+
+    var iconName: String {
+        switch self {
+        case .date:
+            return "calendar"
+        case .creditCard:
+            return "creditcard"
+        case .month:
+            return "calendar.badge.clock"
+        }
     }
 }
 

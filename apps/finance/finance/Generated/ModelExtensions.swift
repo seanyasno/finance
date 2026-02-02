@@ -81,6 +81,25 @@ extension Transaction: Identifiable {
         return DateFormatting.sectionHeader(for: date)
     }
 
+    var cardGroupingKey: String {
+        return creditCard?.id ?? "unknown"
+    }
+
+    var cardSectionHeader: String {
+        if let card = creditCard {
+            return "\(card.company.rawValue) ****\(String(card.cardNumber.suffix(4)))"
+        }
+        return "Unknown Card"
+    }
+
+    var monthGroupingKey: String {
+        return DateFormatting.monthGroupingKey(date)
+    }
+
+    var monthSectionHeader: String {
+        return DateFormatting.monthSectionHeader(for: date)
+    }
+
     var categoryName: String {
         category?.name ?? "Uncategorized"
     }
