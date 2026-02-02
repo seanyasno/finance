@@ -3,7 +3,7 @@
 ## Milestones
 
 - ✅ **v1.0 MVP** - Phases 1-5 (shipped 2026-01-31)
-- 🚧 **v1.1 Transactions Page** - Phases 6-9 (in progress)
+- ✅ **v1.1 Transactions Page** - Phases 6-9 (shipped 2026-02-02)
 
 ## Phases
 
@@ -98,7 +98,8 @@ Plans:
 
 </details>
 
-### 🚧 v1.1 Transactions Page (In Progress)
+<details>
+<summary>✅ v1.1 Transactions Page (Phases 6-9) - SHIPPED 2026-02-02</summary>
 
 **Milestone Goal:** Enhance transaction list UI with search, flexible grouping, improved formatting, and better visual indicators
 
@@ -166,8 +167,10 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 09-01-PLAN.md — CardLabel component and card formatting infrastructure
-- [ ] 09-02-PLAN.md — Pending indicators and UI integration across views
+- [x] 09-01-PLAN.md — CardLabel component and card formatting infrastructure
+- [x] 09-02-PLAN.md — Pending indicators and UI integration across views
+
+</details>
 
 ## Progress
 
@@ -184,8 +187,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 6. Search Functionality | v1.1 | 3/3 | Complete | 2026-02-02 |
 | 7. Date-Based Grouping | v1.1 | 2/2 | Complete | 2026-02-02 |
 | 8. Multiple Grouping Modes | v1.1 | 2/2 | Complete | 2026-02-02 |
-| 9. Visual Formatting & Polish | v1.1 | 0/2 | Not started | - |
+| 9. Visual Formatting & Polish | v1.1 | 2/2 | Complete | 2026-02-02 |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-02-02 — Phase 8 complete (multiple grouping modes, all must-haves verified)*
+*Last updated: 2026-02-02 — Phase 9 complete (visual formatting & polish, v1.1 milestone complete)*
