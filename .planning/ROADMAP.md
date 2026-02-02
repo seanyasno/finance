@@ -150,8 +150,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 08-01-PLAN.md — Grouping infrastructure (GroupingMode enum, card/month grouping extensions)
-- [ ] 08-02-PLAN.md — Grouping UI (mode selector in toolbar, three-way grouping logic, persistence)
+- [x] 08-01-PLAN.md — Grouping infrastructure (GroupingMode enum, card/month grouping extensions)
+- [x] 08-02-PLAN.md — Grouping UI (mode selector in toolbar, three-way grouping logic, persistence)
 
 #### Phase 9: Visual Formatting & Polish
 **Goal**: Users see clear visual indicators and simplified information display
@@ -182,9 +182,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 5. Statistics & Analytics | v1.0 | 3/3 | Complete | 2026-01-31 |
 | 6. Search Functionality | v1.1 | 3/3 | Complete | 2026-02-02 |
 | 7. Date-Based Grouping | v1.1 | 2/2 | Complete | 2026-02-02 |
-| 8. Multiple Grouping Modes | v1.1 | 0/2 | Not started | - |
+| 8. Multiple Grouping Modes | v1.1 | 2/2 | Complete | 2026-02-02 |
 | 9. Visual Formatting & Polish | v1.1 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-02-02 — Phase 7 complete (date-based grouping, all must-haves verified)*
+*Last updated: 2026-02-02 — Phase 8 complete (multiple grouping modes, all must-haves verified)*

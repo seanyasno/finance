@@ -60,9 +60,9 @@
 - [x] **GROUP-01**: Transactions are grouped by date with section headers
 - [x] **GROUP-02**: Recent transactions show relative dates (Today, Yesterday)
 - [x] **GROUP-03**: Older transactions show formatted dates as section headers
-- [ ] **GROUP-04**: User can switch between grouping modes (date, card, month)
-- [ ] **GROUP-05**: User can view transactions grouped by credit card
-- [ ] **GROUP-06**: User can view transactions grouped by month
+- [x] **GROUP-04**: User can switch between grouping modes (date, card, month)
+- [x] **GROUP-05**: User can view transactions grouped by credit card
+- [x] **GROUP-06**: User can view transactions grouped by month
 
 ### Visual Formatting
 
@@ -169,9 +169,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FORMAT-01 | Phase 7 | Complete |
 | FORMAT-02 | Phase 7 | Complete |
 | FORMAT-03 | Phase 7 | Complete |
-| GROUP-04 | Phase 8 | Pending |
-| GROUP-05 | Phase 8 | Pending |
-| GROUP-06 | Phase 8 | Pending |
+| GROUP-04 | Phase 8 | Complete |
+| GROUP-05 | Phase 8 | Complete |
+| GROUP-06 | Phase 8 | Complete |
 | FORMAT-04 | Phase 9 | Pending |
 | FORMAT-05 | Phase 9 | Pending |
 | FORMAT-06 | Phase 9 | Pending |
@@ -188,4 +188,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-02-02 — Phase 7 complete (all GROUP and FORMAT requirements satisfied)*
+*Last updated: 2026-02-02 — Phase 8 complete (GROUP-04, GROUP-05, GROUP-06 verified)*
