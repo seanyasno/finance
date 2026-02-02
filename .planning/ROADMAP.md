@@ -147,11 +147,11 @@ Plans:
   3. User can select to group transactions by credit card, showing sections for each card
   4. User can select to group transactions by month, showing chronological monthly sections
   5. Switching between grouping modes updates the list immediately
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 08-01: TBD
-- [ ] 08-02: TBD
+- [ ] 08-01-PLAN.md — Grouping infrastructure (GroupingMode enum, card/month grouping extensions)
+- [ ] 08-02-PLAN.md — Grouping UI (mode selector in toolbar, three-way grouping logic, persistence)
 
 #### Phase 9: Visual Formatting & Polish
 **Goal**: Users see clear visual indicators and simplified information display
@@ -182,7 +182,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 5. Statistics & Analytics | v1.0 | 3/3 | Complete | 2026-01-31 |
 | 6. Search Functionality | v1.1 | 3/3 | Complete | 2026-02-02 |
 | 7. Date-Based Grouping | v1.1 | 2/2 | Complete | 2026-02-02 |
-| 8. Multiple Grouping Modes | v1.1 | 0/TBD | Not started | - |
+| 8. Multiple Grouping Modes | v1.1 | 0/2 | Not started | - |
 | 9. Visual Formatting & Polish | v1.1 | 0/TBD | Not started | - |
 
 ---
