@@ -131,11 +131,11 @@ Plans:
   4. All dates throughout the app display in DD/MM/YY format consistently
   5. Transaction list items show dates in DD/MM/YY format
   6. Transaction detail page shows dates in DD/MM/YY format
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 07-01: TBD
-- [ ] 07-02: TBD
+- [ ] 07-01-PLAN.md — Date formatting infrastructure (cached formatters, DD/MM/YY format, relative date detection)
+- [ ] 07-02-PLAN.md — Grouped transaction list UI (date sections, relative headers, detail view formatting)
 
 #### Phase 8: Multiple Grouping Modes
 **Goal**: Users can switch between different ways of organizing transactions
@@ -181,7 +181,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 4. Billing Cycles | v1.0 | 3/3 | Complete | 2026-01-31 |
 | 5. Statistics & Analytics | v1.0 | 3/3 | Complete | 2026-01-31 |
 | 6. Search Functionality | v1.1 | 3/3 | Complete | 2026-02-02 |
-| 7. Date-Based Grouping | v1.1 | 0/TBD | Not started | - |
+| 7. Date-Based Grouping | v1.1 | 0/2 | Not started | - |
 | 8. Multiple Grouping Modes | v1.1 | 0/TBD | Not started | - |
 | 9. Visual Formatting & Polish | v1.1 | 0/TBD | Not started | - |
 
