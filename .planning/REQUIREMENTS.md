@@ -57,18 +57,18 @@
 
 ### Grouping & Organization
 
-- [ ] **GROUP-01**: Transactions are grouped by date with section headers
-- [ ] **GROUP-02**: Recent transactions show relative dates (Today, Yesterday)
-- [ ] **GROUP-03**: Older transactions show formatted dates as section headers
+- [x] **GROUP-01**: Transactions are grouped by date with section headers
+- [x] **GROUP-02**: Recent transactions show relative dates (Today, Yesterday)
+- [x] **GROUP-03**: Older transactions show formatted dates as section headers
 - [ ] **GROUP-04**: User can switch between grouping modes (date, card, month)
 - [ ] **GROUP-05**: User can view transactions grouped by credit card
 - [ ] **GROUP-06**: User can view transactions grouped by month
 
 ### Visual Formatting
 
-- [ ] **FORMAT-01**: All dates display in DD/MM/YY format throughout the app
-- [ ] **FORMAT-02**: Transaction list items show dates in DD/MM/YY format
-- [ ] **FORMAT-03**: Transaction detail page shows dates in DD/MM/YY format
+- [x] **FORMAT-01**: All dates display in DD/MM/YY format throughout the app
+- [x] **FORMAT-02**: Transaction list items show dates in DD/MM/YY format
+- [x] **FORMAT-03**: Transaction detail page shows dates in DD/MM/YY format
 - [ ] **FORMAT-04**: Card numbers display only last 4 digits (no asterisks)
 - [ ] **FORMAT-05**: Pending transactions show visual indicator (badge/icon)
 - [ ] **FORMAT-06**: Card display format is "CardName ••1234"
@@ -163,12 +163,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEARCH-04 | Phase 6 | Complete |
 | SEARCH-05 | Phase 6 | Complete |
 | SEARCH-06 | Phase 6 | Complete |
-| GROUP-01 | Phase 7 | Pending |
-| GROUP-02 | Phase 7 | Pending |
-| GROUP-03 | Phase 7 | Pending |
-| FORMAT-01 | Phase 7 | Pending |
-| FORMAT-02 | Phase 7 | Pending |
-| FORMAT-03 | Phase 7 | Pending |
+| GROUP-01 | Phase 7 | Complete |
+| GROUP-02 | Phase 7 | Complete |
+| GROUP-03 | Phase 7 | Complete |
+| FORMAT-01 | Phase 7 | Complete |
+| FORMAT-02 | Phase 7 | Complete |
+| FORMAT-03 | Phase 7 | Complete |
 | GROUP-04 | Phase 8 | Pending |
 | GROUP-05 | Phase 8 | Pending |
 | GROUP-06 | Phase 8 | Pending |
@@ -188,4 +188,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-02-02 — Phase 6 complete (all SEARCH requirements satisfied)*
+*Last updated: 2026-02-02 — Phase 7 complete (all GROUP and FORMAT requirements satisfied)*

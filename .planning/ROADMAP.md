@@ -134,8 +134,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 07-01-PLAN.md — Date formatting infrastructure (cached formatters, DD/MM/YY format, relative date detection)
-- [ ] 07-02-PLAN.md — Grouped transaction list UI (date sections, relative headers, detail view formatting)
+- [x] 07-01-PLAN.md — Date formatting infrastructure (cached formatters, DD/MM/YY format, relative date detection)
+- [x] 07-02-PLAN.md — Grouped transaction list UI (date sections, relative headers, detail view formatting)
 
 #### Phase 8: Multiple Grouping Modes
 **Goal**: Users can switch between different ways of organizing transactions
@@ -181,10 +181,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 4. Billing Cycles | v1.0 | 3/3 | Complete | 2026-01-31 |
 | 5. Statistics & Analytics | v1.0 | 3/3 | Complete | 2026-01-31 |
 | 6. Search Functionality | v1.1 | 3/3 | Complete | 2026-02-02 |
-| 7. Date-Based Grouping | v1.1 | 0/2 | Not started | - |
+| 7. Date-Based Grouping | v1.1 | 2/2 | Complete | 2026-02-02 |
 | 8. Multiple Grouping Modes | v1.1 | 0/TBD | Not started | - |
 | 9. Visual Formatting & Polish | v1.1 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-02-02 — Phase 6 complete (gap closure executed, all must-haves verified)*
+*Last updated: 2026-02-02 — Phase 7 complete (date-based grouping, all must-haves verified)*
