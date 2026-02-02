@@ -100,6 +100,7 @@ None yet.
 
 | # | Description | Date | Commit |
 |---|-------------|------|--------|
+| 009 | fix transaction dates showing today instead of actual timestamp from database | 2026-02-02 | be2c482 |
 | 008 | fix bar chart not rendering bars for negative spending values | 2026-02-01 | 642a263 |
 | 007 | fix Statistics page Spending Trend bar chart not displaying bars | 2026-02-01 | 5990003 |
 | 006 | fix billing cycles UI not observing TransactionService data updates | 2026-02-01 | d84cbb2 |
