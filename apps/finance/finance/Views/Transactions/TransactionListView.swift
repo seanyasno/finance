@@ -13,6 +13,9 @@ struct TransactionListView: View {
     @State private var startDate: Date? = nil
     @State private var endDate: Date? = nil
     @State private var selectedCardId: String? = nil
+    @State private var searchText: String = ""
+    @State private var debouncedSearchText: String = ""
+    @State private var searchTask: Task<Void, Never>?
 
     var body: some View {
         Group {
@@ -60,6 +63,16 @@ struct TransactionListView: View {
             }
         }
         .navigationTitle("Transactions")
+        .searchable(text: $searchText, prompt: "Search transactions")
+        .onChange(of: searchText) { _, newValue in
+            searchTask?.cancel()
+            searchTask = Task {
+                try? await Task.sleep(nanoseconds: 300_000_000)
+                guard !Task.isCancelled else { return }
+                debouncedSearchText = newValue
+                await performSearch()
+            }
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
@@ -117,19 +130,32 @@ struct TransactionListView: View {
     private func loadData() async {
         await withTaskGroup(of: Void.self) { group in
             group.addTask {
-                await transactionService.fetchTransactions()
+                let searchTerm = self.debouncedSearchText.isEmpty ? nil : self.debouncedSearchText
+                await self.transactionService.fetchTransactions(search: searchTerm)
             }
             group.addTask {
-                await transactionService.fetchCreditCards()
+                await self.transactionService.fetchCreditCards()
             }
         }
     }
 
     private func applyFilters() async {
+        let searchTerm = debouncedSearchText.isEmpty ? nil : debouncedSearchText
         await transactionService.fetchTransactions(
             startDate: startDate,
             endDate: endDate,
-            creditCardId: selectedCardId
+            creditCardId: selectedCardId,
+            search: searchTerm
+        )
+    }
+
+    private func performSearch() async {
+        let searchTerm = debouncedSearchText.isEmpty ? nil : debouncedSearchText
+        await transactionService.fetchTransactions(
+            startDate: startDate,
+            endDate: endDate,
+            creditCardId: selectedCardId,
+            search: searchTerm
         )
     }
 }
