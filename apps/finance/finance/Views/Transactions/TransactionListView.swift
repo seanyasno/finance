@@ -55,14 +55,24 @@ struct TransactionListView: View {
                     )
                 }
             } else {
-                List(transactionService.transactions) { transaction in
-                    NavigationLink {
-                        TransactionDetailView(
-                            transaction: transaction,
-                            transactionService: transactionService
-                        )
-                    } label: {
-                        TransactionRowView(transaction: transaction)
+                List {
+                    ForEach(groupedTransactions, id: \.key) { group in
+                        Section {
+                            ForEach(group.transactions) { transaction in
+                                NavigationLink {
+                                    TransactionDetailView(
+                                        transaction: transaction,
+                                        transactionService: transactionService
+                                    )
+                                } label: {
+                                    TransactionRowView(transaction: transaction)
+                                }
+                            }
+                        } header: {
+                            if let firstTransaction = group.transactions.first {
+                                Text(firstTransaction.sectionHeaderTitle)
+                            }
+                        }
                     }
                 }
                 .refreshable {
@@ -126,6 +136,12 @@ struct TransactionListView: View {
     }
 
     // MARK: - Private Helpers
+
+    private var groupedTransactions: [(key: String, transactions: [Transaction])] {
+        let grouped = Dictionary(grouping: transactionService.transactions) { $0.dateGroupingKey }
+        return grouped.map { (key: $0.key, transactions: $0.value) }
+            .sorted { $0.key > $1.key } // Descending order (newest first)
+    }
 
     private var activeFilterCount: Int {
         var count = 0
