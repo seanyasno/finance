@@ -2,19 +2,19 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-01)
+See: .planning/PROJECT.md (updated 2026-02-02)
 
 **Core value:** Being able to categorize transactions to understand where money goes each month
-**Current focus:** Phase 9 - Visual Formatting & Polish (v1.1 Transactions Page milestone)
+**Current focus:** Planning next milestone (v1.2)
 
 ## Current Position
 
-Phase: 9 of 9 (Visual Formatting & Polish)
-Plan: 2 of 2 (complete)
-Status: Phase complete
-Last activity: 2026-02-02 — Completed 09-02-PLAN.md (Pending Indicators)
+Phase: None (v1.1 milestone complete)
+Plan: Not started
+Status: Ready for next milestone planning
+Last activity: 2026-02-02 — v1.1 milestone archived
 
-Progress: [████████████████░░░░] 90% (26/29 estimated plans complete)
+Progress: v1.1 complete (9/9 plans) — awaiting v1.2 roadmap
 
 ## Performance Metrics
 
@@ -45,63 +45,38 @@ Progress: [████████████████░░░░] 90% (26
 
 ## Accumulated Context
 
-### Decisions
+### Recent Milestone Summary (v1.1)
 
-Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
+**Shipped:** 2026-02-02 (2 days, 4 phases, 9 plans)
 
-- Credit cards only (exclude bank accounts): Focus on spending patterns and billing cycles
-- Manual categorization only: Start simple, can add automation later
-- Feature-by-feature development: Ship complete features (API + iOS together)
-- Native iOS design: Leverage platform conventions for polished UX
-- Search scope (06-01): Match description and notes only, defer amount search for later if needed
-- Debounce delay (06-02): 300ms balances responsiveness with performance, matches iOS conventions
-- Search integration (06-02): Pass search term to all fetch operations to maintain state during refresh
-- Amount search via raw SQL (06-03): Use CAST to TEXT for partial matching due to Prisma Float limitations
-- Numeric detection (06-03): Regex /^-?\\d*\\.?\\d+$/ for accurate numeric search identification
-- OR clause combination (06-03): Add amount to existing OR (not replace) so numeric searches match amounts AND text
-- Date formatting (07-01): Use enum for DateFormatting namespace, cache formatters as static let for performance
-- Relative dates (07-01): Support Today and Yesterday only, avoid complexity of "This Week"
-- Grouping key format (07-01): YYYY-MM-DD string format for proper lexicographic sorting
-- Grouping approach (07-02): Use Dictionary(grouping:by:) with mapped array for type clarity and proper sorting
-- Group sort order (07-02): Descending order (newest first) for transaction date groups
-- Dictionary grouping pattern (07-02): Use Dictionary(grouping:by:) with dateGroupingKey for efficient native grouping
-- Grouping mode cases (08-01): Three modes (date, creditCard, month) with enum for type safety
-- Card grouping fallback (08-01): Unknown cards grouped under "Unknown Card" label
-- Month header format (08-01): Full month name + year (e.g., "February 2026") for readability
-- SF Symbol icons (08-01): calendar, creditcard, calendar.badge.clock for mode representation
-- Menu placement (08-02): Mode selector in leading toolbar position, filters stay in trailing
-- Header precomputation (08-02): Pre-compute section headers in tuple for cleaner ForEach rendering
-- Card sort order (08-02): Alphabetical sorting by card ID for predictable ordering with multiple cards
-- Checkmark indication (08-02): Show checkmark in menu for selected mode (standard iOS pattern)
-- Card format (09-01): "CardName 1234" with space separator (no asterisks, no bullets)
-- Monospace digits (09-01): Last 4 digits use .monospaced() font for visual distinction
-- CardLabel component (09-01): Reusable SwiftUI view with convenience initializers for both card types
-- Pending indicator (09-02): clock.fill SF Symbol in orange color before amount
-- Conditional card display (09-02): Hide card info when grouped by card (section header is sufficient)
-- Status display (09-02): Clock icon + "Pending" text or "Completed" text on detail view
+**Accomplishments:**
+- Real-time search with debounced input and amount matching
+- Three grouping modes (date, card, month) with persistent selection
+- Visual polish: DD/MM/YY formatting, simplified card display, pending indicators
+- Performance optimizations: cached formatters, efficient grouping
+
+**Key Decisions:**
+- All major decisions logged in PROJECT.md Key Decisions table
+- Performance patterns established: cached formatters, Dictionary grouping
+- Visual patterns established: CardLabel component, monospace digits, SF Symbols
+- Search patterns established: 300ms debounce, OR queries, amount CAST
 
 ### Pending Todos
 
 None yet.
 
-### Blockers/Concerns
+### Known Issues
 
-**Performance Considerations (from v1.1 research):**
-- ✓ Debouncing implemented for search (Phase 6-02): 300ms Task-based debounce with cancellation
-- ✓ Cached date formatters implemented (Phase 7-01): Static let formatters prevent scrolling performance issues
-- ✓ Search state maintained during refresh (Phase 6-02): Search term passed to all fetch operations
-- ✓ Amount search uses two queries (Phase 6-03): Raw SQL + Prisma, acceptable for v1, can optimize later if needed
-- ✓ Efficient grouping implemented (Phase 7-02): Dictionary(grouping:) with computed property, no re-computation on every render
-
-**Architecture Notes (from v1.1 research):**
-- Research recommends extending existing MV pattern with computed properties and enum-based state
-- Use native SwiftUI components (.searchable(), Dictionary(grouping:by:), Section in List)
-- All required APIs available in iOS 15+ (target is iOS 26.2)
-
-**Known Issues from v1.0:**
+**From v1.0:**
 - Custom category creation broken (03-05): Categories created in database but not appearing in iOS UI
 - Authentication guard issue (02-01): JwtAuthGuard not properly enforcing authentication (deferred)
+
+**From v1.1:**
+- Amount search uses two queries (raw SQL + Prisma) - works but could optimize later if needed
+
+### Blockers/Concerns
+
+None for next milestone planning.
 
 ### Quick Tasks Completed
 
@@ -115,10 +90,10 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-02
-Stopped at: Completed Phase 9 (Visual Formatting & Polish)
+Stopped at: v1.1 milestone complete and archived
 Resume file: None
-Next: v1.1 Transactions Page milestone complete, ready for next milestone
+Next: `/gsd:new-milestone` to start v1.2 planning (questioning → research → requirements → roadmap)
 
 ---
 *State initialized: 2026-01-30*
-*Last updated: 2026-02-02 — Completed Phase 9 Visual Formatting & Polish*
+*Last updated: 2026-02-02 — v1.1 milestone archived, ready for v1.2*
