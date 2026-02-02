@@ -113,11 +113,12 @@ Plans:
   4. Search filters by notes content
   5. Empty search results show clear message with search query displayed
   6. User can pull-to-refresh during search without cancelling the search or refresh operation
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
-- [ ] 06-01-PLAN.md — API search parameter (add search query to transactions endpoint)
-- [ ] 06-02-PLAN.md — iOS search UI (searchable modifier, debounce, empty state messaging)
+- [x] 06-01-PLAN.md — API search parameter (add search query to transactions endpoint)
+- [x] 06-02-PLAN.md — iOS search UI (searchable modifier, debounce, empty state messaging)
+- [ ] 06-03-PLAN.md — Gap closure: Add amount search to API (closes verification gap)
 
 #### Phase 7: Date-Based Grouping
 **Goal**: Users can view transactions organized by date with clear temporal context
@@ -179,11 +180,11 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 3. Categorization | v1.0 | 5/5 | Complete | 2026-01-31 |
 | 4. Billing Cycles | v1.0 | 3/3 | Complete | 2026-01-31 |
 | 5. Statistics & Analytics | v1.0 | 3/3 | Complete | 2026-01-31 |
-| 6. Search Functionality | v1.1 | 0/2 | Not started | - |
+| 6. Search Functionality | v1.1 | 2/3 | Gap closure | - |
 | 7. Date-Based Grouping | v1.1 | 0/TBD | Not started | - |
 | 8. Multiple Grouping Modes | v1.1 | 0/TBD | Not started | - |
 | 9. Visual Formatting & Polish | v1.1 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-30*
-*Last updated: 2026-02-01 — v1.1 milestone roadmap added (Phases 6-9)*
+*Last updated: 2026-02-02 — Phase 6 gap closure plan added (06-03 for amount search)*
