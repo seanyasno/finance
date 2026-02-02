@@ -41,11 +41,19 @@ struct TransactionListView: View {
                     .buttonStyle(.borderedProminent)
                 }
             } else if transactionService.transactions.isEmpty {
-                ContentUnavailableView(
-                    "No Transactions",
-                    systemImage: "creditcard",
-                    description: Text("Your transactions will appear here")
-                )
+                if !debouncedSearchText.isEmpty {
+                    ContentUnavailableView(
+                        "No Results",
+                        systemImage: "magnifyingglass",
+                        description: Text("No transactions match \"\(debouncedSearchText)\"")
+                    )
+                } else {
+                    ContentUnavailableView(
+                        "No Transactions",
+                        systemImage: "creditcard",
+                        description: Text("Your transactions will appear here")
+                    )
+                }
             } else {
                 List(transactionService.transactions) { transaction in
                     NavigationLink {
