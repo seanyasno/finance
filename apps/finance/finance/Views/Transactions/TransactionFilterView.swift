@@ -48,7 +48,7 @@ struct TransactionFilterView: View {
                     Picker("Card", selection: $selectedCardId) {
                         Text("All Cards").tag(nil as String?)
                         ForEach(creditCards) { card in
-                            Text("****\(card.cardNumber.suffix(4)) (\(card.company))")
+                            Text(card.displayName)
                                 .tag(card.id as String?)
                         }
                     }
