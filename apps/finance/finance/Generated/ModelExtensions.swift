@@ -88,7 +88,7 @@ extension Transaction: Identifiable {
 
     var cardSectionHeader: String {
         if let card = creditCard {
-            return "\(card.company.rawValue) ****\(String(card.cardNumber.suffix(4)))"
+            return "\(card.company.rawValue) \(String(card.cardNumber.suffix(4)))"
         }
         return "Unknown Card"
     }
@@ -108,6 +108,12 @@ extension Transaction: Identifiable {
 
 // MARK: - Transaction Nested Types Extensions
 
+extension TransactionCreditCard {
+    var last4Digits: String {
+        String(cardNumber.suffix(4))
+    }
+}
+
 extension TransactionCategory {
     var displayIcon: String {
         icon ?? "tag"
@@ -126,8 +132,12 @@ extension TransactionCategory {
 extension CreditCard: Identifiable {
     // Generated model already has 'id' property
 
+    var last4Digits: String {
+        String(cardNumber.suffix(4))
+    }
+
     var displayName: String {
-        "\(company.rawValue) ****\(String(cardNumber.suffix(4)))"
+        "\(company.rawValue) \(last4Digits)"
     }
 
     var effectiveBillingCycleDay: Int {
