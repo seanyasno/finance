@@ -16,6 +16,11 @@ struct TransactionListView: View {
     @State private var searchText: String = ""
     @State private var debouncedSearchText: String = ""
     @State private var searchTask: Task<Void, Never>?
+    @AppStorage("transactionGroupingMode") private var groupingModeRaw: String = GroupingMode.date.rawValue
+
+    private var groupingMode: GroupingMode {
+        GroupingMode(rawValue: groupingModeRaw) ?? .date
+    }
 
     var body: some View {
         Group {
@@ -92,6 +97,23 @@ struct TransactionListView: View {
             }
         }
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Menu {
+                    ForEach(GroupingMode.allCases, id: \.self) { mode in
+                        Button {
+                            groupingModeRaw = mode.rawValue
+                        } label: {
+                            if groupingMode == mode {
+                                Label(mode.displayName, systemImage: "checkmark")
+                            } else {
+                                Text(mode.displayName)
+                            }
+                        }
+                    }
+                } label: {
+                    Label("Group by", systemImage: groupingMode.iconName)
+                }
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     showFilters = true
