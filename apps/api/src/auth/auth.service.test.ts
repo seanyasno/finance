@@ -147,6 +147,7 @@ describe('AuthService', () => {
           createdAt: mockUser.created_at.toISOString(),
         },
         message: 'Registration successful',
+        token: 'jwt-token-123',
       });
     });
 
@@ -254,6 +255,7 @@ describe('AuthService', () => {
           lastName: mockUser.lastName,
           createdAt: mockUser.created_at.toISOString(),
         },
+        token: 'jwt-token-123',
       });
     });
 
