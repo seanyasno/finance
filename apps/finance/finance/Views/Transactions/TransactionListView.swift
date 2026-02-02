@@ -70,7 +70,10 @@ struct TransactionListView: View {
                                         transactionService: transactionService
                                     )
                                 } label: {
-                                    TransactionRowView(transaction: transaction)
+                                    TransactionRowView(
+                                        transaction: transaction,
+                                        showCard: groupingMode != .creditCard
+                                    )
                                 }
                             }
                         } header: {
